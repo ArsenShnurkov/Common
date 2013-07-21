@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{8EDD2050-80A7-47A5-9D5F-B5D5C0AC7A79}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonTestsInternal", "CommonTests\CommonTestsInternal.csproj", "{48579FC2-D1A2-4010-B980-2C76368E39E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonTestConsole", "CommonTestConsole\CommonTestConsole.csproj", "{F103E212-AE8C-43F7-B29D-ADF284DDC02E}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 4
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://main-pc:8080/tfs/foat
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Common\\Common.csproj
+		SccProjectName1 = Common
+		SccLocalPath1 = Common
+		SccProjectUniqueName2 = CommonTests\\CommonTestsInternal.csproj
+		SccProjectName2 = CommonTests
+		SccLocalPath2 = CommonTests
+		SccProjectUniqueName3 = CommonTestConsole\\CommonTestConsole.csproj
+		SccProjectName3 = CommonTestConsole
+		SccLocalPath3 = CommonTestConsole
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8EDD2050-80A7-47A5-9D5F-B5D5C0AC7A79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EDD2050-80A7-47A5-9D5F-B5D5C0AC7A79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EDD2050-80A7-47A5-9D5F-B5D5C0AC7A79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EDD2050-80A7-47A5-9D5F-B5D5C0AC7A79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48579FC2-D1A2-4010-B980-2C76368E39E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48579FC2-D1A2-4010-B980-2C76368E39E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48579FC2-D1A2-4010-B980-2C76368E39E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48579FC2-D1A2-4010-B980-2C76368E39E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F103E212-AE8C-43F7-B29D-ADF284DDC02E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F103E212-AE8C-43F7-B29D-ADF284DDC02E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F103E212-AE8C-43F7-B29D-ADF284DDC02E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F103E212-AE8C-43F7-B29D-ADF284DDC02E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
+	EndGlobalSection
+EndGlobal
