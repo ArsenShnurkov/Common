@@ -3,6 +3,8 @@ Common
 
 This Common library currently contains some generic binary search trees that I've been working on lately.
 
+See Insert.png, Find.png, and Delete.png for speed comparisons between the various trees.
+
 Notice that there are two basic binary search trees.
 
 SafeBinarySearchTree is a sealed class and uses iterative algorithms to avoid stack overflows on a tree that is highly unbalanced, or even linear.
