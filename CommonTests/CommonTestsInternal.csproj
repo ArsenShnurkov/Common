@@ -37,6 +37,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -61,7 +62,12 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Collections\Generic\AVLTreeTests.cs" />
+    <Compile Include="Collections\Generic\BinaryNodeCommonTests.cs" />
     <Compile Include="Collections\Generic\BinaryNodeTests.cs" />
+    <Compile Include="Collections\Generic\RedBlackNodeTests.cs" />
+    <Compile Include="Collections\Generic\RedBlackTreeTests.cs" />
+    <Compile Include="Collections\Generic\SafeBinaryNodeTests.cs" />
+    <Compile Include="Collections\Generic\SafeBinarySearchTreeTests.cs" />
     <Compile Include="Collections\Generic\BinarySearchTreeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
 
-    public partial class BinarySearchTree<T> : ICollection<T> where T : IComparable<T>
+    public partial class SafeBinarySearchTree<T> : ICollection<T> where T : IComparable<T>
     {
         public void Add(T item)
         {

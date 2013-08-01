@@ -17,22 +17,47 @@
         {
         }
 
-        #region Insert Delete Helper Methods
+        #region Insert
 
         /// <summary>
-        /// Resets the height of the node and then rebalances it
-        /// 
-        /// O(log n) - dependent on height of node
-        /// O(1) - For the rebalancing
+        /// Inserts the given node underneath the given root according to the BinarySearchTree algorithm and then
+        /// rebalances the tree.
         /// </summary>
-        /// <param name="node"></param>
-        protected override void ProcessParentNode(BinaryNode<T> node)
+        /// <param name="root">The root node of the tree</param>
+        /// <param name="node">The node to insert</param>
+        /// <returns>The new root of the tree as it may have changed</returns>
+        internal override IInternalBinaryNode<T> Insert(IInternalBinaryNode<T> root, IInternalBinaryNode<T> node)
         {
-            base.ProcessParentNode(node);
-            RebalanceNode(node);
+            root = base.Insert(root, node);
+            root = RebalanceNode(root);
+            return root;
         }
 
         #endregion
+
+        #region Delete
+
+        /// <summary>
+        /// Deletes the given value from the tree at the given root according to the BinarySearchTree algorithm and then
+        /// rebalances the tree.
+        /// </summary>
+        /// <param name="root">The root node of the tree</param>
+        /// <param name="value">The value to delete</param>
+        /// <returns>The new root of the tree as it may have changed</returns>
+        internal override IInternalBinaryNode<T> Delete(IInternalBinaryNode<T> root, T value)
+        {
+            root = base.Delete(root, value);
+
+            if (root != null)
+            {
+                root = RebalanceNode(root);
+                root.ResetHeight();
+            }
+
+            return root;
+        }
+
+        #endregion Delete
 
         #region Rebalancing
 
@@ -41,58 +66,61 @@
         /// </summary>
         /// <param name="node">The node to rebalance</param>
         /// <returns>True if a rebalancing was performed</returns>
-        private static bool RebalanceNode(BinaryNode<T> node)
+        private static IInternalBinaryNode<T> RebalanceNode(IInternalBinaryNode<T> node)
         {
-            bool balancePerformed = node.Balance != 0;
-
             // if left tree taller
             if (node.Balance > 1)
-                RebalanceLeftSubTree(node);
+                return RebalanceLeftSubTree(node);
 
             // else if right tree taller
             else if (node.Balance < -1)
-                RebalanceRightSubTree(node);
+                return RebalanceRightSubTree(node);
 
-            return balancePerformed;
+            return node;
         }
 
         /// <summary>
         /// Performs the rotations necessary to balance a parent
         /// </summary>
         /// <param name="parent">The parent node to rebalance</param>
-        private static void RebalanceRightSubTree(BinaryNode<T> parent)
+        private static IInternalBinaryNode<T> RebalanceRightSubTree(IInternalBinaryNode<T> parent)
         {
-            if (parent.Balance >= -1)
-                throw new ArgumentException(Errors.CannotRebalanceInThisDirection);
-
             // Converts a Root -> Right -> Left sub tree
             // Into a Root -> Right -> Right sub tree maintaining order
             // So that we can do the standard rotate
             if (parent.Right.Balance > 0)
-                parent.Right.RotateRight();
+                parent.Right = BinaryNodeCommon.RotateRight(parent.Right);
 
-            parent.RotateLeft();
+            return BinaryNodeCommon.RotateLeft(parent);
         }
 
         /// <summary>
         /// Performs the rotations necessary to balance a parent
         /// </summary>
         /// <param name="parent">The parent node to rebalance</param>
-        private static void RebalanceLeftSubTree(BinaryNode<T> parent)
+        private static IInternalBinaryNode<T> RebalanceLeftSubTree(IInternalBinaryNode<T> parent)
         {
-            if (parent.Balance <= 1)
-                throw new ArgumentException(Errors.CannotRebalanceInThisDirection);
-
             // Converts a Root -> Left -> Right sub tree
             // Into a Root -> Left -> Left sub tree maintaining order
             // So that we can do the standard rotate
             if (parent.Left.Balance < 0)
-                parent.Left.RotateLeft();
+                parent.Left = BinaryNodeCommon.RotateLeft(parent.Left);
 
-            parent.RotateRight();
+            return BinaryNodeCommon.RotateRight(parent);
         }
 
         #endregion
 
+        public override void AssertValidTree()
+        {
+            base.AssertValidTree();
+
+            foreach (IInternalBinaryNode<T> node in this.PostOrderNodeIterator)
+            {
+                node.ResetHeight();
+                if (node.Balance < -1 || node.Balance > 1)
+                    throw new InvalidTreeException();
+            }
+        }
     }
 }

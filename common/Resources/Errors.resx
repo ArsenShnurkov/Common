@@ -135,6 +135,9 @@
   <data name="DeleteNodeParentMatchesChild" xml:space="preserve">
     <value>The parent node must differ from the child node</value>
   </data>
+  <data name="DeleteWithTwoChildrenNotAllowed" xml:space="preserve">
+    <value>Node has two non-null children, expected one or less</value>
+  </data>
   <data name="DepthNodeNotFound" xml:space="preserve">
     <value>Cannot find depth of node in tree because the tree does not contain the node</value>
   </data>

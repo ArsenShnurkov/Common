@@ -5,15 +5,15 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]
-    public class BinarySearchTreeTests
+    public class SafeBinarySearchTreeTests
     {
-        #region BinarySearchTree.Insert
+        #region SafeBinarySearchTree.Insert
 
         [TestMethod]
-        [TestCategory("BinarySearchTree")]
+        [TestCategory("SafeBinarySearchTree")]
         public void Insert_IntoEmptyTree()
         {
-            BinarySearchTree<int> b = new BinarySearchTree<int>();
+            SafeBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
             b.Insert(50);
 
             Assert.IsNotNull(b.Root);
@@ -24,10 +24,10 @@
         }
 
         [TestMethod]
-        [TestCategory("BinarySearchTree")]
+        [TestCategory("SafeBinarySearchTree")]
         public void Insert_SecondNode_Left()
         {
-            BinarySearchTree<int> b = new BinarySearchTree<int>();
+            SafeBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
             b.Insert(50);
             b.Insert(25);
 
@@ -42,10 +42,10 @@
         }
 
         [TestMethod]
-        [TestCategory("BinarySearchTree")]
+        [TestCategory("SafeBinarySearchTree")]
         public void Insert_SecondNode_Right()
         {
-            BinarySearchTree<int> b = new BinarySearchTree<int>();
+            SafeBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
             b.Insert(50);
             b.Insert(75);
 
@@ -60,10 +60,10 @@
         }
 
         [TestMethod]
-        [TestCategory("BinarySearchTree")]
+        [TestCategory("SafeBinarySearchTree")]
         public void Insert_ThirdNode_FullTree()
         {
-            BinarySearchTree<int> b = new BinarySearchTree<int>();
+            SafeBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
             b.Insert(50);
             b.Insert(25);
             b.Insert(75);
@@ -80,10 +80,10 @@
         }
 
         [TestMethod]
-        [TestCategory("BinarySearchTree")]
+        [TestCategory("SafeBinarySearchTree")]
         public void Insert_ThirdNode_LeftLeft()
         {
-            BinarySearchTree<int> b = new BinarySearchTree<int>();
+            SafeBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
             b.Insert(50);
             b.Insert(25);
             b.Insert(13);
@@ -105,10 +105,10 @@
         }
 
         [TestMethod]
-        [TestCategory("BinarySearchTree")]
+        [TestCategory("SafeBinarySearchTree")]
         public void Insert_ThirdNode_LeftRight()
         {
-            BinarySearchTree<int> b = new BinarySearchTree<int>();
+            SafeBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
             b.Insert(50);
             b.Insert(25);
             b.Insert(32);
@@ -130,10 +130,10 @@
         }
 
         [TestMethod]
-        [TestCategory("BinarySearchTree")]
+        [TestCategory("SafeBinarySearchTree")]
         public void Insert_ThirdNode_RightLeft()
         {
-            BinarySearchTree<int> b = new BinarySearchTree<int>();
+            SafeBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
             b.Insert(50);
             b.Insert(75);
             b.Insert(63);
@@ -155,10 +155,10 @@
         }
 
         [TestMethod]
-        [TestCategory("BinarySearchTree")]
+        [TestCategory("SafeBinarySearchTree")]
         public void Insert_ThirdNode_RightRight()
         {
-            BinarySearchTree<int> b = new BinarySearchTree<int>();
+            SafeBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
             b.Insert(50);
             b.Insert(75);
             b.Insert(100);
@@ -180,11 +180,11 @@
         }
 
         [TestMethod]
-        [TestCategory("BinarySearchTree")]
+        [TestCategory("SafeBinarySearchTree")]
         [ExpectedException(typeof(ArgumentException))]
         public void Insert_DuplicateAtRoot()
         {
-            BinarySearchTree<int> b = new BinarySearchTree<int>();
+            SafeBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
             b.Insert(50);
             b.Insert(75);
             b.Insert(100);
@@ -193,11 +193,11 @@
         }
 
         [TestMethod]
-        [TestCategory("BinarySearchTree")]
+        [TestCategory("SafeBinarySearchTree")]
         [ExpectedException(typeof(ArgumentException))]
         public void Insert_DuplicateInMiddle()
         {
-            BinarySearchTree<int> b = new BinarySearchTree<int>();
+            SafeBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
             b.Insert(50);
             b.Insert(75);
             b.Insert(100);
@@ -206,57 +206,71 @@
         }
 
         [TestMethod]
-        [TestCategory("BinarySearchTree")]
+        [TestCategory("SafeBinarySearchTree")]
         [ExpectedException(typeof(ArgumentException))]
         public void Insert_DuplicateAsLeaf()
         {
-            BinarySearchTree<int> b = new BinarySearchTree<int>();
+            SafeBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
             b.Insert(50);
             b.Insert(75);
             b.Insert(100);
 
             b.Insert(100);
+        }
+
+        [TestMethod]
+        [TestCategory("SafeBinarySearchTree")]
+        public void Insert_InOrder_NoStackOverflow()
+        {
+            var bst = new SafeBinarySearchTree<int>();
+            int n = 30000;
+            for (int i = 0; i < n; ++i)
+                bst.Insert(i);
+
+            Assert.AreEqual<int>(n - 1, bst.Height);
+            Assert.AreEqual<int>(n, bst.Count);
+            Assert.AreEqual<int>(1-n, bst.Balance); 
         }
 
         #endregion
 
-        #region BinarySearchTree.Find
+        #region SafeBinarySearchTree.Find
 
         [TestMethod]
-        [TestCategory("BinarySearchTree")]
+        [TestCategory("SafeBinarySearchTree")]
         [ExpectedException(typeof(TreeNotRootedException))]
         public void Find_EmptyTree()
         {
-            BinarySearchTree<int> b = new BinarySearchTree<int>();
+            SafeBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
             b.Find(50);
         }
 
         [TestMethod]
-        [TestCategory("BinarySearchTree")]
+        [TestCategory("SafeBinarySearchTree")]
         [ExpectedException(typeof(NodeNotFoundException))]
         public void Find_OnlyRoot_NotFound()
         {
-            IBinarySearchTree<int> b = new BinarySearchTree<int>();
+            IBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
             b.Insert(50);
 
             b.Find(60);
         }
 
         [TestMethod]
-        [TestCategory("BinarySearchTree")]
+        [TestCategory("SafeBinarySearchTree")]
         public void FindOrDefault_OnlyRoot_NotFound()
         {
-            IBinarySearchTree<int> b = new BinarySearchTree<int>();
+            IBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
             b.Insert(50);
 
             Assert.IsNull(b.FindOrDefault(60));
         }
 
         [TestMethod]
-        [TestCategory("BinarySearchTree")]
+        [TestCategory("SafeBinarySearchTree")]
         public void Find_OnlyRoot_Found()
         {
-            IBinarySearchTree<int> b = new BinarySearchTree<int>();
+            IBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
             b.Insert(50);
 
             var result = b.Find(50);
@@ -265,10 +279,10 @@
         }
 
         [TestMethod]
-        [TestCategory("BinarySearchTree")]
+        [TestCategory("SafeBinarySearchTree")]
         public void Find_Height_Equals_1_Found_Left()
         {
-            IBinarySearchTree<int> b = new BinarySearchTree<int>();
+            IBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
             b.Insert(50);
             b.Insert(30);
 
@@ -278,10 +292,10 @@
         }
 
         [TestMethod]
-        [TestCategory("BinarySearchTree")]
+        [TestCategory("SafeBinarySearchTree")]
         public void Find_Height_Equals_1_Found_Right()
         {
-            IBinarySearchTree<int> b = new BinarySearchTree<int>();
+            IBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
             b.Insert(50);
             b.Insert(70);
 
@@ -291,10 +305,10 @@
         }
 
         [TestMethod]
-        [TestCategory("BinarySearchTree")]
+        [TestCategory("SafeBinarySearchTree")]
         public void Find_Height_Equals_1_FullTree_Found_Left()
         {
-            IBinarySearchTree<int> b = new BinarySearchTree<int>();
+            IBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
             b.Insert(50);
             b.Insert(30);
             b.Insert(70);
@@ -305,10 +319,10 @@
         }
 
         [TestMethod]
-        [TestCategory("BinarySearchTree")]
+        [TestCategory("SafeBinarySearchTree")]
         public void Find_Height_Equals_1_FullTree_Found_Right()
         {
-            IBinarySearchTree<int> b = new BinarySearchTree<int>();
+            IBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
             b.Insert(50);
             b.Insert(30);
             b.Insert(70);
@@ -319,11 +333,11 @@
         }
 
         [TestMethod]
-        [TestCategory("BinarySearchTree")]
+        [TestCategory("SafeBinarySearchTree")]
         [ExpectedException(typeof(NodeNotFoundException))]
         public void Find_BiggerTree_NotFound()
         {
-            IBinarySearchTree<int> b = new BinarySearchTree<int>();
+            IBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
             b.Insert(100);
 
             b.Insert(50);
@@ -341,11 +355,11 @@
         }
 
         [TestMethod]
-        [TestCategory("BinarySearchTree")]
+        [TestCategory("SafeBinarySearchTree")]
         [ExpectedException(typeof(NodeNotFoundException))]
         public void FindOrDefault_BiggerTree_NotFound()
         {
-            IBinarySearchTree<int> b = new BinarySearchTree<int>();
+            IBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
             b.Insert(100);
 
             b.Insert(50);
@@ -363,10 +377,10 @@
         }
 
         [TestMethod]
-        [TestCategory("BinarySearchTree")]
+        [TestCategory("SafeBinarySearchTree")]
         public void Find_BiggerTree_Found_Part1()
         {
-            IBinarySearchTree<int> b = new BinarySearchTree<int>();
+            IBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
             b.Insert(100);
 
             b.Insert(50);
@@ -387,10 +401,10 @@
         }
 
         [TestMethod]
-        [TestCategory("BinarySearchTree")]
+        [TestCategory("SafeBinarySearchTree")]
         public void Find_BiggerTree_Found_Part2()
         {
-            IBinarySearchTree<int> b = new BinarySearchTree<int>();
+            IBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
             b.Insert(100);
 
             b.Insert(50);
@@ -410,34 +424,46 @@
             Assert.AreEqual<int>(30, result.Value);
         }
 
+        [TestMethod]
+        [TestCategory("SafeBinarySearchTree")]
+        public void Find_InOrder_NoStackOverflow()
+        {
+            var bst = new SafeBinarySearchTree<int>();
+            int n = 30000;
+            for (int i = 0; i < n; ++i)
+                bst.Insert(i);
+
+            Assert.IsNotNull(bst.Find(n-1));
+        }
+
         #endregion
 
-        #region BinarySearchTree.Delete
+        #region SafeBinarySearchTree.Delete
 
         [TestMethod]
-        [TestCategory("BinarySearchTree")]
+        [TestCategory("SafeBinarySearchTree")]
         [ExpectedException(typeof(TreeNotRootedException))]
         public void Delete_EmptyTree()
         {
-            BinarySearchTree<int> b = new BinarySearchTree<int>();
+            SafeBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
             b.Delete(50);
         }
 
         [TestMethod]
-        [TestCategory("BinarySearchTree")]
+        [TestCategory("SafeBinarySearchTree")]
         [ExpectedException(typeof(NodeNotFoundException))]
         public void Delete_OnlyRoot_NotFound()
         {
-            BinarySearchTree<int> b = new BinarySearchTree<int>();
+            SafeBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
             b.Insert(50);
             b.Delete(60);
         }
 
         [TestMethod]
-        [TestCategory("BinarySearchTree")]
+        [TestCategory("SafeBinarySearchTree")]
         public void Delete_OnlyRoot_Found()
         {
-            BinarySearchTree<int> b = new BinarySearchTree<int>();
+            SafeBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
             b.Insert(50);
             b.Delete(50);
 
@@ -449,10 +475,10 @@
         }
 
         [TestMethod]
-        [TestCategory("BinarySearchTree")]
+        [TestCategory("SafeBinarySearchTree")]
         public void Delete_LeftLeaf()
         {
-            BinarySearchTree<int> b = new BinarySearchTree<int>();
+            SafeBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
             b.Insert(50);
             b.Insert(25);
             b.Delete(25);
@@ -468,10 +494,10 @@
         }
 
         [TestMethod]
-        [TestCategory("BinarySearchTree")]
+        [TestCategory("SafeBinarySearchTree")]
         public void Delete_RightLeaf()
         {
-            BinarySearchTree<int> b = new BinarySearchTree<int>();
+            SafeBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
             b.Insert(50);
             b.Insert(75);
             b.Delete(75);
@@ -487,10 +513,10 @@
         }
 
         [TestMethod]
-        [TestCategory("BinarySearchTree")]
+        [TestCategory("SafeBinarySearchTree")]
         public void Delete_NodeThatOnlyHasRightChild()
         {
-            BinarySearchTree<int> b = new BinarySearchTree<int>();
+            SafeBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
             b.Insert(50);
             b.Insert(75);
             b.Insert(100);
@@ -507,10 +533,10 @@
         }
 
         [TestMethod]
-        [TestCategory("BinarySearchTree")]
+        [TestCategory("SafeBinarySearchTree")]
         public void Delete_NodeThatOnlyHasLeftChild()
         {
-            BinarySearchTree<int> b = new BinarySearchTree<int>();
+            SafeBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
             b.Insert(50);
             b.Insert(25);
             b.Insert(10);
@@ -527,10 +553,10 @@
         }
 
         [TestMethod]
-        [TestCategory("BinarySearchTree")]
+        [TestCategory("SafeBinarySearchTree")]
         public void Delete_Node_ThatHasBothChildren()
         {
-            BinarySearchTree<int> b = new BinarySearchTree<int>();
+            SafeBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
             b.Insert(50);
             b.Insert(25);
             b.Insert(75);
@@ -551,237 +577,262 @@
             Assert.AreEqual<int>(2, b.Height);
         }
 
+        [TestMethod]
+        [TestCategory("SafeBinarySearchTree")]
+        public void Delete_InOrder_NoStackOverflow()
+        {
+            var bst = new SafeBinarySearchTree<int>();
+            int n = 30000;
+            for (int i = 0; i < n; ++i)
+                bst.Insert(i);
+
+            bst.Delete(n-1);
+        }
+
         #endregion
 
-        #region BinarySearchTree.Depth
+        #region SafeBinarySearchTree.Depth
         [TestMethod]
-        [TestCategory("BinarySearchTree")]
+        [TestCategory("SafeBinarySearchTree")]
         [ExpectedException(typeof(TreeNotRootedException))]
         public void Depth_NoRoot()
         {
-            IBinarySearchTree<int> b = new BinarySearchTree<int>();
+            IBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
             int depth = b.Depth(10);
         }
 
         [TestMethod]
-        [TestCategory("BinarySearchTree")]
+        [TestCategory("SafeBinarySearchTree")]
         public void Depth_OnlyRoot()
         {
-            BinarySearchTree<int> b = new BinarySearchTree<int>();
-            b.Root = new BinaryNode<int>(10);
+            SafeBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
+            b.Root = new SafeBinaryNode<int>(10);
 
             Assert.AreEqual<int>(0, b.Depth(10));
         }
 
         [TestMethod]
-        [TestCategory("BinarySearchTree")]
+        [TestCategory("SafeBinarySearchTree")]
         public void DepthOfRoot()
         {
-            BinarySearchTree<int> b = new BinarySearchTree<int>();
-            b.Root = new BinaryNode<int>(10);
-            b.Root.Left = new BinaryNode<int>(5);
+            SafeBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
+            b.Root = new SafeBinaryNode<int>(10);
+            b.Root.Left = new SafeBinaryNode<int>(5);
 
             Assert.AreEqual<int>(0, b.Depth(10));
         }
 
         [TestMethod]
-        [TestCategory("BinarySearchTree")]
+        [TestCategory("SafeBinarySearchTree")]
         public void SimpleTree_DepthOfLeaf()
         {
-            BinarySearchTree<int> b = new BinarySearchTree<int>();
-            b.Root = new BinaryNode<int>(10);
-            b.Root.Left = new BinaryNode<int>(5);
+            SafeBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
+            b.Root = new SafeBinaryNode<int>(10);
+            b.Root.Left = new SafeBinaryNode<int>(5);
 
             Assert.AreEqual<int>(1, b.Depth(5));
         }
 
         [TestMethod]
-        [TestCategory("BinarySearchTree")]
+        [TestCategory("SafeBinarySearchTree")]
         public void Depth_Equals_1_Left()
         {
-            BinarySearchTree<int> b = new BinarySearchTree<int>();
-            b.Root = new BinaryNode<int>(100);
-            b.Root.Left = new BinaryNode<int>(50);
-            b.Root.Right = new BinaryNode<int>(150);
+            SafeBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
+            b.Root = new SafeBinaryNode<int>(100);
+            b.Root.Left = new SafeBinaryNode<int>(50);
+            b.Root.Right = new SafeBinaryNode<int>(150);
 
-            b.Root.Left.Left = new BinaryNode<int>(25);
-            b.Root.Left.Right = new BinaryNode<int>(75);
+            b.Root.Left.Left = new SafeBinaryNode<int>(25);
+            b.Root.Left.Right = new SafeBinaryNode<int>(75);
 
-            b.Root.Right.Left = new BinaryNode<int>(125);
-            b.Root.Right.Right = new BinaryNode<int>(175);
+            b.Root.Right.Left = new SafeBinaryNode<int>(125);
+            b.Root.Right.Right = new SafeBinaryNode<int>(175);
 
-            b.Root.Left.Left.Right = new BinaryNode<int>(30);
-            b.Root.Right.Right.Left = new BinaryNode<int>(160);
+            b.Root.Left.Left.Right = new SafeBinaryNode<int>(30);
+            b.Root.Right.Right.Left = new SafeBinaryNode<int>(160);
 
             Assert.AreEqual<int>(1, b.Depth(50));
         }
 
         [TestMethod]
-        [TestCategory("BinarySearchTree")]
+        [TestCategory("SafeBinarySearchTree")]
         public void Depth_Equals_1_Right()
         {
-            BinarySearchTree<int> b = new BinarySearchTree<int>();
-            b.Root = new BinaryNode<int>(100);
-            b.Root.Left = new BinaryNode<int>(50);
-            b.Root.Right = new BinaryNode<int>(150);
+            SafeBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
+            b.Root = new SafeBinaryNode<int>(100);
+            b.Root.Left = new SafeBinaryNode<int>(50);
+            b.Root.Right = new SafeBinaryNode<int>(150);
 
-            b.Root.Left.Left = new BinaryNode<int>(25);
-            b.Root.Left.Right = new BinaryNode<int>(75);
+            b.Root.Left.Left = new SafeBinaryNode<int>(25);
+            b.Root.Left.Right = new SafeBinaryNode<int>(75);
 
-            b.Root.Right.Left = new BinaryNode<int>(125);
-            b.Root.Right.Right = new BinaryNode<int>(175);
+            b.Root.Right.Left = new SafeBinaryNode<int>(125);
+            b.Root.Right.Right = new SafeBinaryNode<int>(175);
 
-            b.Root.Left.Left.Right = new BinaryNode<int>(30);
-            b.Root.Right.Right.Left = new BinaryNode<int>(160);
+            b.Root.Left.Left.Right = new SafeBinaryNode<int>(30);
+            b.Root.Right.Right.Left = new SafeBinaryNode<int>(160);
 
             Assert.AreEqual<int>(1, b.Depth(150));
         }
 
         [TestMethod]
-        [TestCategory("BinarySearchTree")]
+        [TestCategory("SafeBinarySearchTree")]
         public void Depth_Equals_2_LeftLeft()
         {
-            BinarySearchTree<int> b = new BinarySearchTree<int>();
-            b.Root = new BinaryNode<int>(100);
-            b.Root.Left = new BinaryNode<int>(50);
-            b.Root.Right = new BinaryNode<int>(150);
+            SafeBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
+            b.Root = new SafeBinaryNode<int>(100);
+            b.Root.Left = new SafeBinaryNode<int>(50);
+            b.Root.Right = new SafeBinaryNode<int>(150);
 
-            b.Root.Left.Left = new BinaryNode<int>(25);
-            b.Root.Left.Right = new BinaryNode<int>(75);
+            b.Root.Left.Left = new SafeBinaryNode<int>(25);
+            b.Root.Left.Right = new SafeBinaryNode<int>(75);
 
-            b.Root.Right.Left = new BinaryNode<int>(125);
-            b.Root.Right.Right = new BinaryNode<int>(175);
+            b.Root.Right.Left = new SafeBinaryNode<int>(125);
+            b.Root.Right.Right = new SafeBinaryNode<int>(175);
 
-            b.Root.Left.Left.Right = new BinaryNode<int>(30);
-            b.Root.Right.Right.Left = new BinaryNode<int>(160);
+            b.Root.Left.Left.Right = new SafeBinaryNode<int>(30);
+            b.Root.Right.Right.Left = new SafeBinaryNode<int>(160);
 
             Assert.AreEqual<int>(2, b.Depth(25));
         }
 
         [TestMethod]
-        [TestCategory("BinarySearchTree")]
+        [TestCategory("SafeBinarySearchTree")]
         public void Depth_Equals_2_LeftRight()
         {
-            BinarySearchTree<int> b = new BinarySearchTree<int>();
-            b.Root = new BinaryNode<int>(100);
-            b.Root.Left = new BinaryNode<int>(50);
-            b.Root.Right = new BinaryNode<int>(150);
+            SafeBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
+            b.Root = new SafeBinaryNode<int>(100);
+            b.Root.Left = new SafeBinaryNode<int>(50);
+            b.Root.Right = new SafeBinaryNode<int>(150);
 
-            b.Root.Left.Left = new BinaryNode<int>(25);
-            b.Root.Left.Right = new BinaryNode<int>(75);
+            b.Root.Left.Left = new SafeBinaryNode<int>(25);
+            b.Root.Left.Right = new SafeBinaryNode<int>(75);
 
-            b.Root.Right.Left = new BinaryNode<int>(125);
-            b.Root.Right.Right = new BinaryNode<int>(175);
+            b.Root.Right.Left = new SafeBinaryNode<int>(125);
+            b.Root.Right.Right = new SafeBinaryNode<int>(175);
 
-            b.Root.Left.Left.Right = new BinaryNode<int>(30);
-            b.Root.Right.Right.Left = new BinaryNode<int>(160);
+            b.Root.Left.Left.Right = new SafeBinaryNode<int>(30);
+            b.Root.Right.Right.Left = new SafeBinaryNode<int>(160);
 
             Assert.AreEqual<int>(2, b.Depth(75));
         }
 
         [TestMethod]
-        [TestCategory("BinarySearchTree")]
+        [TestCategory("SafeBinarySearchTree")]
         public void Depth_Equals_2_RightLeft()
         {
-            BinarySearchTree<int> b = new BinarySearchTree<int>();
-            b.Root = new BinaryNode<int>(100);
-            b.Root.Left = new BinaryNode<int>(50);
-            b.Root.Right = new BinaryNode<int>(150);
+            SafeBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
+            b.Root = new SafeBinaryNode<int>(100);
+            b.Root.Left = new SafeBinaryNode<int>(50);
+            b.Root.Right = new SafeBinaryNode<int>(150);
 
-            b.Root.Left.Left = new BinaryNode<int>(25);
-            b.Root.Left.Right = new BinaryNode<int>(75);
+            b.Root.Left.Left = new SafeBinaryNode<int>(25);
+            b.Root.Left.Right = new SafeBinaryNode<int>(75);
 
-            b.Root.Right.Left = new BinaryNode<int>(125);
-            b.Root.Right.Right = new BinaryNode<int>(175);
+            b.Root.Right.Left = new SafeBinaryNode<int>(125);
+            b.Root.Right.Right = new SafeBinaryNode<int>(175);
 
-            b.Root.Left.Left.Right = new BinaryNode<int>(30);
-            b.Root.Right.Right.Left = new BinaryNode<int>(160);
+            b.Root.Left.Left.Right = new SafeBinaryNode<int>(30);
+            b.Root.Right.Right.Left = new SafeBinaryNode<int>(160);
 
             Assert.AreEqual<int>(2, b.Depth(125));
         }
 
         [TestMethod]
-        [TestCategory("BinarySearchTree")]
+        [TestCategory("SafeBinarySearchTree")]
         public void Depth_Equals_2_RightRight()
         {
-            BinarySearchTree<int> b = new BinarySearchTree<int>();
-            b.Root = new BinaryNode<int>(100);
-            b.Root.Left = new BinaryNode<int>(50);
-            b.Root.Right = new BinaryNode<int>(150);
+            SafeBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
+            b.Root = new SafeBinaryNode<int>(100);
+            b.Root.Left = new SafeBinaryNode<int>(50);
+            b.Root.Right = new SafeBinaryNode<int>(150);
 
-            b.Root.Left.Left = new BinaryNode<int>(25);
-            b.Root.Left.Right = new BinaryNode<int>(75);
+            b.Root.Left.Left = new SafeBinaryNode<int>(25);
+            b.Root.Left.Right = new SafeBinaryNode<int>(75);
 
-            b.Root.Right.Left = new BinaryNode<int>(125);
-            b.Root.Right.Right = new BinaryNode<int>(175);
+            b.Root.Right.Left = new SafeBinaryNode<int>(125);
+            b.Root.Right.Right = new SafeBinaryNode<int>(175);
 
-            b.Root.Left.Left.Right = new BinaryNode<int>(30);
-            b.Root.Right.Right.Left = new BinaryNode<int>(160);
+            b.Root.Left.Left.Right = new SafeBinaryNode<int>(30);
+            b.Root.Right.Right.Left = new SafeBinaryNode<int>(160);
 
             Assert.AreEqual<int>(2, b.Depth(175));
         }
 
         [TestMethod]
-        [TestCategory("BinarySearchTree")]
+        [TestCategory("SafeBinarySearchTree")]
         public void Depth_Equals_3_LeftLeftRight()
         {
-            BinarySearchTree<int> b = new BinarySearchTree<int>();
-            b.Root = new BinaryNode<int>(100);
-            b.Root.Left = new BinaryNode<int>(50);
-            b.Root.Right = new BinaryNode<int>(150);
+            SafeBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
+            b.Root = new SafeBinaryNode<int>(100);
+            b.Root.Left = new SafeBinaryNode<int>(50);
+            b.Root.Right = new SafeBinaryNode<int>(150);
 
-            b.Root.Left.Left = new BinaryNode<int>(25);
-            b.Root.Left.Right = new BinaryNode<int>(75);
+            b.Root.Left.Left = new SafeBinaryNode<int>(25);
+            b.Root.Left.Right = new SafeBinaryNode<int>(75);
 
-            b.Root.Right.Left = new BinaryNode<int>(125);
-            b.Root.Right.Right = new BinaryNode<int>(175);
+            b.Root.Right.Left = new SafeBinaryNode<int>(125);
+            b.Root.Right.Right = new SafeBinaryNode<int>(175);
 
-            b.Root.Left.Left.Right = new BinaryNode<int>(30);
-            b.Root.Right.Right.Left = new BinaryNode<int>(160);
+            b.Root.Left.Left.Right = new SafeBinaryNode<int>(30);
+            b.Root.Right.Right.Left = new SafeBinaryNode<int>(160);
 
             Assert.AreEqual<int>(3, b.Depth(30));
         }
 
         [TestMethod]
-        [TestCategory("BinarySearchTree")]
+        [TestCategory("SafeBinarySearchTree")]
         [ExpectedException(typeof(NodeNotFoundException))]
         public void Depth_NodeNotFound()
         {
-            BinarySearchTree<int> b = new BinarySearchTree<int>();
-            b.Root = new BinaryNode<int>(100);
-            b.Root.Left = new BinaryNode<int>(50);
-            b.Root.Right = new BinaryNode<int>(150);
+            SafeBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
+            b.Root = new SafeBinaryNode<int>(100);
+            b.Root.Left = new SafeBinaryNode<int>(50);
+            b.Root.Right = new SafeBinaryNode<int>(150);
 
-            b.Root.Left.Left = new BinaryNode<int>(25);
-            b.Root.Left.Right = new BinaryNode<int>(75);
+            b.Root.Left.Left = new SafeBinaryNode<int>(25);
+            b.Root.Left.Right = new SafeBinaryNode<int>(75);
 
-            b.Root.Right.Left = new BinaryNode<int>(125);
-            b.Root.Right.Right = new BinaryNode<int>(175);
+            b.Root.Right.Left = new SafeBinaryNode<int>(125);
+            b.Root.Right.Right = new SafeBinaryNode<int>(175);
 
-            b.Root.Left.Left.Right = new BinaryNode<int>(30);
-            b.Root.Right.Right.Left = new BinaryNode<int>(160);
+            b.Root.Left.Left.Right = new SafeBinaryNode<int>(30);
+            b.Root.Right.Right.Left = new SafeBinaryNode<int>(160);
 
             b.Depth(60);
         }
+
+        [TestMethod]
+        [TestCategory("SafeBinarySearchTree")]
+        public void Depth_InOrder_NoStackOverflow()
+        {
+            var bst = new SafeBinarySearchTree<int>();
+            int n = 30000;
+            for (int i = 0; i < n; ++i)
+                bst.Insert(i);
+
+            Assert.AreEqual<int>(n-1, bst.Depth(n-1));
+        }
+
         #endregion
 
-        #region BinarySearchTree.Traversals
+        #region SafeBinarySearchTree.Traversals
         [TestMethod]
-        [TestCategory("BinarySearchTree")]
+        [TestCategory("SafeBinarySearchTree")]
         [ExpectedException(typeof(TreeNotRootedException))]
         public void Inorder_EmptyTree()
         {
-            IBinarySearchTree<int> b = new BinarySearchTree<int>();
+            IBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
 
             var enumerator = b.InOrderIterator.GetEnumerator();
             enumerator.MoveNext();
         }
 
         [TestMethod]
-        [TestCategory("BinarySearchTree")]
+        [TestCategory("SafeBinarySearchTree")]
         public void Inorder_BigTree()
         {
-            IBinarySearchTree<int> b = new BinarySearchTree<int>();
+            IBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
             b.Insert(100);
 
             b.Insert(50);
@@ -818,21 +869,21 @@
         }
 
         [TestMethod]
-        [TestCategory("BinarySearchTree")]
+        [TestCategory("SafeBinarySearchTree")]
         [ExpectedException(typeof(TreeNotRootedException))]
         public void Preorder_EmptyTree()
         {
-            IBinarySearchTree<int> b = new BinarySearchTree<int>();
+            IBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
 
             var enumerator = b.PreOrderIterator.GetEnumerator();
             enumerator.MoveNext();
         }
 
         [TestMethod]
-        [TestCategory("BinarySearchTree")]
+        [TestCategory("SafeBinarySearchTree")]
         public void Preorder_BigTree()
         {
-            IBinarySearchTree<int> b = new BinarySearchTree<int>();
+            IBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
             b.Insert(100);
 
             b.Insert(50);
@@ -869,21 +920,21 @@
         }
 
         [TestMethod]
-        [TestCategory("BinarySearchTree")]
+        [TestCategory("SafeBinarySearchTree")]
         [ExpectedException(typeof(TreeNotRootedException))]
         public void Postorder_EmptyTree()
         {
-            IBinarySearchTree<int> b = new BinarySearchTree<int>();
+            IBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
 
             var enumerator = b.PostOrderIterator.GetEnumerator();
             enumerator.MoveNext();
         }
 
         [TestMethod]
-        [TestCategory("BinarySearchTree")]
+        [TestCategory("SafeBinarySearchTree")]
         public void Postorder_BigTree()
         {
-            IBinarySearchTree<int> b = new BinarySearchTree<int>();
+            IBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
             b.Insert(100);
 
             b.Insert(50);
@@ -919,39 +970,5 @@
             Assert.AreEqual<int>(100, enumerator.Current);
         }
         #endregion
-
-        #region BinarySearchTree.AssertTree
-
-        [TestMethod]
-        [TestCategory("BinarySearchTree")]
-        public void Assert_ValidTree()
-        {
-            BinaryNode<int> root = new BinaryNode<int>(100);
-            root.Left = new BinaryNode<int>(50);
-            root.Right = new BinaryNode<int>(150);
-
-            BinarySearchTree<int> bst = new BinarySearchTree<int>();
-            bst.Root = root;
-
-            bst.AssertValidTree();
-        }
-
-        [TestMethod]
-        [TestCategory("BinarySearchTree")]
-        [ExpectedException(typeof(InvalidTreeException))]
-        public void Assert_InvalidTree()
-        {
-            BinaryNode<int> root = new BinaryNode<int>(100);
-            root.Right = new BinaryNode<int>(50);
-            root.Left = new BinaryNode<int>(150);
-
-            BinarySearchTree<int> bst = new BinarySearchTree<int>();
-            bst.Root = root;
-
-            bst.AssertValidTree();
-        }
-
-        #endregion
-
     }
 }

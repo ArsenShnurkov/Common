@@ -115,6 +115,15 @@ namespace Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Node has two non-null children, expected one or less.
+        /// </summary>
+        internal static string DeleteWithTwoChildrenNotAllowed {
+            get {
+                return ResourceManager.GetString("DeleteWithTwoChildrenNotAllowed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cannot find depth of node in tree because the tree does not contain the node.
         /// </summary>
         internal static string DepthNodeNotFound {

@@ -2,15 +2,14 @@
 {
     using System.Collections.Generic;
 
-    public class BinaryNode<T> : INode<T>, IBinaryNode<T>, IInternalBinaryNode<T>
+    public sealed class SafeBinaryNode<T> : INode<T>, IBinaryNode<T>, IInternalBinaryNode<T>
     {
         /// <summary>
         /// Creates a new instance of a Common.Collections.Generic.BinaryNode<T>
         /// </summary>
         /// <param name="value">The data value that this node will contain</param>
-        public BinaryNode(T value)
+        public SafeBinaryNode(T value)
         {
-            this._height    = null;
             this.Value      = value;
         }
 
@@ -21,12 +20,12 @@
         /// <summary>
         /// Points to a the left sub tree of this node
         /// </summary>
-        public BinaryNode<T> Left { get; internal set; }
+        public SafeBinaryNode<T> Left { get; internal set; }
 
         /// <summary>
         /// Points to the right sub tree of this node
         /// </summary>
-        public BinaryNode<T> Right { get; internal set; }
+        public SafeBinaryNode<T> Right { get; internal set; }
 
         /// <summary>
         /// Returns true if this node has no neighbours
@@ -39,24 +38,41 @@
             }
         }
 
-        private int? _height;
-
         /// <summary>
         /// The height of the node.
         /// 
-        /// O(1) - When cached
-        /// O(log n) - Otherwise
+        /// O(log n)
         /// </summary>
         public int Height
         {
             get
             {
-                if (!this._height.HasValue)
+                Queue<SafeBinaryNode<T>> nodes = new Queue<SafeBinaryNode<T>>();
+                nodes.Enqueue(this);
+
+                int height = -1;
+                int nodesAtCurrentLevel;
+
+                SafeBinaryNode<T> current;
+                while (nodes.Count > 0)
                 {
-                    this._height = BinaryNodeCommon.GetHeight(this);
+                    nodesAtCurrentLevel = nodes.Count;
+                    for (int i = 0; i < nodesAtCurrentLevel; ++i)
+                    {
+                        if (i == 0)
+                            ++height;
+
+                        current = nodes.Dequeue();
+
+                        if (current.Left != null)
+                            nodes.Enqueue(current.Left);
+
+                        if (current.Right != null)
+                            nodes.Enqueue(current.Right);
+                    }
                 }
 
-                return this._height.Value;
+                return height;
             }
         }
 
@@ -70,25 +86,8 @@
         {
             get
             {
-                int balance = BinaryNodeCommon.GetNodeBalance(this);
-
-                return balance;
+                return BinaryNodeCommon.GetNodeBalance(this);
             }
-        }
-
-        public BinaryNode<T> InOrderPredecessor
-        {
-            get { return BinaryNodeCommon.InOrderPredecessor(this) as BinaryNode<T>; }
-        }
-
-        public BinaryNode<T> InOrderSuccessor
-        {
-            get { return BinaryNodeCommon.InOrderSuccessor(this) as BinaryNode<T>; }
-        }
-
-        public IEnumerable<BinaryNode<T>> Neighbours
-        {
-            get { return new BinaryNode<T>[2] { this.Left, this.Right }; }
         }
 
         #endregion
@@ -107,7 +106,7 @@
         IInternalBinaryNode<T> IInternalBinaryNode<T>.Left
         {
             get { return this.Left; }
-            set { this.Left = value as BinaryNode<T>; }
+            set { this.Left = value as SafeBinaryNode<T>; }
         }
 
         /// <summary>
@@ -116,7 +115,7 @@
         IInternalBinaryNode<T> IInternalBinaryNode<T>.Right
         {
             get { return this.Right; }
-            set { this.Right = value as BinaryNode<T>; }
+            set { this.Right = value as SafeBinaryNode<T>; }
         }
 
         /// <summary>
@@ -124,7 +123,6 @@
         /// </summary>
         void IInternalBinaryNode<T>.ResetHeight()
         {
-            this.ResetHeight();
         }
 
         #endregion
@@ -156,7 +154,7 @@
         /// </summary>
         IEnumerable<INode<T>> INode<T>.Neighbours
         {
-            get { return this.Neighbours; }
+            get { return new IBinaryNode<T>[2] { this.Left, this.Right }; }
         }
 
         #endregion
@@ -168,7 +166,6 @@
         /// </summary>
         internal void ResetHeight()
         {
-            this._height = null;
         }
 
         public override string ToString()

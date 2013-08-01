@@ -11,7 +11,7 @@
         #region AVLTree.Insert
 
         [TestMethod]
-        [TestCategory("AVLTree.Insert")]
+        [TestCategory("AVLTree")]
         public void Insert_Into_EmptyTree()
         {
             AVLTree<int> avlTree = new AVLTree<int>();
@@ -21,7 +21,7 @@
         }
 
         [TestMethod]
-        [TestCategory("AVLTree.Insert")]
+        [TestCategory("AVLTree")]
         public void Insert_RootLeft()
         {
             AVLTree<int> avlTree = new AVLTree<int>();
@@ -32,7 +32,7 @@
         }
 
         [TestMethod]
-        [TestCategory("AVLTree.Insert")]
+        [TestCategory("AVLTree")]
         public void Insert_RootRight()
         {
             AVLTree<int> avlTree = new AVLTree<int>();
@@ -43,7 +43,7 @@
         }
 
         [TestMethod]
-        [TestCategory("AVLTree.Insert")]
+        [TestCategory("AVLTree")]
         public void Insert_RootLeftLeft_OuterLeftOffBalance()
         {
             AVLTree<int> avlTree = new AVLTree<int>();
@@ -58,7 +58,7 @@
         }
 
         [TestMethod]
-        [TestCategory("AVLTree.Insert")]
+        [TestCategory("AVLTree")]
         public void Insert_RootRightRight_OuterRightOffBalance()
         {
             AVLTree<int> avlTree = new AVLTree<int>();
@@ -73,7 +73,7 @@
         }
 
         [TestMethod]
-        [TestCategory("AVLTree.Insert")]
+        [TestCategory("AVLTree")]
         public void Insert_RootLeftRight_InnerLeftOffBalance()
         {
             AVLTree<int> avlTree = new AVLTree<int>();
@@ -88,7 +88,7 @@
         }
 
         [TestMethod]
-        [TestCategory("AVLTree.Insert")]
+        [TestCategory("AVLTree")]
         public void Insert_RootRightLeft_InnerRightOffBalance()
         {
             AVLTree<int> avlTree = new AVLTree<int>();
@@ -103,7 +103,7 @@
         }
 
         [TestMethod]
-        [TestCategory("AVLTree.Insert")]
+        [TestCategory("AVLTree")]
         public void Insert_Randoms()
         {
             AVLTree<int> avlTree = new AVLTree<int>();
@@ -134,7 +134,7 @@
         #region AVLTree.Delete
 
         [TestMethod]
-        [TestCategory("AVLTree.Delete")]
+        [TestCategory("AVLTree")]
         public void Delete_ResultingIn_LeftLeft()
         {
             AVLTree<int> avlTree = new AVLTree<int>();
@@ -163,7 +163,7 @@
         }
 
         [TestMethod]
-        [TestCategory("AVLTree.Delete")]
+        [TestCategory("AVLTree")]
         public void Delete_ResultingIn_RightRight()
         {
             AVLTree<int> avlTree = new AVLTree<int>();
@@ -191,7 +191,7 @@
         }
 
         [TestMethod]
-        [TestCategory("AVLTree.Delete")]
+        [TestCategory("AVLTree")]
         public void Delete_ResultingIn_LeftRight()
         {
             AVLTree<int> avlTree = new AVLTree<int>();
@@ -219,7 +219,7 @@
         }
 
         [TestMethod]
-        [TestCategory("AVLTree.Delete")]
+        [TestCategory("AVLTree")]
         public void Delete_ResultingIn_RightLeft()
         {
             AVLTree<int> avlTree = new AVLTree<int>();
@@ -246,7 +246,7 @@
         }
 
         [TestMethod]
-        [TestCategory("AVLTree.Delete")]
+        [TestCategory("AVLTree")]
         public void Delete_ResultingIn_MultipleRebalances()
         {
             AVLTree<int> avlTree = new AVLTree<int>();
@@ -302,6 +302,58 @@
             Assert.AreEqual<int>(0, avlTree.Root.Left.Left.Left.Height);
             Assert.AreEqual<int>(0, avlTree.Root.Left.Left.Right.Height);
             Assert.AreEqual<int>(0, avlTree.Root.Right.Right.Right.Height);
+        }
+
+        #endregion
+
+        #region AVLTree.AssertTree
+
+        [TestMethod]
+        [TestCategory("AVLTree")]
+        public void Assert_ValidTree()
+        {
+            BinaryNode<int> root = new BinaryNode<int>(100);
+            root.Left = new BinaryNode<int>(50);
+            root.Right = new BinaryNode<int>(150);
+
+            AVLTree<int> bst = new AVLTree<int>();
+            bst.Root = root;
+
+            bst.AssertValidTree();
+        }
+
+        [TestMethod]
+        [TestCategory("AVLTree")]
+        [ExpectedException(typeof(InvalidTreeException))]
+        public void Assert_InvalidTree_Left()
+        {
+            BinaryNode<int> root = new BinaryNode<int>(100);
+            root.Left = new BinaryNode<int>(50);
+            root.Right = new BinaryNode<int>(150);
+            root.Left.Left = new BinaryNode<int>(30);
+            root.Left.Left.Left = new BinaryNode<int>(20);
+
+            AVLTree<int> bst = new AVLTree<int>();
+            bst.Root = root;
+
+            bst.AssertValidTree();
+        }
+
+        [TestMethod]
+        [TestCategory("AVLTree")]
+        [ExpectedException(typeof(InvalidTreeException))]
+        public void Assert_InvalidTree_Right()
+        {
+            BinaryNode<int> root = new BinaryNode<int>(100);
+            root.Left = new BinaryNode<int>(50);
+            root.Right = new BinaryNode<int>(150);
+            root.Right.Right = new BinaryNode<int>(160);
+            root.Right.Right.Right = new BinaryNode<int>(170);
+
+            AVLTree<int> bst = new AVLTree<int>();
+            bst.Root = root;
+
+            bst.AssertValidTree();
         }
 
         #endregion

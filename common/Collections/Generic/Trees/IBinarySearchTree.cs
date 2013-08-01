@@ -59,8 +59,7 @@
         /// Removes the node with the specified value from the list
         /// </summary>
         /// <param name="value">The value of the node that should be removed</param>
-        /// <returns>The node that was deleted from the tree</returns>
-        IBinaryNode<T> Delete(T value);
+        void Delete(T value);
 
         /// <summary>
         /// Returns the depth of the node with the given value in the tree. The depth of the root is 0
@@ -68,5 +67,7 @@
         /// <param name="value">The value of the node whose depth you want</param>
         /// <returns>The depth of the node with the given value</returns>
         int Depth(T value);
+
+        void AssertValidTree();
     }
 }
