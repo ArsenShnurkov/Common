@@ -1,4 +1,4 @@
-﻿namespace CommonTests.Collections.Generic
+﻿namespace CommonTestsInternal.Collections.Generic
 {
     using Common.Collections.Generic;
     using Microsoft.VisualStudio.TestTools.UnitTesting;

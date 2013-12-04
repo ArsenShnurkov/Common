@@ -6,8 +6,8 @@
     <ProjectGuid>{48579FC2-D1A2-4010-B980-2C76368E39E4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CommonTests</RootNamespace>
-    <AssemblyName>CommonTests</AssemblyName>
+    <RootNamespace>CommonTestsInternal</RootNamespace>
+    <AssemblyName>CommonTestsInternal</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -61,14 +61,20 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Collections\Generic\AVLTreeTests.cs" />
+    <Compile Include="Collections\Generic\AVLTreeTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Collections\Generic\BinaryNodeCommonTests.cs" />
-    <Compile Include="Collections\Generic\BinaryNodeTests.cs" />
+    <Compile Include="Collections\Generic\BinaryNodeTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\Generic\BinarySearchTreeTests.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Collections\Generic\RedBlackNodeTests.cs" />
     <Compile Include="Collections\Generic\RedBlackTreeTests.cs" />
     <Compile Include="Collections\Generic\SafeBinaryNodeTests.cs" />
     <Compile Include="Collections\Generic\SafeBinarySearchTreeTests.cs" />
-    <Compile Include="Collections\Generic\BinarySearchTreeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

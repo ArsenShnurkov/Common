@@ -1,4 +1,4 @@
-﻿namespace CommonTests.Collections.Generic
+﻿namespace CommonTestsInternal.Collections.Generic
 {
     using System;
     using Common.Collections.Generic;
@@ -220,108 +220,86 @@
 
         #endregion
 
-        #region BinarySearchTree.Find
+        #region BinarySearchTree.Contains
 
         [TestMethod]
         [TestCategory("BinarySearchTree")]
         [ExpectedException(typeof(TreeNotRootedException))]
-        public void Find_EmptyTree()
+        public void Contains_EmptyTree()
         {
             BinarySearchTree<int> b = new BinarySearchTree<int>();
-            b.Find(50);
+            b.Contains(50);
         }
 
         [TestMethod]
         [TestCategory("BinarySearchTree")]
-        [ExpectedException(typeof(NodeNotFoundException))]
-        public void Find_OnlyRoot_NotFound()
+        public void Contains_OnlyRoot_NotFound()
         {
             IBinarySearchTree<int> b = new BinarySearchTree<int>();
             b.Insert(50);
 
-            b.Find(60);
+            Assert.IsFalse(b.Contains(60));
         }
 
         [TestMethod]
         [TestCategory("BinarySearchTree")]
-        public void FindOrDefault_OnlyRoot_NotFound()
+        public void Contains_OnlyRoot_Found()
         {
             IBinarySearchTree<int> b = new BinarySearchTree<int>();
             b.Insert(50);
 
-            Assert.IsNull(b.FindOrDefault(60));
+            Assert.IsTrue(b.Contains(50));
         }
 
         [TestMethod]
         [TestCategory("BinarySearchTree")]
-        public void Find_OnlyRoot_Found()
-        {
-            IBinarySearchTree<int> b = new BinarySearchTree<int>();
-            b.Insert(50);
-
-            var result = b.Find(50);
-            Assert.IsNotNull(result);
-            Assert.AreEqual<int>(50, result.Value);
-        }
-
-        [TestMethod]
-        [TestCategory("BinarySearchTree")]
-        public void Find_Height_Equals_1_Found_Left()
+        public void Contains_Height_Equals_1_Found_Left()
         {
             IBinarySearchTree<int> b = new BinarySearchTree<int>();
             b.Insert(50);
             b.Insert(30);
 
-            var result = b.Find(30);
-            Assert.IsNotNull(result);
-            Assert.AreEqual<int>(30, result.Value);
+            Assert.IsTrue(b.Contains(30));
         }
 
         [TestMethod]
         [TestCategory("BinarySearchTree")]
-        public void Find_Height_Equals_1_Found_Right()
+        public void Contains_Height_Equals_1_Found_Right()
         {
             IBinarySearchTree<int> b = new BinarySearchTree<int>();
             b.Insert(50);
             b.Insert(70);
 
-            var result = b.Find(70);
-            Assert.IsNotNull(result);
-            Assert.AreEqual<int>(70, result.Value);
+            Assert.IsTrue(b.Contains(70));
         }
 
         [TestMethod]
         [TestCategory("BinarySearchTree")]
-        public void Find_Height_Equals_1_FullTree_Found_Left()
+        public void Contains_Height_Equals_1_FullTree_Found_Left()
         {
             IBinarySearchTree<int> b = new BinarySearchTree<int>();
             b.Insert(50);
             b.Insert(30);
             b.Insert(70);
 
-            var result = b.Find(30);
-            Assert.IsNotNull(result);
-            Assert.AreEqual<int>(30, result.Value);
+            Assert.IsTrue(b.Contains(30));
         }
 
         [TestMethod]
         [TestCategory("BinarySearchTree")]
-        public void Find_Height_Equals_1_FullTree_Found_Right()
+        public void Contains_Height_Equals_1_FullTree_Found_Right()
         {
             IBinarySearchTree<int> b = new BinarySearchTree<int>();
             b.Insert(50);
             b.Insert(30);
             b.Insert(70);
 
-            var result = b.Find(70);
-            Assert.IsNotNull(result);
-            Assert.AreEqual<int>(70, result.Value);
+            Assert.IsTrue(b.Contains(70));
         }
 
         [TestMethod]
         [TestCategory("BinarySearchTree")]
-        [ExpectedException(typeof(NodeNotFoundException))]
-        public void Find_BiggerTree_NotFound()
+        public void Contains_BiggerTree_NotFound()
         {
             IBinarySearchTree<int> b = new BinarySearchTree<int>();
             b.Insert(100);
@@ -337,13 +315,12 @@
             b.Insert(30);
             b.Insert(160);
 
-            b.Find(200);
+            Assert.IsFalse(b.Contains(200));
         }
 
         [TestMethod]
         [TestCategory("BinarySearchTree")]
-        [ExpectedException(typeof(NodeNotFoundException))]
-        public void FindOrDefault_BiggerTree_NotFound()
+        public void Contains_BiggerTree_Found()
         {
             IBinarySearchTree<int> b = new BinarySearchTree<int>();
             b.Insert(100);
@@ -359,55 +336,8 @@
             b.Insert(30);
             b.Insert(160);
 
-            Assert.IsNull(b.Find(200));
-        }
-
-        [TestMethod]
-        [TestCategory("BinarySearchTree")]
-        public void Find_BiggerTree_Found_Part1()
-        {
-            IBinarySearchTree<int> b = new BinarySearchTree<int>();
-            b.Insert(100);
-
-            b.Insert(50);
-            b.Insert(150);
-
-            b.Insert(25);
-            b.Insert(75);
-            b.Insert(125);
-            b.Insert(175);
-
-            b.Insert(30);
-            b.Insert(160);
-
-            var result = b.Find(75);
-
-            Assert.IsNotNull(result);
-            Assert.AreEqual<int>(75, result.Value);
-        }
-
-        [TestMethod]
-        [TestCategory("BinarySearchTree")]
-        public void Find_BiggerTree_Found_Part2()
-        {
-            IBinarySearchTree<int> b = new BinarySearchTree<int>();
-            b.Insert(100);
-
-            b.Insert(50);
-            b.Insert(150);
-
-            b.Insert(25);
-            b.Insert(75);
-            b.Insert(125);
-            b.Insert(175);
-
-            b.Insert(30);
-            b.Insert(160);
-
-            var result = b.Find(30);
-
-            Assert.IsNotNull(result);
-            Assert.AreEqual<int>(30, result.Value);
+            Assert.IsTrue(b.Contains(75));
+            Assert.IsTrue(b.Contains(30));
         }
 
         #endregion
@@ -926,7 +856,7 @@
         [TestCategory("BinarySearchTree")]
         public void Assert_ValidTree()
         {
-            BinaryNode<int> root = new BinaryNode<int>(100);
+            IInternalBinaryNode<int> root = new BinaryNode<int>(100);
             root.Left = new BinaryNode<int>(50);
             root.Right = new BinaryNode<int>(150);
 
@@ -941,7 +871,7 @@
         [ExpectedException(typeof(InvalidTreeException))]
         public void Assert_InvalidTree()
         {
-            BinaryNode<int> root = new BinaryNode<int>(100);
+            IInternalBinaryNode<int> root = new BinaryNode<int>(100);
             root.Right = new BinaryNode<int>(50);
             root.Left = new BinaryNode<int>(150);
 

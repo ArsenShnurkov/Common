@@ -1,4 +1,4 @@
-﻿namespace CommonTests.Collections.Generic
+﻿namespace CommonTestsInternal.Collections.Generic
 {
     using System;
     using Common.Collections.Generic;
@@ -16,11 +16,14 @@
         {
             RedBlackTree<int> b = new RedBlackTree<int>();
             b.Insert(50);
+
+            b.AssertValidTree();
+
             Assert.AreEqual<int>(0, b.Height);
             Assert.AreEqual<int>(0, b.Balance);
             Assert.AreEqual<int>(1, b.Count);
             Assert.AreEqual<int>(50, b.Root.Value);
-            Assert.AreEqual<Colour>(Colour.Black, b.RootRaw.Colour);
+            Assert.AreEqual<Colour>(Colour.Black, (b.Root as RedBlackNode<int>).Colour);
         }
 
         [TestMethod]
@@ -31,13 +34,15 @@
             b.Insert(50);
             b.Insert(25);
 
+            b.AssertValidTree();
+
             Assert.AreEqual<int>(1, b.Height);
             Assert.AreEqual<int>(1, b.Balance);
             Assert.AreEqual<int>(2, b.Count);
             Assert.AreEqual<int>(50, b.Root.Value);
             Assert.AreEqual<int>(25, b.Root.Left.Value);
-            Assert.AreEqual<Colour>(Colour.Black, b.RootRaw.Colour);
-            Assert.AreEqual<Colour>(Colour.Red, b.RootRaw.Left.Colour);
+            Assert.AreEqual<Colour>(Colour.Black, (b.Root as RedBlackNode<int>).Colour);
+            Assert.AreEqual<Colour>(Colour.Red, (b.Root as RedBlackNode<int>).Left.Colour);
         }
 
         [TestMethod]
@@ -48,13 +53,15 @@
             b.Insert(50);
             b.Insert(75);
 
+            b.AssertValidTree();
+
             Assert.AreEqual<int>(1, b.Height);
             Assert.AreEqual<int>(-1, b.Balance);
             Assert.AreEqual<int>(2, b.Count);
             Assert.AreEqual<int>(50, b.Root.Value);
             Assert.AreEqual<int>(75, b.Root.Right.Value);
-            Assert.AreEqual<Colour>(Colour.Black, b.RootRaw.Colour);
-            Assert.AreEqual<Colour>(Colour.Red, b.RootRaw.Right.Colour);
+            Assert.AreEqual<Colour>(Colour.Black, (b.Root as RedBlackNode<int>).Colour);
+            Assert.AreEqual<Colour>(Colour.Red, (b.Root as RedBlackNode<int>).Right.Colour);
         }
 
         [TestMethod]
@@ -66,12 +73,14 @@
             b.Insert(1);
             b.Insert(20);
 
+            b.AssertValidTree();
+
             Assert.AreEqual<int>(10, b.Root.Value);
-            Assert.AreEqual<Colour>(Colour.Black, b.RootRaw.Colour);
+            Assert.AreEqual<Colour>(Colour.Black, (b.Root as RedBlackNode<int>).Colour);
             Assert.AreEqual<int>(1, b.Root.Left.Value);
-            Assert.AreEqual<Colour>(Colour.Red, b.RootRaw.Left.Colour);
+            Assert.AreEqual<Colour>(Colour.Red, (b.Root as RedBlackNode<int>).Left.Colour);
             Assert.AreEqual<int>(20, b.Root.Right.Value);
-            Assert.AreEqual<Colour>(Colour.Red, b.RootRaw.Right.Colour);
+            Assert.AreEqual<Colour>(Colour.Red, (b.Root as RedBlackNode<int>).Right.Colour);
         }
 
 
@@ -84,15 +93,17 @@
             b.Insert(25);
             b.Insert(10);
 
+            b.AssertValidTree();
+
             Assert.AreEqual<int>(1, b.Height);
             Assert.AreEqual<int>(0, b.Balance);
             Assert.AreEqual<int>(3, b.Count);
             Assert.AreEqual<int>(25, b.Root.Value);
             Assert.AreEqual<int>(50, b.Root.Right.Value);
             Assert.AreEqual<int>(10, b.Root.Left.Value);
-            Assert.AreEqual<Colour>(Colour.Black, b.RootRaw.Colour);
-            Assert.AreEqual<Colour>(Colour.Red, b.RootRaw.Left.Colour);
-            Assert.AreEqual<Colour>(Colour.Red, b.RootRaw.Right.Colour);
+            Assert.AreEqual<Colour>(Colour.Black, (b.Root as RedBlackNode<int>).Colour);
+            Assert.AreEqual<Colour>(Colour.Red, (b.Root as RedBlackNode<int>).Left.Colour);
+            Assert.AreEqual<Colour>(Colour.Red, (b.Root as RedBlackNode<int>).Right.Colour);
         }
 
         [TestMethod]
@@ -104,15 +115,17 @@
             b.Insert(25);
             b.Insert(40);
 
+            b.AssertValidTree();
+
             Assert.AreEqual<int>(1, b.Height);
             Assert.AreEqual<int>(0, b.Balance);
             Assert.AreEqual<int>(3, b.Count);
             Assert.AreEqual<int>(40, b.Root.Value);
             Assert.AreEqual<int>(50, b.Root.Right.Value);
             Assert.AreEqual<int>(25, b.Root.Left.Value);
-            Assert.AreEqual<Colour>(Colour.Black, b.RootRaw.Colour);
-            Assert.AreEqual<Colour>(Colour.Red, b.RootRaw.Left.Colour);
-            Assert.AreEqual<Colour>(Colour.Red, b.RootRaw.Right.Colour);
+            Assert.AreEqual<Colour>(Colour.Black, (b.Root as RedBlackNode<int>).Colour);
+            Assert.AreEqual<Colour>(Colour.Red, (b.Root as RedBlackNode<int>).Left.Colour);
+            Assert.AreEqual<Colour>(Colour.Red, (b.Root as RedBlackNode<int>).Right.Colour);
         }
 
         [TestMethod]
@@ -124,15 +137,17 @@
             b.Insert(75);
             b.Insert(100);
 
+            b.AssertValidTree();
+
             Assert.AreEqual<int>(1, b.Height);
             Assert.AreEqual<int>(0, b.Balance);
             Assert.AreEqual<int>(3, b.Count);
             Assert.AreEqual<int>(75, b.Root.Value);
             Assert.AreEqual<int>(100, b.Root.Right.Value);
             Assert.AreEqual<int>(50, b.Root.Left.Value);
-            Assert.AreEqual<Colour>(Colour.Black, b.RootRaw.Colour);
-            Assert.AreEqual<Colour>(Colour.Red, b.RootRaw.Left.Colour);
-            Assert.AreEqual<Colour>(Colour.Red, b.RootRaw.Right.Colour);
+            Assert.AreEqual<Colour>(Colour.Black, (b.Root as RedBlackNode<int>).Colour);
+            Assert.AreEqual<Colour>(Colour.Red, (b.Root as RedBlackNode<int>).Left.Colour);
+            Assert.AreEqual<Colour>(Colour.Red, (b.Root as RedBlackNode<int>).Right.Colour);
         }
 
         [TestMethod]
@@ -144,15 +159,17 @@
             b.Insert(75);
             b.Insert(60);
 
+            b.AssertValidTree();
+
             Assert.AreEqual<int>(1, b.Height);
             Assert.AreEqual<int>(0, b.Balance);
             Assert.AreEqual<int>(3, b.Count);
             Assert.AreEqual<int>(60, b.Root.Value);
             Assert.AreEqual<int>(75, b.Root.Right.Value);
             Assert.AreEqual<int>(50, b.Root.Left.Value);
-            Assert.AreEqual<Colour>(Colour.Black, b.RootRaw.Colour);
-            Assert.AreEqual<Colour>(Colour.Red, b.RootRaw.Left.Colour);
-            Assert.AreEqual<Colour>(Colour.Red, b.RootRaw.Right.Colour);
+            Assert.AreEqual<Colour>(Colour.Black, (b.Root as RedBlackNode<int>).Colour);
+            Assert.AreEqual<Colour>(Colour.Red, (b.Root as RedBlackNode<int>).Left.Colour);
+            Assert.AreEqual<Colour>(Colour.Red, (b.Root as RedBlackNode<int>).Right.Colour);
         }
 
         [TestMethod]
@@ -165,6 +182,8 @@
             b.Insert(5);
             b.Insert(1);
 
+            b.AssertValidTree();
+
             Assert.AreEqual<int>(2, b.Height);
             Assert.AreEqual<int>(1, b.Balance);
             Assert.AreEqual<int>(4, b.Count);
@@ -172,10 +191,10 @@
             Assert.AreEqual<int>(20, b.Root.Right.Value);
             Assert.AreEqual<int>(5, b.Root.Left.Value);
             Assert.AreEqual<int>(1, b.Root.Left.Left.Value);
-            Assert.AreEqual<Colour>(Colour.Black, b.RootRaw.Colour);
-            Assert.AreEqual<Colour>(Colour.Black, b.RootRaw.Left.Colour);
-            Assert.AreEqual<Colour>(Colour.Black, b.RootRaw.Right.Colour);
-            Assert.AreEqual<Colour>(Colour.Red, b.RootRaw.Left.Left.Colour);
+            Assert.AreEqual<Colour>(Colour.Black, (b.Root as RedBlackNode<int>).Colour);
+            Assert.AreEqual<Colour>(Colour.Black, (b.Root as RedBlackNode<int>).Left.Colour);
+            Assert.AreEqual<Colour>(Colour.Black, (b.Root as RedBlackNode<int>).Right.Colour);
+            Assert.AreEqual<Colour>(Colour.Red, (b.Root as RedBlackNode<int>).Left.Left.Colour);
         }
 
         [TestMethod]
@@ -188,6 +207,8 @@
             b.Insert(5);
             b.Insert(30);
 
+            b.AssertValidTree();
+
             Assert.AreEqual<int>(2, b.Height);
             Assert.AreEqual<int>(-1, b.Balance);
             Assert.AreEqual<int>(4, b.Count);
@@ -195,10 +216,10 @@
             Assert.AreEqual<int>(20, b.Root.Right.Value);
             Assert.AreEqual<int>(5, b.Root.Left.Value);
             Assert.AreEqual<int>(30, b.Root.Right.Right.Value);
-            Assert.AreEqual<Colour>(Colour.Black, b.RootRaw.Colour);
-            Assert.AreEqual<Colour>(Colour.Black, b.RootRaw.Left.Colour);
-            Assert.AreEqual<Colour>(Colour.Black, b.RootRaw.Right.Colour);
-            Assert.AreEqual<Colour>(Colour.Red, b.RootRaw.Right.Right.Colour);
+            Assert.AreEqual<Colour>(Colour.Black, (b.Root as RedBlackNode<int>).Colour);
+            Assert.AreEqual<Colour>(Colour.Black, (b.Root as RedBlackNode<int>).Left.Colour);
+            Assert.AreEqual<Colour>(Colour.Black, (b.Root as RedBlackNode<int>).Right.Colour);
+            Assert.AreEqual<Colour>(Colour.Red, (b.Root as RedBlackNode<int>).Right.Right.Colour);
         }
 
         #endregion
@@ -221,6 +242,7 @@
             RedBlackTree<int> tree = new RedBlackTree<int>();
             tree.Insert(10);
             tree.Delete(10);
+            tree.AssertValidTree();
 
             Assert.AreEqual<int>(0, tree.Count);
             Assert.AreEqual<int>(0, tree.Balance);
@@ -235,12 +257,13 @@
             tree.Insert(10);
             tree.Insert(5);
             tree.Delete(10);
+            tree.AssertValidTree();
 
             Assert.AreEqual<int>(1, tree.Count);
             Assert.AreEqual<int>(0, tree.Balance);
             Assert.AreEqual<int>(0, tree.Height);
             Assert.AreEqual<int>(5, tree.Root.Value);
-            Assert.AreEqual<Colour>(Colour.Black, tree.RootRaw.Colour);
+            Assert.AreEqual<Colour>(Colour.Black, (tree.Root as RedBlackNode<int>).Colour);
         }
 
         [TestMethod]
@@ -251,12 +274,13 @@
             tree.Insert(10);
             tree.Insert(15);
             tree.Delete(10);
+            tree.AssertValidTree();
 
             Assert.AreEqual<int>(1, tree.Count);
             Assert.AreEqual<int>(0, tree.Balance);
             Assert.AreEqual<int>(0, tree.Height);
             Assert.AreEqual<int>(15, tree.Root.Value);
-            Assert.AreEqual<Colour>(Colour.Black, tree.RootRaw.Colour);
+            Assert.AreEqual<Colour>(Colour.Black, (tree.Root as RedBlackNode<int>).Colour);
         }
 
         [TestMethod]
@@ -268,14 +292,15 @@
             tree.Insert(5);
             tree.Insert(15);
             tree.Delete(10);
+            tree.AssertValidTree();
 
             Assert.AreEqual<int>(2, tree.Count);
             Assert.AreEqual<int>(-1, tree.Balance);
             Assert.AreEqual<int>(1, tree.Height);
             Assert.AreEqual<int>(5, tree.Root.Value);
-            Assert.AreEqual<Colour>(Colour.Black, tree.RootRaw.Colour);
+            Assert.AreEqual<Colour>(Colour.Black, (tree.Root as RedBlackNode<int>).Colour);
             Assert.AreEqual<int>(15, tree.Root.Right.Value);
-            Assert.AreEqual<Colour>(Colour.Red, tree.RootRaw.Right.Colour);
+            Assert.AreEqual<Colour>(Colour.Red, (tree.Root as RedBlackNode<int>).Right.Colour);
         }
 
         [TestMethod]
@@ -287,14 +312,15 @@
             tree.Insert(5);
             tree.Insert(15);
             tree.Delete(5);
+            tree.AssertValidTree();
 
             Assert.AreEqual<int>(2, tree.Count);
             Assert.AreEqual<int>(-1, tree.Balance);
             Assert.AreEqual<int>(1, tree.Height);
             Assert.AreEqual<int>(10, tree.Root.Value);
-            Assert.AreEqual<Colour>(Colour.Black, tree.RootRaw.Colour);
+            Assert.AreEqual<Colour>(Colour.Black, (tree.Root as RedBlackNode<int>).Colour);
             Assert.AreEqual<int>(15, tree.Root.Right.Value);
-            Assert.AreEqual<Colour>(Colour.Red, tree.RootRaw.Right.Colour);
+            Assert.AreEqual<Colour>(Colour.Red, (tree.Root as RedBlackNode<int>).Right.Colour);
         }
 
         [TestMethod]
@@ -306,14 +332,15 @@
             tree.Insert(5);
             tree.Insert(15);
             tree.Delete(15);
+            tree.AssertValidTree();
 
             Assert.AreEqual<int>(2, tree.Count);
             Assert.AreEqual<int>(1, tree.Balance);
             Assert.AreEqual<int>(1, tree.Height);
             Assert.AreEqual<int>(10, tree.Root.Value);
-            Assert.AreEqual<Colour>(Colour.Black, tree.RootRaw.Colour);
+            Assert.AreEqual<Colour>(Colour.Black, (tree.Root as RedBlackNode<int>).Colour);
             Assert.AreEqual<int>(5, tree.Root.Left.Value);
-            Assert.AreEqual<Colour>(Colour.Red, tree.RootRaw.Left.Colour);
+            Assert.AreEqual<Colour>(Colour.Red, (tree.Root as RedBlackNode<int>).Left.Colour);
         }
 
         [TestMethod]
@@ -330,23 +357,25 @@
 
             tree.Delete(1); // delete the black 1 requiring a left rebalance
 
+            tree.AssertValidTree();
+
             Assert.AreEqual<int>(5, tree.Count);
             Assert.AreEqual<int>(0, tree.Balance);
             Assert.AreEqual<int>(2, tree.Height);
 
             Assert.AreEqual<int>(4, tree.Root.Value);
-            Assert.AreEqual<Colour>(Colour.Black, tree.RootRaw.Colour);
+            Assert.AreEqual<Colour>(Colour.Black, (tree.Root as RedBlackNode<int>).Colour);
 
             Assert.AreEqual<int>(2, tree.Root.Left.Value);
-            Assert.AreEqual<Colour>(Colour.Black, tree.RootRaw.Left.Colour);
+            Assert.AreEqual<Colour>(Colour.Black, (tree.Root as RedBlackNode<int>).Left.Colour);
             Assert.AreEqual<int>(5, tree.Root.Right.Value);
-            Assert.AreEqual<Colour>(Colour.Black, tree.RootRaw.Right.Colour);
+            Assert.AreEqual<Colour>(Colour.Black, (tree.Root as RedBlackNode<int>).Right.Colour);
 
             Assert.AreEqual<int>(3, tree.Root.Left.Right.Value);
-            Assert.AreEqual<Colour>(Colour.Red, tree.RootRaw.Left.Right.Colour);
+            Assert.AreEqual<Colour>(Colour.Red, (tree.Root as RedBlackNode<int>).Left.Right.Colour);
 
             Assert.AreEqual<int>(6, tree.Root.Right.Right.Value);
-            Assert.AreEqual<Colour>(Colour.Red, tree.RootRaw.Right.Right.Colour);
+            Assert.AreEqual<Colour>(Colour.Red, (tree.Root as RedBlackNode<int>).Right.Right.Colour);
         }
 
         [TestMethod]
@@ -363,23 +392,25 @@
 
             tree.Delete(6); // delete the black 6 requiring a right rebalance
 
+            tree.AssertValidTree();
+
             Assert.AreEqual<int>(5, tree.Count);
             Assert.AreEqual<int>(0, tree.Balance);
             Assert.AreEqual<int>(2, tree.Height);
 
             Assert.AreEqual<int>(3, tree.Root.Value);
-            Assert.AreEqual<Colour>(Colour.Black, tree.RootRaw.Colour);
+            Assert.AreEqual<Colour>(Colour.Black, (tree.Root as RedBlackNode<int>).Colour);
 
             Assert.AreEqual<int>(2, tree.Root.Left.Value);
-            Assert.AreEqual<Colour>(Colour.Black, tree.RootRaw.Left.Colour);
+            Assert.AreEqual<Colour>(Colour.Black, (tree.Root as RedBlackNode<int>).Left.Colour);
             Assert.AreEqual<int>(5, tree.Root.Right.Value);
-            Assert.AreEqual<Colour>(Colour.Black, tree.RootRaw.Right.Colour);
+            Assert.AreEqual<Colour>(Colour.Black, (tree.Root as RedBlackNode<int>).Right.Colour);
 
             Assert.AreEqual<int>(4, tree.Root.Right.Left.Value);
-            Assert.AreEqual<Colour>(Colour.Red, tree.RootRaw.Right.Left.Colour);
+            Assert.AreEqual<Colour>(Colour.Red, (tree.Root as RedBlackNode<int>).Right.Left.Colour);
 
             Assert.AreEqual<int>(1, tree.Root.Left.Left.Value);
-            Assert.AreEqual<Colour>(Colour.Red, tree.RootRaw.Left.Left.Colour);
+            Assert.AreEqual<Colour>(Colour.Red, (tree.Root as RedBlackNode<int>).Left.Left.Colour);
         }
 
         [TestMethod]
@@ -398,26 +429,28 @@
 
             tree.Delete(7); // delete the black 6 requiring a right rebalance
 
+            tree.AssertValidTree();
+
             Assert.AreEqual<int>(7, tree.Count);
             Assert.AreEqual<int>(0, tree.Balance);
             Assert.AreEqual<int>(2, tree.Height);
 
             Assert.AreEqual<int>(10, tree.Root.Value);
-            Assert.AreEqual<Colour>(Colour.Black, tree.RootRaw.Colour);
+            Assert.AreEqual<Colour>(Colour.Black, (tree.Root as RedBlackNode<int>).Colour);
 
             Assert.AreEqual<int>(5, tree.Root.Left.Value);
-            Assert.AreEqual<Colour>(Colour.Red, tree.RootRaw.Left.Colour);
+            Assert.AreEqual<Colour>(Colour.Red, (tree.Root as RedBlackNode<int>).Left.Colour);
             Assert.AreEqual<int>(20, tree.Root.Right.Value);
-            Assert.AreEqual<Colour>(Colour.Black, tree.RootRaw.Right.Colour);
+            Assert.AreEqual<Colour>(Colour.Black, (tree.Root as RedBlackNode<int>).Right.Colour);
 
             Assert.AreEqual<int>(1, tree.Root.Left.Left.Value);
-            Assert.AreEqual<Colour>(Colour.Black, tree.RootRaw.Left.Left.Colour);
+            Assert.AreEqual<Colour>(Colour.Black, (tree.Root as RedBlackNode<int>).Left.Left.Colour);
             Assert.AreEqual<int>(9, tree.Root.Left.Right.Value);
-            Assert.AreEqual<Colour>(Colour.Black, tree.RootRaw.Left.Right.Colour);
+            Assert.AreEqual<Colour>(Colour.Black, (tree.Root as RedBlackNode<int>).Left.Right.Colour);
             Assert.AreEqual<int>(15, tree.Root.Right.Left.Value);
-            Assert.AreEqual<Colour>(Colour.Red, tree.RootRaw.Right.Left.Colour);
+            Assert.AreEqual<Colour>(Colour.Red, (tree.Root as RedBlackNode<int>).Right.Left.Colour);
             Assert.AreEqual<int>(25, tree.Root.Right.Right.Value);
-            Assert.AreEqual<Colour>(Colour.Red, tree.RootRaw.Right.Right.Colour);
+            Assert.AreEqual<Colour>(Colour.Red, (tree.Root as RedBlackNode<int>).Right.Right.Colour);
         }
 
         [TestMethod]
@@ -436,26 +469,28 @@
 
             tree.Delete(15); // delete the black 6 requiring a right rebalance
 
+            tree.AssertValidTree();
+
             Assert.AreEqual<int>(7, tree.Count);
             Assert.AreEqual<int>(0, tree.Balance);
             Assert.AreEqual<int>(2, tree.Height);
 
             Assert.AreEqual<int>(10, tree.Root.Value);
-            Assert.AreEqual<Colour>(Colour.Black, tree.RootRaw.Colour);
+            Assert.AreEqual<Colour>(Colour.Black, (tree.Root as RedBlackNode<int>).Colour);
 
             Assert.AreEqual<int>(5, tree.Root.Left.Value);
-            Assert.AreEqual<Colour>(Colour.Black, tree.RootRaw.Left.Colour);
+            Assert.AreEqual<Colour>(Colour.Black, (tree.Root as RedBlackNode<int>).Left.Colour);
             Assert.AreEqual<int>(20, tree.Root.Right.Value);
-            Assert.AreEqual<Colour>(Colour.Red, tree.RootRaw.Right.Colour);
+            Assert.AreEqual<Colour>(Colour.Red, (tree.Root as RedBlackNode<int>).Right.Colour);
 
             Assert.AreEqual<int>(1, tree.Root.Left.Left.Value);
-            Assert.AreEqual<Colour>(Colour.Red, tree.RootRaw.Left.Left.Colour);
+            Assert.AreEqual<Colour>(Colour.Red, (tree.Root as RedBlackNode<int>).Left.Left.Colour);
             Assert.AreEqual<int>(7, tree.Root.Left.Right.Value);
-            Assert.AreEqual<Colour>(Colour.Red, tree.RootRaw.Left.Right.Colour);
+            Assert.AreEqual<Colour>(Colour.Red, (tree.Root as RedBlackNode<int>).Left.Right.Colour);
             Assert.AreEqual<int>(12, tree.Root.Right.Left.Value);
-            Assert.AreEqual<Colour>(Colour.Black, tree.RootRaw.Right.Left.Colour);
+            Assert.AreEqual<Colour>(Colour.Black, (tree.Root as RedBlackNode<int>).Right.Left.Colour);
             Assert.AreEqual<int>(25, tree.Root.Right.Right.Value);
-            Assert.AreEqual<Colour>(Colour.Black, tree.RootRaw.Right.Right.Colour);
+            Assert.AreEqual<Colour>(Colour.Black, (tree.Root as RedBlackNode<int>).Right.Right.Colour);
         }
 
         [TestMethod]
@@ -474,26 +509,28 @@
 
             tree.Delete(10); // delete the black 6 requiring a right rebalance
 
+            tree.AssertValidTree();
+
             Assert.AreEqual<int>(7, tree.Count);
             Assert.AreEqual<int>(0, tree.Balance);
             Assert.AreEqual<int>(2, tree.Height);
 
             Assert.AreEqual<int>(50, tree.Root.Value);
-            Assert.AreEqual<Colour>(Colour.Black, tree.RootRaw.Colour);
+            Assert.AreEqual<Colour>(Colour.Black, (tree.Root as RedBlackNode<int>).Colour);
 
             Assert.AreEqual<int>(30, tree.Root.Left.Value);
-            Assert.AreEqual<Colour>(Colour.Red, tree.RootRaw.Left.Colour);
+            Assert.AreEqual<Colour>(Colour.Red, (tree.Root as RedBlackNode<int>).Left.Colour);
             Assert.AreEqual<int>(100, tree.Root.Right.Value);
-            Assert.AreEqual<Colour>(Colour.Black, tree.RootRaw.Right.Colour);
+            Assert.AreEqual<Colour>(Colour.Black, (tree.Root as RedBlackNode<int>).Right.Colour);
 
             Assert.AreEqual<int>(25, tree.Root.Left.Left.Value);
-            Assert.AreEqual<Colour>(Colour.Black, tree.RootRaw.Left.Left.Colour);
+            Assert.AreEqual<Colour>(Colour.Black, (tree.Root as RedBlackNode<int>).Left.Left.Colour);
             Assert.AreEqual<int>(40, tree.Root.Left.Right.Value);
-            Assert.AreEqual<Colour>(Colour.Black, tree.RootRaw.Left.Right.Colour);
+            Assert.AreEqual<Colour>(Colour.Black, (tree.Root as RedBlackNode<int>).Left.Right.Colour);
             Assert.AreEqual<int>(75, tree.Root.Right.Left.Value);
-            Assert.AreEqual<Colour>(Colour.Red, tree.RootRaw.Right.Left.Colour);
+            Assert.AreEqual<Colour>(Colour.Red, (tree.Root as RedBlackNode<int>).Right.Left.Colour);
             Assert.AreEqual<int>(150, tree.Root.Right.Right.Value);
-            Assert.AreEqual<Colour>(Colour.Red, tree.RootRaw.Right.Right.Colour);
+            Assert.AreEqual<Colour>(Colour.Red, (tree.Root as RedBlackNode<int>).Right.Right.Colour);
         }
 
         [TestMethod]
@@ -512,26 +549,28 @@
 
             tree.Delete(150); // delete the black 6 requiring a right rebalance
 
+            tree.AssertValidTree();
+
             Assert.AreEqual<int>(7, tree.Count);
             Assert.AreEqual<int>(0, tree.Balance);
             Assert.AreEqual<int>(2, tree.Height);
 
             Assert.AreEqual<int>(50, tree.Root.Value);
-            Assert.AreEqual<Colour>(Colour.Black, tree.RootRaw.Colour);
+            Assert.AreEqual<Colour>(Colour.Black, (tree.Root as RedBlackNode<int>).Colour);
 
             Assert.AreEqual<int>(25, tree.Root.Left.Value);
-            Assert.AreEqual<Colour>(Colour.Black, tree.RootRaw.Left.Colour);
+            Assert.AreEqual<Colour>(Colour.Black, (tree.Root as RedBlackNode<int>).Left.Colour);
             Assert.AreEqual<int>(80, tree.Root.Right.Value);
-            Assert.AreEqual<Colour>(Colour.Red, tree.RootRaw.Right.Colour);
+            Assert.AreEqual<Colour>(Colour.Red, (tree.Root as RedBlackNode<int>).Right.Colour);
 
             Assert.AreEqual<int>(10, tree.Root.Left.Left.Value);
-            Assert.AreEqual<Colour>(Colour.Red, tree.RootRaw.Left.Left.Colour);
+            Assert.AreEqual<Colour>(Colour.Red, (tree.Root as RedBlackNode<int>).Left.Left.Colour);
             Assert.AreEqual<int>(40, tree.Root.Left.Right.Value);
-            Assert.AreEqual<Colour>(Colour.Red, tree.RootRaw.Left.Right.Colour);
+            Assert.AreEqual<Colour>(Colour.Red, (tree.Root as RedBlackNode<int>).Left.Right.Colour);
             Assert.AreEqual<int>(75, tree.Root.Right.Left.Value);
-            Assert.AreEqual<Colour>(Colour.Black, tree.RootRaw.Right.Left.Colour);
+            Assert.AreEqual<Colour>(Colour.Black, (tree.Root as RedBlackNode<int>).Right.Left.Colour);
             Assert.AreEqual<int>(100, tree.Root.Right.Right.Value);
-            Assert.AreEqual<Colour>(Colour.Black, tree.RootRaw.Right.Right.Colour);
+            Assert.AreEqual<Colour>(Colour.Black, (tree.Root as RedBlackNode<int>).Right.Right.Colour);
         }
 
         #endregion

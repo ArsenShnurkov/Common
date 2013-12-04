@@ -51,17 +51,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collections\Generic\Exceptions\InvalidTreeException.cs" />
-    <Compile Include="Collections\Generic\Nodes\SafeBinaryNode.cs" />
     <Compile Include="Collections\Generic\Nodes\BinaryNodeCommon.cs" />
-    <Compile Include="Collections\Generic\Nodes\Colour.cs" />
-    <Compile Include="Collections\Generic\Nodes\IBinaryNode.cs" />
     <Compile Include="Collections\Generic\Nodes\IInternalBinaryNode.cs" />
-    <Compile Include="Collections\Generic\Nodes\INode.cs" />
-    <Compile Include="Collections\Generic\Nodes\RedBlackNode.cs" />
-    <Compile Include="Collections\Generic\Trees\AVLTree.cs" />
+    <Compile Include="Collections\Generic\Nodes\RedBlackNode.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\Generic\Nodes\SafeBinaryNode.cs" />
+    <Compile Include="Collections\Generic\Nodes\Colour.cs" />
     <Compile Include="Collections\Generic\Nodes\BinaryNode.cs" />
     <Compile Include="Collections\Generic\Exceptions\NodeNotFoundException.cs" />
     <Compile Include="Collections\Generic\Exceptions\TreeNotRootedException.cs" />
+    <Compile Include="Collections\Generic\Trees\AVLTree.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Collections\Generic\Trees\BinarySearchTree.IEnumerable.cs" />
     <Compile Include="Collections\Generic\Trees\BinarySearchTree.ICollection.cs" />
     <Compile Include="Collections\Generic\Trees\RedBlackTree.cs" />

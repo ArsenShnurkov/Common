@@ -111,59 +111,6 @@
 
         #endregion
 
-        #region Find
-
-        /// <summary>
-        /// Looks for a node with a matching value in this tree. Returns null if not found
-        /// 
-        /// O(log n)
-        /// </summary>
-        /// <param name="value">The value of the node to find</param>
-        /// <returns>
-        /// null if the node was not found
-        /// or the node if it was found
-        /// </returns>
-        public IBinaryNode<T> FindOrDefault(T value)
-        {
-            if (this.Root == null)
-                throw new TreeNotRootedException();
-
-            SafeBinaryNode<T> current = this.Root;
-            while (current != null)
-            {
-                int compareResult = current.Value.CompareTo(value);
-                if (compareResult == 0)
-                    break;
-                else if (compareResult > 0)
-                    current = current.Left;
-                else
-                    current = current.Right;
-            }
-
-            return current;
-        }
-
-        /// <summary>
-        /// Looks for a node with a matching value in this tree. Throws a NodeNotFoundException if the node was not located
-        /// 
-        /// O(log n)
-        /// </summary>
-        /// <param name="value">The value of the node to find</param>
-        /// <returns>
-        /// the node that was found
-        /// </returns>
-        public IBinaryNode<T> Find(T value)
-        {
-            IBinaryNode<T> result = this.FindOrDefault(value);
-
-            if (result != null)
-                return result;
-            else
-                throw new NodeNotFoundException(Errors.NotFound);
-        }
-
-        #endregion
-
         #region Insert
 
         /// <summary>
@@ -283,7 +230,7 @@
             }
             else // if both children not null
             {
-                IInternalBinaryNode<T> swapNode = BinaryNodeCommon.InOrderPredecessor(node);
+                SafeBinaryNode<T> swapNode = node.InOrderPredecessor;
                 if (swapNode == null)
                     throw new InvalidOperationException(Errors.NoSwapNode);
 

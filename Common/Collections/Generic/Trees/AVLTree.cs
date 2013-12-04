@@ -89,9 +89,9 @@
             // Into a Root -> Right -> Right sub tree maintaining order
             // So that we can do the standard rotate
             if (parent.Right.Balance > 0)
-                parent.Right = BinaryNodeCommon.RotateRight(parent.Right);
+                parent.Right = parent.Right.RotateRight();
 
-            return BinaryNodeCommon.RotateLeft(parent);
+            return parent.RotateLeft();
         }
 
         /// <summary>
@@ -104,9 +104,9 @@
             // Into a Root -> Left -> Left sub tree maintaining order
             // So that we can do the standard rotate
             if (parent.Left.Balance < 0)
-                parent.Left = BinaryNodeCommon.RotateLeft(parent.Left);
+                parent.Left = parent.Left.RotateLeft();
 
-            return BinaryNodeCommon.RotateRight(parent);
+            return parent.RotateRight();
         }
 
         #endregion

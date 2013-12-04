@@ -2,35 +2,29 @@
 {
     using System.Collections.Generic;
 
-    public sealed class SafeBinaryNode<T> : INode<T>, IBinaryNode<T>, IInternalBinaryNode<T>
+    internal sealed class SafeBinaryNode<T>
     {
         /// <summary>
         /// Creates a new instance of a Common.Collections.Generic.BinaryNode<T>
         /// </summary>
         /// <param name="value">The data value that this node will contain</param>
-        public SafeBinaryNode(T value)
+        internal SafeBinaryNode(T value)
         {
             this.Value      = value;
         }
 
         #region Properties
 
-        public T Value { get; internal set; }
+        internal T Value { get; set; }
 
-        /// <summary>
-        /// Points to a the left sub tree of this node
-        /// </summary>
-        public SafeBinaryNode<T> Left { get; internal set; }
+        internal SafeBinaryNode<T> Left { get; set; }
+        internal SafeBinaryNode<T> Right { get; set; }
 
-        /// <summary>
-        /// Points to the right sub tree of this node
-        /// </summary>
-        public SafeBinaryNode<T> Right { get; internal set; }
 
         /// <summary>
         /// Returns true if this node has no neighbours
         /// </summary>
-        public bool IsLeaf
+        internal bool IsLeaf
         {
             get
             {
@@ -43,7 +37,7 @@
         /// 
         /// O(log n)
         /// </summary>
-        public int Height
+        internal int Height
         {
             get
             {
@@ -82,92 +76,59 @@
         /// O(log n) when one or more heights below this one aren't cached
         /// O(1) otherwise
         /// </summary>
-        public int Balance
+        internal int Balance
         {
             get
             {
-                return BinaryNodeCommon.GetNodeBalance(this);
+                int balance;
+                if (this.IsLeaf)
+                    balance = 0;
+                else if (this.Right == null)
+                    balance = this.Left.Height + 1;
+                else if (this.Left == null)
+                    balance = -1 - this.Right.Height;
+                else
+                    balance = this.Left.Height - this.Right.Height;
+                return balance;
+            }
+        }
+
+        internal SafeBinaryNode<T> InOrderPredecessor
+        {
+            get
+            {
+                SafeBinaryNode<T> previous = null;
+                SafeBinaryNode<T> current = this.Left;
+                while (current != null)
+                {
+                    previous = current;
+                    current = current.Right;
+                }
+
+                return previous;
+            }
+        }
+
+        internal SafeBinaryNode<T> InOrderSuccessor
+        {
+            get
+            {
+                SafeBinaryNode<T> previous = null;
+                SafeBinaryNode<T> current = this.Right;
+                while (current != null)
+                {
+                    previous = current;
+                    current = current.Left;
+                }
+
+                return previous;
             }
         }
 
         #endregion
 
-        #region IInternalBinaryNode Explicit Implementation
-
-        T IInternalBinaryNode<T>.Value
-        {
-            get { return this.Value; }
-            set { this.Value = value; }
-        }
-
-        /// <summary>
-        /// Points to a the left sub tree of this node
-        /// </summary>
-        IInternalBinaryNode<T> IInternalBinaryNode<T>.Left
-        {
-            get { return this.Left; }
-            set { this.Left = value as SafeBinaryNode<T>; }
-        }
-
-        /// <summary>
-        /// Points to a the right sub tree of this node
-        /// </summary>
-        IInternalBinaryNode<T> IInternalBinaryNode<T>.Right
-        {
-            get { return this.Right; }
-            set { this.Right = value as SafeBinaryNode<T>; }
-        }
-
-        /// <summary>
-        /// Marks the height of the node to be recalculated next time it is accessed
-        /// </summary>
-        void IInternalBinaryNode<T>.ResetHeight()
-        {
-        }
-
-        #endregion
-
-        #region IBinaryNode Explicit Implementation
-
-        /// <summary>
-        /// Points to a the left sub tree of this node
-        /// </summary>
-        IBinaryNode<T> IBinaryNode<T>.Left
-        {
-            get { return this.Left; }
-        }
-
-        /// <summary>
-        /// Points to a the right sub tree of this node
-        /// </summary>
-        IBinaryNode<T> IBinaryNode<T>.Right
-        {
-            get { return this.Right; }
-        }
-
-        #endregion
-
-        #region INode Explicit Implementation
-
-        /// <summary>
-        /// Returns an enumerable list of neighbouring ndoes
-        /// </summary>
-        IEnumerable<INode<T>> INode<T>.Neighbours
-        {
-            get { return new IBinaryNode<T>[2] { this.Left, this.Right }; }
-        }
-
-        #endregion
-
         #region Methods
-
-        /// <summary>
-        /// Marks the height of the node to be recalculated next time it is accessed
-        /// </summary>
-        internal void ResetHeight()
-        {
-        }
-
+        
         public override string ToString()
         {
             string format = "{0}; Left={1}; Right={2}";

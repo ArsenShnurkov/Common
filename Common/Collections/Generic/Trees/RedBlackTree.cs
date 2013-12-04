@@ -9,19 +9,6 @@
         {
         }
 
-        #region Properties
-
-        /// <summary>
-        /// Returns the root of the red black tree casted to a RedBlackNode so we can
-        /// access it's colour more easily.
-        /// </summary>
-        internal RedBlackNode<T> RootRaw
-        {
-            get { return base.Root as RedBlackNode<T>; }
-        }
-
-        #endregion
-
         #region Insert
 
         /// <summary>
@@ -31,13 +18,14 @@
         /// 
         /// O(log n)
         /// </summary>
-        public new void Insert(T value)
+        public override void Insert(T value)
         {
-            RedBlackNode<T> node = new RedBlackNode<T>(value);
+            IInternalBinaryNode<T> node = new RedBlackNode<T>(value);
             this.Root = this.Insert(this.Root, node);
 
-            if (this.RootRaw.Colour == Colour.Red)
-                this.RootRaw.Colour = Colour.Black;
+            RedBlackNode<T> rootRaw = this.Root as RedBlackNode<T>;
+            if (rootRaw.Colour == Colour.Red)
+                rootRaw.Colour = Colour.Black;
         }
 
         /// <summary>
@@ -49,28 +37,15 @@
         /// <returns>The new root of the tree as it may have changed</returns>
         internal override IInternalBinaryNode<T> Insert(IInternalBinaryNode<T> root, IInternalBinaryNode<T> node)
         {
-            return this.Insert(root as RedBlackNode<T>, node as RedBlackNode<T>);
-        }
-
-        /// <summary>
-        /// Inserts the given node underneath the given root according to the BinarySearchTree algorithm and then
-        /// rebalances the tree according to the red-black tree rules
-        /// </summary>
-        /// <param name="root">The root node of the tree</param>
-        /// <param name="node">The node to insert</param>
-        /// <returns>The new root of the tree as it may have changed</returns>
-        private RedBlackNode<T> Insert(RedBlackNode<T> root, RedBlackNode<T> node)
-        {
-            root = base.Insert(root, node) as RedBlackNode<T>;
+            root = base.Insert(root, node);
 
             if (root.Value.CompareTo(node.Value) > 0)
-                root = Insert_Case1_LeftTwoRedChidren(root);
+                root = Insert_Case1_LeftTwoRedChidren(root as RedBlackNode<T>);
             else
-                root = Insert_Case1_RightTwoRedChidren(root);
+                root = Insert_Case1_RightTwoRedChidren(root as RedBlackNode<T>);
 
             return root;
         }
-
 
         /// <summary>
         /// Deals with the case where after inserting a node to the left, a node has two red children. If this case is not matched we move on to case 2
@@ -392,16 +367,6 @@
             root.Right.Colour = Colour.Black;
         }
 
-        #endregion
-
-        public override void AssertValidTree()
-        {
-            base.AssertValidTree();
-
-            int numBlack;
-            this.AssertValidTree(this.RootRaw, out  numBlack);
-        }
-
         private void AssertValidTree(RedBlackNode<T> root, out int numBlack)
         {
             if (root == null)
@@ -430,6 +395,16 @@
                 else
                     numBlack = leftBlack + 1;
             }
+        }
+
+        #endregion
+
+        public override void AssertValidTree()
+        {
+            base.AssertValidTree();
+
+            int numBlack;
+            this.AssertValidTree(this.Root as RedBlackNode<T>, out  numBlack);
         }
     }
 }

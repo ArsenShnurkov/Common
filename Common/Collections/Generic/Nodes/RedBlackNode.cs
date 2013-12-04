@@ -1,21 +1,27 @@
 ﻿namespace Common.Collections.Generic
 {
+    using System;
     using System.Collections.Generic;
 
-    public class RedBlackNode<T> : IBinaryNode<T>, IInternalBinaryNode<T>
+    internal class RedBlackNode<T> : IInternalBinaryNode<T>
     {
-        public RedBlackNode(T value)
+        internal RedBlackNode(T value)
         {
-            this.Left       = null;
-            this.Right      = null;
-            this.Colour     = Colour.Red;
-            this.Value      = value;
-            this._height    = null;
+            this.Colour = Colour.Red;
+            this.Left = null;
+            this.Right = null;
+            this._height = null;
+            this.Value = value;
         }
 
         #region Properties
 
-        public T Value { get; internal set; }
+        internal T Value { get; set; }
+        T IInternalBinaryNode<T>.Value
+        {
+            get { return this.Value; }
+            set { this.Value = Value; }
+        }
 
         /// <summary>
         /// The colour of the node.
@@ -25,76 +31,95 @@
         /// <summary>
         /// Points to a the left sub tree of this node
         /// </summary>
-        public RedBlackNode<T> Left { get; internal set; }
+        internal RedBlackNode<T> Left { get; set; }
+
+        /// <summary>
+        /// Points to a the left sub tree of this node
+        /// </summary>
+        IInternalBinaryNode<T> IInternalBinaryNode<T>.Left
+        {
+            get { return this.Left; }
+            set { this.Left = (RedBlackNode<T>)value; }
+        }
 
         /// <summary>
         /// Points to a the right sub tree of this node
         /// </summary>
-        public RedBlackNode<T> Right { get; internal set; }
-
-        private int? _height;
+        internal RedBlackNode<T> Right { get; set; }
 
         /// <summary>
-        /// The height of the tree.
-        /// 
-        /// O(1) - When cached
-        /// O(log n) - Otherwise
+        /// Points to a the right sub tree of this node
         /// </summary>
-        public int Height
+        IInternalBinaryNode<T> IInternalBinaryNode<T>.Right
         {
-            get
-            {
-                if (!this._height.HasValue)
-                {
-                    this._height = BinaryNodeCommon.GetHeight(this);
-                }
-
-                return this._height.Value;
-            }
-        }
-
-        /// <summary>
-        /// The balance of the tree. Root.Balance = Root.Left.Height - Root.Right.Height
-        /// 
-        /// O(log n) when one or more heights below this one aren't cached
-        /// O(1) otherwise
-        /// </summary>
-        public int Balance
-        {
-            get
-            {
-                int balance = BinaryNodeCommon.GetNodeBalance(this);
-
-                return balance;
-            }
+            get { return this.Right; }
+            set { this.Right = (RedBlackNode<T>)value; }
         }
 
         /// <summary>
         /// Returns true if this node has no neighbours
         /// </summary>
-        public bool IsLeaf
+        internal bool IsLeaf
+        {
+            get { return (this.Left == null && this.Right == null); }
+        }
+
+        /// <summary>
+        /// Returns true if this node has no neighbours
+        /// </summary>
+        bool IInternalBinaryNode<T>.IsLeaf
+        {
+            get { return this.IsLeaf; }
+        }
+
+        private int? _height;
+
+        /// <summary>
+        /// The height of the node.
+        /// 
+        /// O(1) - When cached
+        /// O(log n) - Otherwise
+        /// </summary>
+        int IInternalBinaryNode<T>.Height
         {
             get
             {
-                return (this.Left == null && this.Right == null);
+                if (!this._height.HasValue)
+                    this._height = BinaryNodeCommon.GetHeight(this);
+
+                return this._height.Value;
+            }
+        }
+        
+        /// <summary>
+        /// The balance of the node. Node.Balance = Node.Left.Height - Node.Right.Height
+        /// 
+        /// O(log n) when one or more heights below this one aren't cached
+        /// O(1) otherwise
+        /// </summary>
+        int IInternalBinaryNode<T>.Balance
+        {
+            get
+            {
+                return BinaryNodeCommon.GetNodeBalance(this);
             }
         }
 
-        public RedBlackNode<T> InOrderPredecessor
+        internal RedBlackNode<T> InOrderPredecessor
         {
             get { return BinaryNodeCommon.InOrderPredecessor(this) as RedBlackNode<T>; }
         }
 
-        public RedBlackNode<T> InOrderSuccessor
+        IInternalBinaryNode<T> IInternalBinaryNode<T>.InOrderPredecessor
         {
-            get { return BinaryNodeCommon.InOrderSuccessor(this) as RedBlackNode<T>; }
+            get { return BinaryNodeCommon.InOrderPredecessor(this); }
         }
 
-        public IEnumerable<RedBlackNode<T>> Neighbours
+        IInternalBinaryNode<T> IInternalBinaryNode<T>.InOrderSuccessor
         {
-            get { return new RedBlackNode<T>[2] { this.Left, this.Right }; }
+            get { return BinaryNodeCommon.InOrderSuccessor(this); }
         }
-
+        
         #endregion
 
         #region Rotations
@@ -105,10 +130,28 @@
         /// <returns>The new root of the tree</returns>
         internal RedBlackNode<T> RotateLeft()
         {
-            RedBlackNode<T> root = BinaryNodeCommon.RotateLeft(this) as RedBlackNode<T>;
-            root.Left.Colour = Colour.Red;
-            root.Colour = Colour.Black;
-            return root;
+            RedBlackNode<T> pivot = this.Right;
+
+            this.Right = pivot.Left;
+            pivot.Left = this;
+
+            //fix heights
+            pivot.ResetHeight();
+            this.ResetHeight();
+
+            pivot.Left.Colour = Colour.Red;
+            pivot.Colour = Colour.Black;
+
+            return pivot;
+        }
+
+        /// <summary>
+        /// Rotates the tree rooted at this node in a counter-clockwise manner and recolours the root and pivot nodes accordingly.
+        /// </summary>
+        /// <returns>The new root of the tree</returns>
+        IInternalBinaryNode<T> IInternalBinaryNode<T>.RotateLeft()
+        {
+            return this.RotateLeft();
         }
 
         /// <summary>
@@ -117,41 +160,36 @@
         /// <returns>The new root of the tree</returns>
         internal RedBlackNode<T> RotateRight()
         {
-            RedBlackNode<T> root = BinaryNodeCommon.RotateRight(this) as RedBlackNode<T>;
-            root.Right.Colour = Colour.Red;
-            root.Colour = Colour.Black;
-            return root;
+            RedBlackNode<T> pivot = this.Left;
+
+            this.Left = pivot.Right;
+            pivot.Right = this;
+
+            //fix heights
+            pivot.ResetHeight();
+            this.ResetHeight();
+
+            pivot.Right.Colour = Colour.Red;
+            pivot.Colour = Colour.Black;
+            return pivot;
+        }
+
+        /// <summary>
+        /// Rotates the tree rooted at this node in a counter-clockwise manner and recolours the root and pivot nodes accordingly.
+        /// </summary>
+        /// <returns>The new root of the tree</returns>
+        IInternalBinaryNode<T> IInternalBinaryNode<T>.RotateRight()
+        {
+            return this.RotateRight();
         }
 
         #endregion
 
         #region Methods
 
-        public void ResetHeight()
+        internal void ResetHeight()
         {
             this._height = null;
-        }
-
-        #endregion
-
-        #region IInternalBinaryNode Explicit Implementation
-
-        T IInternalBinaryNode<T>.Value
-        {
-            get { return this.Value; }
-            set { this.Value = value; }
-        }
-
-        IInternalBinaryNode<T> IInternalBinaryNode<T>.Left
-        {
-            get { return this.Left; }
-            set { this.Left = value as RedBlackNode<T>; }
-        }
-
-        IInternalBinaryNode<T> IInternalBinaryNode<T>.Right
-        {
-            get { return this.Right; }
-            set { this.Right = value as RedBlackNode<T>; }
         }
 
         void IInternalBinaryNode<T>.ResetHeight()
@@ -159,27 +197,23 @@
             this._height = null;
         }
 
-        #endregion
-
-        #region IBinaryNode Explicit Implementation
-
-        IBinaryNode<T> IBinaryNode<T>.Left
+        public override string ToString()
         {
-            get { return this.Left; }
-        }
+            string format = "{0},{1}; Left={2}; Right={3}";
 
-        IBinaryNode<T> IBinaryNode<T>.Right
-        {
-            get { return this.Right; }
-        }
+            string left;
+            if (this.Left == null)
+                left = "null";
+            else
+                left = this.Left.Value.ToString();
 
-        #endregion
+            string right;
+            if (this.Right == null)
+                right = "null";
+            else
+                right = this.Right.Value.ToString();
 
-        #region INode Explicit Implementation
-
-        IEnumerable<INode<T>> INode<T>.Neighbours
-        {
-            get { return this.Neighbours; }
+            return string.Format(format, this.Value.ToString(), this.Colour.ToString(), left, right);
         }
 
         #endregion

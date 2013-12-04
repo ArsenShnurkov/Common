@@ -36,24 +36,17 @@
         IEnumerable<T> PreOrderIterator     { get; }
 
         /// <summary>
-        /// Finds the node in the tree
-        /// </summary>
-        /// <param name="value">The value of the node to be found</param>
-        /// <returns>The node to be found</returns>
-        IBinaryNode<T> Find(T value);
-
-        /// <summary>
-        /// Finds the node in the tree and returns null if it is not found
-        /// </summary>
-        /// <param name="value">The value to be  found in the tree</param>
-        /// <returns>Returns the node that was found or default(t) otherwise</returns>
-        IBinaryNode<T> FindOrDefault(T value);
-
-        /// <summary>
         /// Inserts the node in to the correct position in the tree
         /// </summary>
         /// <param name="value">The value of the node to insert</param>
         void Insert(T value);
+
+        /// <summary>
+        /// Returns true if the binary search tree contains the given value
+        /// </summary>
+        /// <param name="value">The value of the node to search for</param>
+        /// <returns>True if the binary search tree contains the given value, false otherwise</returns>
+        bool Contains(T value);
 
         /// <summary>
         /// Removes the node with the specified value from the list
@@ -68,6 +61,9 @@
         /// <returns>The depth of the node with the given value</returns>
         int Depth(T value);
 
+        /// <summary>
+        /// Verifies that the tree is valid and throws an exception if it isn't
+        /// </summary>
         void AssertValidTree();
     }
 }

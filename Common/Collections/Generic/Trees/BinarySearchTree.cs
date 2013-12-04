@@ -3,9 +3,16 @@
     using System;
     using System.Collections.Generic;
 
+    /// <summary>
+    /// BinarySearchTree serves as a base class for self balancing binary trees and cannot be used on it's own due to the lack of a public constructor.
+    /// 
+    /// If all that is required is a basic, unbalanced binary search tree then SafeBinarySearchTree should be used instead as it is faster than this
+    /// implementation.
+    /// </summary>
+    /// <typeparam name="T">The type that will be stored in the nodes of the tree</typeparam>
     public partial class BinarySearchTree<T> : IBinarySearchTree<T> where T : IComparable<T>
     {
-        public BinarySearchTree()
+        internal BinarySearchTree()
         {
         }
 
@@ -44,66 +51,6 @@
                 else
                     return this.Root.Balance;
             }
-        }
-
-        #endregion
-
-        #region Find
-
-        /// <summary>
-        /// Searches for the value in the tree and returns an instance of IBinaryNode if found and returns null otherwise
-        /// </summary>
-        /// <param name="value">The value of the node to find in the tree</param>
-        /// <returns>The node that was found or null otherwise</returns>
-        public IBinaryNode<T> FindOrDefault(T value)
-        {
-            if (this.Root == null)
-                throw new TreeNotRootedException();
-
-            return FindOrDefault(this.Root, value);
-        }
-
-        /// <summary>
-        /// Searches for the value in the tree and returns an instance of IBinaryNode if found and throws a NodeNotFoundException otherwise
-        /// </summary>
-        /// <param name="value">The value of the node to find in the tree</param>
-        /// <returns>The node that was found</returns>
-        public IBinaryNode<T> Find(T value)
-        {
-            if (this.Root == null)
-                throw new TreeNotRootedException();
-
-            IInternalBinaryNode<T> result = FindOrDefault(this.Root, value);
-
-            if (result == null)
-                throw new NodeNotFoundException();
-            else
-                return result;
-        }
-
-        /// <summary>
-        /// Searches for the node with the given value under the tree with the given root
-        /// </summary>
-        /// <param name="root">The root of the tree to search</param>
-        /// <param name="value">The value to find within root</param>
-        /// <returns>An instance of IInternalBinaryNode or null if the node was not found</returns>
-        private static IInternalBinaryNode<T> FindOrDefault(IInternalBinaryNode<T> root, T value)
-        {
-            IInternalBinaryNode<T> result;
-            if (root == null)
-                result = null;
-            else
-            {
-                int compareResult = root.Value.CompareTo(value);
-                if (compareResult > 0)
-                    result = FindOrDefault(root.Left, value);
-                else if (compareResult < 0)
-                    result = FindOrDefault(root.Right, value);
-                else
-                    result = root;
-            }
-
-            return result;
         }
 
         #endregion
@@ -160,7 +107,7 @@
         /// 
         /// O(log n)
         /// </summary>
-        public void Insert(T value)
+        public virtual void Insert(T value)
         {
             this.Root = this.Insert(this.Root,  new BinaryNode<T>(value));
         }
@@ -261,7 +208,7 @@
                     }
                     else
                     {
-                        IInternalBinaryNode<T> predecessor = BinaryNodeCommon.InOrderPredecessor(root);
+                        IInternalBinaryNode<T> predecessor = root.InOrderPredecessor;
                         root.Value = predecessor.Value;
                         root.Left = Delete(root.Left, predecessor.Value);
                     }
@@ -299,18 +246,6 @@
                         current = current.Right;
                     }
                 }
-            }
-        }
-
-        /// <summary>
-        /// Iterates through the tree in order. Visiting the left sub-tree, then the root, then the right sub-tree so that the values are returned in order.
-        /// </summary>
-        IEnumerable<T> IBinarySearchTree<T>.InOrderIterator
-        {
-            get
-            {
-                foreach (IInternalBinaryNode<T> node in this.InOrderNodeIterator)
-                    yield return node.Value;
             }
         }
 
@@ -371,18 +306,6 @@
         /// <summary>
         /// Iterates through the tree in post order. Visiting the left sub-tree, then the right sub-tree, then the root. This is useful if you need to dispose of the entire tree as items will be disposed from the bottom up
         /// </summary>
-        IEnumerable<T> IBinarySearchTree<T>.PostOrderIterator
-        {
-            get
-            {
-                foreach (IInternalBinaryNode<T> node in this.PostOrderNodeIterator)
-                    yield return node.Value;
-            }
-        }
-
-        /// <summary>
-        /// Iterates through the tree in post order. Visiting the left sub-tree, then the right sub-tree, then the root. This is useful if you need to dispose of the entire tree as items will be disposed from the bottom up
-        /// </summary>
         public IEnumerable<T> PostOrderIterator
         {
             get
@@ -423,18 +346,6 @@
         /// <summary>
         /// Iterates through the tree in pre order. Visiting the root, then the left sub-tree, then the right sub-tree. This is useful for algorithms such as the iterative height calculation as it starts at the top and works its way down through the levels
         /// </summary>
-        IEnumerable<T> IBinarySearchTree<T>.PreOrderIterator
-        {
-            get
-            {
-                foreach (IInternalBinaryNode<T> node in this.PreOrderNodeIterator)
-                    yield return node.Value;
-            }
-        }
-
-        /// <summary>
-        /// Iterates through the tree in pre order. Visiting the root, then the left sub-tree, then the right sub-tree. This is useful for algorithms such as the iterative height calculation as it starts at the top and works its way down through the levels
-        /// </summary>
         public IEnumerable<T> PreOrderIterator
         {
             get
@@ -448,13 +359,16 @@
 
         public virtual void AssertValidTree()
         {
-            IInternalBinaryNode<T> previousNode = null;
-            foreach (IInternalBinaryNode<T> node in this.InOrderNodeIterator)
+            if (this.Root != null)
             {
-                if (previousNode != null && previousNode.Value.CompareTo(node.Value) >= 0)
+                IInternalBinaryNode<T> previousNode = null;
+                foreach (IInternalBinaryNode<T> node in this.InOrderNodeIterator)
+                {
+                    if (previousNode != null && previousNode.Value.CompareTo(node.Value) >= 0)
                         throw new InvalidTreeException();
 
-                previousNode = node;
+                    previousNode = node;
+                }
             }
         }
     }

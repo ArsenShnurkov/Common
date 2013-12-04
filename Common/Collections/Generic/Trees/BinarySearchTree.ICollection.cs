@@ -12,7 +12,22 @@
 
         public bool Contains(T item)
         {
-            return (this.FindOrDefault(item) != null);
+            if (this.Root == null)
+                throw new TreeNotRootedException();
+
+            IInternalBinaryNode<T> current = this.Root;
+            while (current != null)
+            {
+                int compareResult = current.Value.CompareTo(item);
+                if (compareResult == 0)
+                    break;
+                else if (compareResult > 0)
+                    current = current.Left;
+                else
+                    current = current.Right;
+            }
+
+            return current != null;
         }
 
         public void CopyTo(T[] array, int arrayIndex)

@@ -1,4 +1,4 @@
-﻿namespace CommonTests.Collections.Generic
+﻿namespace CommonTestsInternal.Collections.Generic
 {
     using System;
     using Common.Collections.Generic;
@@ -312,7 +312,7 @@
         [TestCategory("AVLTree")]
         public void Assert_ValidTree()
         {
-            BinaryNode<int> root = new BinaryNode<int>(100);
+            IInternalBinaryNode<int> root = new BinaryNode<int>(100);
             root.Left = new BinaryNode<int>(50);
             root.Right = new BinaryNode<int>(150);
 
@@ -327,7 +327,7 @@
         [ExpectedException(typeof(InvalidTreeException))]
         public void Assert_InvalidTree_Left()
         {
-            BinaryNode<int> root = new BinaryNode<int>(100);
+            IInternalBinaryNode<int> root = new BinaryNode<int>(100);
             root.Left = new BinaryNode<int>(50);
             root.Right = new BinaryNode<int>(150);
             root.Left.Left = new BinaryNode<int>(30);
@@ -344,7 +344,7 @@
         [ExpectedException(typeof(InvalidTreeException))]
         public void Assert_InvalidTree_Right()
         {
-            BinaryNode<int> root = new BinaryNode<int>(100);
+            IInternalBinaryNode<int> root = new BinaryNode<int>(100);
             root.Left = new BinaryNode<int>(50);
             root.Right = new BinaryNode<int>(150);
             root.Right.Right = new BinaryNode<int>(160);

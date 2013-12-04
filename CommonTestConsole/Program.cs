@@ -14,18 +14,18 @@
             Random rng = new Random();
             using (StreamWriter file = new System.IO.StreamWriter(@"output.csv"))
             {
-                //TextWriter writer = Console.Out;
-                TextWriter writer = file;
+                TextWriter writer = Console.Out;
+                //TextWriter writer = file;
 
                 int maxN = 1500000;
-                int minN = 100000;
+                int minN = 1500000;
                 int step = 100000;
 
-                bool doDelete = true;
-                bool doFind = true;
+                bool doDelete = false;
+                bool doFind = false;
                 bool doDepth = false;
 
-                int repititions = 2;
+                int repititions = 3;
 
                 int n = minN;
                 while (n <= maxN)
@@ -132,7 +132,7 @@
             for (int i = 0; i < randomIndexes.Count(); ++i)
             {
                 stopwatch.Restart();
-                bst.Find(numbers[randomIndexes[i]]);
+                bst.Contains(numbers[randomIndexes[i]]);
                 time += stopwatch.Elapsed;
             }
             return time.TotalMilliseconds / numbers.Count();

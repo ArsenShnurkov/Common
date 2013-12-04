@@ -1,4 +1,4 @@
-﻿namespace CommonTests.Collections.Generic
+﻿namespace CommonTestsInternal.Collections.Generic
 {
     using System;
     using Common.Collections.Generic;
@@ -234,108 +234,85 @@
 
         #endregion
 
-        #region SafeBinarySearchTree.Find
+        #region SafeBinarySearchTree.Contains
 
         [TestMethod]
         [TestCategory("SafeBinarySearchTree")]
         [ExpectedException(typeof(TreeNotRootedException))]
-        public void Find_EmptyTree()
+        public void Contains_EmptyTree()
         {
             SafeBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
-            b.Find(50);
+            b.Contains(50);
         }
 
         [TestMethod]
         [TestCategory("SafeBinarySearchTree")]
-        [ExpectedException(typeof(NodeNotFoundException))]
-        public void Find_OnlyRoot_NotFound()
+        public void Contains_OnlyRoot_NotFound()
+        {
+            IBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
+            b.Insert(50);
+            Assert.IsFalse(b.Contains(60));
+        }
+
+        [TestMethod]
+        [TestCategory("SafeBinarySearchTree")]
+        public void Contains_OnlyRoot_Found()
         {
             IBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
             b.Insert(50);
 
-            b.Find(60);
+            Assert.IsTrue(b.Contains(50));
         }
 
         [TestMethod]
         [TestCategory("SafeBinarySearchTree")]
-        public void FindOrDefault_OnlyRoot_NotFound()
-        {
-            IBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
-            b.Insert(50);
-
-            Assert.IsNull(b.FindOrDefault(60));
-        }
-
-        [TestMethod]
-        [TestCategory("SafeBinarySearchTree")]
-        public void Find_OnlyRoot_Found()
-        {
-            IBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
-            b.Insert(50);
-
-            var result = b.Find(50);
-            Assert.IsNotNull(result);
-            Assert.AreEqual<int>(50, result.Value);
-        }
-
-        [TestMethod]
-        [TestCategory("SafeBinarySearchTree")]
-        public void Find_Height_Equals_1_Found_Left()
+        public void Contains_Height_Equals_1_Found_Left()
         {
             IBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
             b.Insert(50);
             b.Insert(30);
 
-            var result = b.Find(30);
-            Assert.IsNotNull(result);
-            Assert.AreEqual<int>(30, result.Value);
+            Assert.IsTrue(b.Contains(30));
         }
 
         [TestMethod]
         [TestCategory("SafeBinarySearchTree")]
-        public void Find_Height_Equals_1_Found_Right()
+        public void Contains_Height_Equals_1_Found_Right()
         {
             IBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
             b.Insert(50);
             b.Insert(70);
 
-            var result = b.Find(70);
-            Assert.IsNotNull(result);
-            Assert.AreEqual<int>(70, result.Value);
+            Assert.IsTrue(b.Contains(70));
         }
 
         [TestMethod]
         [TestCategory("SafeBinarySearchTree")]
-        public void Find_Height_Equals_1_FullTree_Found_Left()
+        public void Contains_Height_Equals_1_FullTree_Found_Left()
         {
             IBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
             b.Insert(50);
             b.Insert(30);
             b.Insert(70);
 
-            var result = b.Find(30);
-            Assert.IsNotNull(result);
-            Assert.AreEqual<int>(30, result.Value);
+            Assert.IsTrue(b.Contains(30));
         }
 
         [TestMethod]
         [TestCategory("SafeBinarySearchTree")]
-        public void Find_Height_Equals_1_FullTree_Found_Right()
+        public void Contains_Height_Equals_1_FullTree_Found_Right()
         {
             IBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
             b.Insert(50);
             b.Insert(30);
             b.Insert(70);
 
-            var result = b.Find(70);
-            Assert.IsNotNull(result);
-            Assert.AreEqual<int>(70, result.Value);
+            Assert.IsTrue(b.Contains(70));
         }
 
         [TestMethod]
         [TestCategory("SafeBinarySearchTree")]
-        [ExpectedException(typeof(NodeNotFoundException))]
-        public void Find_BiggerTree_NotFound()
+        public void Contains_BiggerTree_NotFound()
         {
             IBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
             b.Insert(100);
@@ -351,13 +328,12 @@
             b.Insert(30);
             b.Insert(160);
 
-            b.Find(200);
+            Assert.IsFalse(b.Contains(200));
         }
 
         [TestMethod]
         [TestCategory("SafeBinarySearchTree")]
-        [ExpectedException(typeof(NodeNotFoundException))]
-        public void FindOrDefault_BiggerTree_NotFound()
+        public void Contains_BiggerTree_Found_Part1()
         {
             IBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
             b.Insert(100);
@@ -373,67 +349,22 @@
             b.Insert(30);
             b.Insert(160);
 
-            Assert.IsNull(b.Find(200));
+            Assert.IsTrue(b.Contains(75));
+            Assert.IsTrue(b.Contains(30));
         }
 
         [TestMethod]
         [TestCategory("SafeBinarySearchTree")]
-        public void Find_BiggerTree_Found_Part1()
-        {
-            IBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
-            b.Insert(100);
-
-            b.Insert(50);
-            b.Insert(150);
-
-            b.Insert(25);
-            b.Insert(75);
-            b.Insert(125);
-            b.Insert(175);
-
-            b.Insert(30);
-            b.Insert(160);
-
-            var result = b.Find(75);
-
-            Assert.IsNotNull(result);
-            Assert.AreEqual<int>(75, result.Value);
-        }
-
-        [TestMethod]
-        [TestCategory("SafeBinarySearchTree")]
-        public void Find_BiggerTree_Found_Part2()
-        {
-            IBinarySearchTree<int> b = new SafeBinarySearchTree<int>();
-            b.Insert(100);
-
-            b.Insert(50);
-            b.Insert(150);
-
-            b.Insert(25);
-            b.Insert(75);
-            b.Insert(125);
-            b.Insert(175);
-
-            b.Insert(30);
-            b.Insert(160);
-
-            var result = b.Find(30);
-
-            Assert.IsNotNull(result);
-            Assert.AreEqual<int>(30, result.Value);
-        }
-
-        [TestMethod]
-        [TestCategory("SafeBinarySearchTree")]
-        public void Find_InOrder_NoStackOverflow()
+        public void Contains_InOrder_NoStackOverflow()
         {
             var bst = new SafeBinarySearchTree<int>();
             int n = 30000;
+
+            //Insert numbers in order to create an unbalanced linked list-like tree that will be really tall
             for (int i = 0; i < n; ++i)
                 bst.Insert(i);
 
-            Assert.IsNotNull(bst.Find(n-1));
+            Assert.IsTrue(bst.Contains(n-1));
         }
 
         #endregion
