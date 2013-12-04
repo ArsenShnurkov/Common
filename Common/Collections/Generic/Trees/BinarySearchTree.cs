@@ -2,31 +2,43 @@
 {
     using System;
     using System.Collections.Generic;
+    using Common.Resources;
 
     /// <summary>
-    /// BinarySearchTree serves as a base class for self balancing binary trees and cannot be used on it's own due to the lack of a public constructor.
+    /// This is an unbalanced binary search implemented using iterative algorithms so as to never encounter a stack overflow.
     /// 
-    /// If all that is required is a basic, unbalanced binary search tree then SafeBinarySearchTree should be used instead as it is faster than this
-    /// implementation.
+    /// Based on my timings this tree is faster than the recusive BinarySearchTreeBase class. However it is only good on it's own.
+    /// When a parent node stack is maintained in the insert and delete operations in order to support inheritance from an
+    /// AVLTree for rebalancing, the iterative binary search tree becomes twice as slow as its recursive counterpart.
+    /// 
+    /// So. If you only need a basic BST use the BinarySearchTree.
     /// </summary>
     /// <typeparam name="T">The type that will be stored in the nodes of the tree</typeparam>
-    public partial class BinarySearchTree<T> : IBinarySearchTree<T> where T : IComparable<T>
+    public sealed partial class BinarySearchTree<T> : IBinarySearchTree<T> where T : IComparable<T>
     {
-        internal BinarySearchTree()
+        /// <summary>
+        /// Creates a new instance of a Common.Collections.Generic.BinarySearchTree<T>
+        /// </summary>
+        public BinarySearchTree()
         {
         }
 
         #region Properties
 
-        internal IInternalBinaryNode<T> Root { get; set; }
-
         /// <summary>
-        /// Returns the number of nodes in the tree
+        /// The root of the tree
         /// </summary>
-        public int Count { get; protected set; }
+        internal IterativeBinaryNode<T> Root { get; set; }
 
         /// <summary>
-        /// The height of the tree. Returns -1 for an empty tree.
+        /// The number of values stored in this tree
+        /// </summary>
+        public int Count { get; private set; }
+
+        /// <summary>
+        /// The height of the tree.The height of a tree that has a leaf for a root is 0. The height of an empty tree is -1
+        /// 
+        /// O(n)
         /// </summary>
         public int Height
         {
@@ -40,7 +52,9 @@
         }
 
         /// <summary>
-        /// Returns the balance of the tree defined as Balance = LeftTree.Height - Right.Height
+        /// Balance = Root.Left.Height - Root.Right.Height
+        /// 
+        /// O(n)
         /// </summary>
         public int Balance
         {
@@ -58,42 +72,41 @@
         #region Depth
 
         /// <summary>
-        /// Finds the depth of the node with the given value.
+        /// Returns the length of the path from the root to the node
         /// 
-        /// Throws a TreeNotRootedException if the tree is empty
-        /// Throws a NodeNotFoundException if the node was not found
+        /// O(log n)
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <param name="value">The value of the node whose depth we want to find</param>
+        /// <returns>The node's depth</returns>
         public int Depth(T value)
         {
             if (this.Root == null)
                 throw new TreeNotRootedException();
 
-            return Depth(this.Root, value);
-        }
+            IterativeBinaryNode<T> current = this.Root;
+            int depth = 0;
 
-        /// <summary>
-        /// Finds the depth of the node with the given value underneath the given root
-        /// 
-        /// Throws a NodeNotFoundException if the node was not found
-        /// </summary>
-        /// <param name="root">The root of the tree to search</param>
-        /// <param name="value">The value of the node whose depth should be returned</param>
-        /// <returns></returns>
-        private static int Depth(IInternalBinaryNode<T> root, T value)
-        {
-            if (root == null)
-                throw new NodeNotFoundException();
+            while (current != null)
+            {
+                int compareValue = current.Value.CompareTo(value);
+                if (compareValue == 0)
+                {
+                    break;
+                }
+                else if (compareValue > 0)
+                {
+                    current = current.Left;
+                }
+                else
+                    current = current.Right;
 
-            int compareResult = root.Value.CompareTo(value);
-            int result = 0;
-            if (compareResult > 0)
-                result = Depth(root.Left, value) + 1;
-            else if (compareResult < 0)
-                result = Depth(root.Right, value) + 1;
+                ++depth;
+            }
 
-            return result;
+            if (current != null)
+                return depth;
+            else
+                throw new NodeNotFoundException(Errors.DepthNodeNotFound);
         }
 
         #endregion
@@ -101,43 +114,65 @@
         #region Insert
 
         /// <summary>
-        /// Inserts the given value into the tree.
-        /// 
-        /// Throws a ArgumentException if the value already exists in the tree
-        /// 
-        /// O(log n)
+        /// Inserts the node in to the tree in order. Throws a ArgumentException if this node was a duplicate of one that already exists in the tree
         /// </summary>
-        public virtual void Insert(T value)
-        {
-            this.Root = this.Insert(this.Root,  new BinaryNode<T>(value));
-        }
-
-        /// <summary>
-        /// Inserts the given node underneath the given root
-        /// </summary>
-        /// <param name="root">The root node of the tree</param>
         /// <param name="node">The node to insert</param>
-        /// <returns>The new root of the tree as it may have changed</returns>
-        internal virtual IInternalBinaryNode<T> Insert(IInternalBinaryNode<T> root, IInternalBinaryNode<T> node)
+        internal void Insert(IterativeBinaryNode<T> node)
         {
-            if (root == null)
+            if (this.Root == null)
             {
-                root = node;
-                ++this.Count;
+                this.Root = node;
             }
             else
             {
-                root.ResetHeight();
-                int compareResult = root.Value.CompareTo(node.Value);
-                if (compareResult > 0)
-                    root.Left = Insert(root.Left, node);
-                else if (compareResult < 0)
-                    root.Right = Insert(root.Right, node);
-                else
-                    throw new ArgumentException(Resources.Errors.InsertDuplicate);
+                IterativeBinaryNode<T> current = this.Root;
+                while (true)
+                {
+                    int compareResult = current.Value.CompareTo(node.Value);
+                    if (compareResult == 0)
+                    {
+                        throw new ArgumentException(Errors.InsertDuplicate);
+                    }
+                    //value is smaller than current.Value
+                    else if (compareResult > 0)
+                    {
+                        if (current.Left != null)
+                        {
+                            current = current.Left;
+                        }
+                        else //found leaf - insert here
+                        {
+                            current.Left = node;
+                            break;
+                        }
+                    }
+                    //value is larger than current.Value
+                    else
+                    {
+                        if (current.Right != null)
+                        {
+                            current = current.Right;
+                        }
+                        else // found leaf - insert here
+                        {
+                            current.Right = node;
+                            break;
+                        }
+                    }
+                }
             }
 
-            return root;
+            ++this.Count;
+        }
+
+        /// <summary>
+        /// Inserts a new node with the given value in to the tree in order. Throws a ArgumentException if this node was a duplicate of one that already exists in the tree
+        /// </summary>
+        /// <param name="node">The value to insert</param>
+        public void Insert(T value)
+        {
+            var node = new IterativeBinaryNode<T>(value);
+            this.Insert(node);
         }
 
         #endregion
@@ -145,92 +180,122 @@
         #region Delete
 
         /// <summary>
-        /// Deletes the given value from the tree.
-        /// 
-        /// Throws a NodeNotFoundException if the value already exists in the tree
-        /// Throws a TreeNotRootedException if the tree is empty
+        /// Deletes the node that is passed in
+        /// </summary>
+        /// <param name="node">The node to delete</param>
+        /// <param name="parentNode">the parent of the node we are deleting</param>
+        internal void DeleteNode(IterativeBinaryNode<T> node, IterativeBinaryNode<T> parentNode)
+        {
+            if (node == null)
+                throw new ArgumentNullException("node");
+
+            int compareResults;
+            if (parentNode != null)
+                compareResults = node.Value.CompareTo(parentNode.Value);
+            else
+                compareResults = 0;
+
+            bool isLeaf = node.IsLeaf;
+            if (node.IsLeaf && this.Root.Value.CompareTo(node.Value) == 0)
+            {
+                this.Root = null;
+                --this.Count;
+            }
+            else if (node.IsLeaf)
+            {
+                if (compareResults < 0)
+                    parentNode.Left = null;
+                else
+                    parentNode.Right = null;
+
+                --this.Count;
+            }
+            else if (node.Right == null)
+            {
+                if (compareResults < 0)
+                    parentNode.Left = node.Left;
+                else
+                    parentNode.Right = node.Left;
+
+                --this.Count;
+            }
+            else if (node.Left == null)
+            {
+                if (compareResults < 0)
+                    parentNode.Left = node.Right;
+                else
+                    parentNode.Right = node.Right;
+
+                --this.Count;
+            }
+            else // if both children not null
+            {
+                IterativeBinaryNode<T> swapNode = node.InOrderPredecessor;
+                if (swapNode == null)
+                    throw new InvalidOperationException(Errors.NoSwapNode);
+
+                T tempValue = swapNode.Value;
+                this.Delete(swapNode.Value);
+                node.Value = tempValue;
+            }
+        }
+
+        /// <summary>
+        /// Deletes the node with the given value from the tree and deletes that node. Throws a NodeNotFoundException otherwise
         /// 
         /// O(log n)
         /// </summary>
+        /// <param name="value">The value to delete from the tree</param>
+        /// <returns>The node that was deleted</returns>
         public void Delete(T value)
         {
             if (this.Root == null)
                 throw new TreeNotRootedException();
 
-            this.Root = Delete(this.Root, value);
-        }
+            IterativeBinaryNode<T> previous = null;
+            IterativeBinaryNode<T> current = this.Root;
 
-        /// <summary>
-        /// Deletes the given value from the tree at the given root
-        /// </summary>
-        /// <param name="root">The root node of the tree</param>
-        /// <param name="value">The value to delete</param>
-        /// <returns>The new root of the tree as it may have changed</returns>
-        internal virtual IInternalBinaryNode<T> Delete(IInternalBinaryNode<T> root, T value)
-        {
-            if (root == null)
-                throw new NodeNotFoundException();
-            else
+            while (current != null)
             {
-                int compareResults = root.Value.CompareTo(value);
-                if (compareResults > 0)
+                int compareResult = current.Value.CompareTo(value);
+                if (compareResult == 0)
+                    break;
+                else if (compareResult > 0)
                 {
-                    root.ResetHeight();
-                    root.Left = Delete(root.Left, value);
-                }
-                else if (compareResults < 0)
-                {
-                    root.ResetHeight();
-                    root.Right = Delete(root.Right, value);
+                    previous = current;
+                    current = current.Left;
                 }
                 else
                 {
-                    if (root.Left == null && root.Right == null)
-                    {
-                        --this.Count;
-                        root = null;
-                    }
-                    else if (root.Right == null)
-                    {
-                        --this.Count;
-                        root.Value = root.Left.Value;
-                        root.Right = root.Left.Right;
-                        root.Left = root.Left.Left;
-                        root.ResetHeight();
-                    }
-                    else if (root.Left == null)
-                    {
-                        --this.Count;
-                        root.Value = root.Right.Value;
-                        root.Left = root.Right.Left;
-                        root.Right = root.Right.Right;
-                        root.ResetHeight();
-                    }
-                    else
-                    {
-                        IInternalBinaryNode<T> predecessor = root.InOrderPredecessor;
-                        root.Value = predecessor.Value;
-                        root.Left = Delete(root.Left, predecessor.Value);
-                    }
+                    previous = current;
+                    current = current.Right;
                 }
-
-                return root;
             }
+
+            if (current == null)
+                throw new NodeNotFoundException(Errors.DeleteNodeNotFound);
+            else
+                this.DeleteNode(current, previous);
         }
 
         #endregion
 
         #region Iterators
 
-        internal IEnumerable<IInternalBinaryNode<T>> InOrderNodeIterator
+        /// <summary>
+        /// Iterates through the tree using the in order traversal algorithm
+        /// 
+        /// O(n)
+        /// </summary>
+        public IEnumerable<T> InOrderIterator
         {
             get
             {
                 if (this.Root == null)
                     throw new TreeNotRootedException();
 
-                IInternalBinaryNode<T> current = this.Root;
-                Stack<IInternalBinaryNode<T>> parentStack = new Stack<IInternalBinaryNode<T>>();
+                IterativeBinaryNode<T> current = this.Root;
+                Stack<IterativeBinaryNode<T>> parentStack = new Stack<IterativeBinaryNode<T>>();
 
                 while (current != null || parentStack.Count != 0)
                 {
@@ -242,7 +307,7 @@
                     else
                     {
                         current = parentStack.Pop();
-                        yield return current;
+                        yield return current.Value;
                         current = current.Right;
                     }
                 }
@@ -250,27 +315,20 @@
         }
 
         /// <summary>
-        /// Iterates through the tree in order. Visiting the left sub-tree, then the root, then the right sub-tree so that the values are returned in order.
+        /// Iterates through the tree using the in post order traversal algorithm
+        /// 
+        /// O(n)
         /// </summary>
-        public IEnumerable<T> InOrderIterator
-        {
-            get
-            {
-                foreach (IInternalBinaryNode<T> node in this.InOrderNodeIterator)
-                    yield return node.Value;
-            }
-        }
-
-        internal IEnumerable<IInternalBinaryNode<T>> PostOrderNodeIterator
+        public IEnumerable<T> PostOrderIterator
         {
             get
             {
                 if (this.Root == null)
                     throw new TreeNotRootedException();
 
-                IInternalBinaryNode<T> current;
-                IInternalBinaryNode<T> previous = null;
-                Stack<IInternalBinaryNode<T>> nodeStack = new Stack<IInternalBinaryNode<T>>();
+                IterativeBinaryNode<T> current;
+                IterativeBinaryNode<T> previous = null;
+                Stack<IterativeBinaryNode<T>> nodeStack = new Stack<IterativeBinaryNode<T>>();
                 nodeStack.Push(this.Root);
 
                 while (nodeStack.Count > 0)
@@ -290,11 +348,11 @@
                     else if (current.Left == previous)
                     {
                         if (current.Right != null)
-                            nodeStack.Push(current.Right);
+                                nodeStack.Push(current.Right);
                     }
                     else
                     {
-                        yield return current;
+                        yield return current.Value;
                         nodeStack.Pop();
                     }
 
@@ -304,33 +362,26 @@
         }
 
         /// <summary>
-        /// Iterates through the tree in post order. Visiting the left sub-tree, then the right sub-tree, then the root. This is useful if you need to dispose of the entire tree as items will be disposed from the bottom up
+        /// Iterates through the tree using the in pre order traversal algorithm
+        /// 
+        /// O(n)
         /// </summary>
-        public IEnumerable<T> PostOrderIterator
-        {
-            get
-            {
-                foreach (IInternalBinaryNode<T> node in this.PostOrderNodeIterator)
-                    yield return node.Value;
-            }
-        }
-
-        internal IEnumerable<IInternalBinaryNode<T>> PreOrderNodeIterator
+        public IEnumerable<T> PreOrderIterator
         {
             get
             {
                 if (this.Root == null)
                     throw new TreeNotRootedException();
 
-                Stack<IInternalBinaryNode<T>> parentStack = new Stack<IInternalBinaryNode<T>>();
+                Stack<IterativeBinaryNode<T>> parentStack = new Stack<IterativeBinaryNode<T>>();
 
-                IInternalBinaryNode<T> current = this.Root;
+                IterativeBinaryNode<T> current = this.Root;
 
                 while (parentStack.Count > 0 || current != null)
                 {
                     if (current != null)
                     {
-                        yield return current;
+                        yield return current.Value;
 
                         parentStack.Push(current.Right);
                         current = current.Left;
@@ -343,33 +394,21 @@
             }
         }
 
-        /// <summary>
-        /// Iterates through the tree in pre order. Visiting the root, then the left sub-tree, then the right sub-tree. This is useful for algorithms such as the iterative height calculation as it starts at the top and works its way down through the levels
-        /// </summary>
-        public IEnumerable<T> PreOrderIterator
-        {
-            get
-            {
-                foreach (IInternalBinaryNode<T> node in this.PreOrderNodeIterator)
-                    yield return node.Value;
-            }
-        }
-
         #endregion
 
-        public virtual void AssertValidTree()
+        public void AssertValidTree()
         {
-            if (this.Root != null)
+            bool first = true;
+            T previousValue = default(T);
+            foreach (T value in this.InOrderIterator)
             {
-                IInternalBinaryNode<T> previousNode = null;
-                foreach (IInternalBinaryNode<T> node in this.InOrderNodeIterator)
-                {
-                    if (previousNode != null && previousNode.Value.CompareTo(node.Value) >= 0)
-                        throw new InvalidTreeException();
+                if (!first && previousValue.CompareTo(value) >= 0)
+                    throw new InvalidTreeException();
 
-                    previousNode = node;
-                }
+                previousValue = value;
+                first = false;
             }
+
         }
     }
 }

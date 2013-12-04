@@ -7,7 +7,7 @@
     [TestClass]
     public class BinarySearchTreeTests
     {
-        #region BinarySearchTree.Insert
+        #region SafeBinarySearchTree.Insert
 
         [TestMethod]
         [TestCategory("BinarySearchTree")]
@@ -218,9 +218,23 @@
             b.Insert(100);
         }
 
+        [TestMethod]
+        [TestCategory("BinarySearchTree")]
+        public void Insert_InOrder_NoStackOverflow()
+        {
+            var bst = new BinarySearchTree<int>();
+            int n = 30000;
+            for (int i = 0; i < n; ++i)
+                bst.Insert(i);
+
+            Assert.AreEqual<int>(n - 1, bst.Height);
+            Assert.AreEqual<int>(n, bst.Count);
+            Assert.AreEqual<int>(1-n, bst.Balance); 
+        }
+
         #endregion
 
-        #region BinarySearchTree.Contains
+        #region SafeBinarySearchTree.Contains
 
         [TestMethod]
         [TestCategory("BinarySearchTree")]
@@ -237,7 +251,6 @@
         {
             IBinarySearchTree<int> b = new BinarySearchTree<int>();
             b.Insert(50);
-
             Assert.IsFalse(b.Contains(60));
         }
 
@@ -320,7 +333,7 @@
 
         [TestMethod]
         [TestCategory("BinarySearchTree")]
-        public void Contains_BiggerTree_Found()
+        public void Contains_BiggerTree_Found_Part1()
         {
             IBinarySearchTree<int> b = new BinarySearchTree<int>();
             b.Insert(100);
@@ -340,9 +353,23 @@
             Assert.IsTrue(b.Contains(30));
         }
 
+        [TestMethod]
+        [TestCategory("BinarySearchTree")]
+        public void Contains_InOrder_NoStackOverflow()
+        {
+            var bst = new BinarySearchTree<int>();
+            int n = 30000;
+
+            //Insert numbers in order to create an unbalanced linked list-like tree that will be really tall
+            for (int i = 0; i < n; ++i)
+                bst.Insert(i);
+
+            Assert.IsTrue(bst.Contains(n-1));
+        }
+
         #endregion
 
-        #region BinarySearchTree.Delete
+        #region SafeBinarySearchTree.Delete
 
         [TestMethod]
         [TestCategory("BinarySearchTree")]
@@ -481,9 +508,21 @@
             Assert.AreEqual<int>(2, b.Height);
         }
 
+        [TestMethod]
+        [TestCategory("BinarySearchTree")]
+        public void Delete_InOrder_NoStackOverflow()
+        {
+            var bst = new BinarySearchTree<int>();
+            int n = 30000;
+            for (int i = 0; i < n; ++i)
+                bst.Insert(i);
+
+            bst.Delete(n-1);
+        }
+
         #endregion
 
-        #region BinarySearchTree.Depth
+        #region SafeBinarySearchTree.Depth
         [TestMethod]
         [TestCategory("BinarySearchTree")]
         [ExpectedException(typeof(TreeNotRootedException))]
@@ -498,7 +537,7 @@
         public void Depth_OnlyRoot()
         {
             BinarySearchTree<int> b = new BinarySearchTree<int>();
-            b.Root = new BinaryNode<int>(10);
+            b.Root = new IterativeBinaryNode<int>(10);
 
             Assert.AreEqual<int>(0, b.Depth(10));
         }
@@ -508,8 +547,8 @@
         public void DepthOfRoot()
         {
             BinarySearchTree<int> b = new BinarySearchTree<int>();
-            b.Root = new BinaryNode<int>(10);
-            b.Root.Left = new BinaryNode<int>(5);
+            b.Root = new IterativeBinaryNode<int>(10);
+            b.Root.Left = new IterativeBinaryNode<int>(5);
 
             Assert.AreEqual<int>(0, b.Depth(10));
         }
@@ -519,8 +558,8 @@
         public void SimpleTree_DepthOfLeaf()
         {
             BinarySearchTree<int> b = new BinarySearchTree<int>();
-            b.Root = new BinaryNode<int>(10);
-            b.Root.Left = new BinaryNode<int>(5);
+            b.Root = new IterativeBinaryNode<int>(10);
+            b.Root.Left = new IterativeBinaryNode<int>(5);
 
             Assert.AreEqual<int>(1, b.Depth(5));
         }
@@ -530,18 +569,18 @@
         public void Depth_Equals_1_Left()
         {
             BinarySearchTree<int> b = new BinarySearchTree<int>();
-            b.Root = new BinaryNode<int>(100);
-            b.Root.Left = new BinaryNode<int>(50);
-            b.Root.Right = new BinaryNode<int>(150);
+            b.Root = new IterativeBinaryNode<int>(100);
+            b.Root.Left = new IterativeBinaryNode<int>(50);
+            b.Root.Right = new IterativeBinaryNode<int>(150);
 
-            b.Root.Left.Left = new BinaryNode<int>(25);
-            b.Root.Left.Right = new BinaryNode<int>(75);
+            b.Root.Left.Left = new IterativeBinaryNode<int>(25);
+            b.Root.Left.Right = new IterativeBinaryNode<int>(75);
 
-            b.Root.Right.Left = new BinaryNode<int>(125);
-            b.Root.Right.Right = new BinaryNode<int>(175);
+            b.Root.Right.Left = new IterativeBinaryNode<int>(125);
+            b.Root.Right.Right = new IterativeBinaryNode<int>(175);
 
-            b.Root.Left.Left.Right = new BinaryNode<int>(30);
-            b.Root.Right.Right.Left = new BinaryNode<int>(160);
+            b.Root.Left.Left.Right = new IterativeBinaryNode<int>(30);
+            b.Root.Right.Right.Left = new IterativeBinaryNode<int>(160);
 
             Assert.AreEqual<int>(1, b.Depth(50));
         }
@@ -551,18 +590,18 @@
         public void Depth_Equals_1_Right()
         {
             BinarySearchTree<int> b = new BinarySearchTree<int>();
-            b.Root = new BinaryNode<int>(100);
-            b.Root.Left = new BinaryNode<int>(50);
-            b.Root.Right = new BinaryNode<int>(150);
+            b.Root = new IterativeBinaryNode<int>(100);
+            b.Root.Left = new IterativeBinaryNode<int>(50);
+            b.Root.Right = new IterativeBinaryNode<int>(150);
 
-            b.Root.Left.Left = new BinaryNode<int>(25);
-            b.Root.Left.Right = new BinaryNode<int>(75);
+            b.Root.Left.Left = new IterativeBinaryNode<int>(25);
+            b.Root.Left.Right = new IterativeBinaryNode<int>(75);
 
-            b.Root.Right.Left = new BinaryNode<int>(125);
-            b.Root.Right.Right = new BinaryNode<int>(175);
+            b.Root.Right.Left = new IterativeBinaryNode<int>(125);
+            b.Root.Right.Right = new IterativeBinaryNode<int>(175);
 
-            b.Root.Left.Left.Right = new BinaryNode<int>(30);
-            b.Root.Right.Right.Left = new BinaryNode<int>(160);
+            b.Root.Left.Left.Right = new IterativeBinaryNode<int>(30);
+            b.Root.Right.Right.Left = new IterativeBinaryNode<int>(160);
 
             Assert.AreEqual<int>(1, b.Depth(150));
         }
@@ -572,18 +611,18 @@
         public void Depth_Equals_2_LeftLeft()
         {
             BinarySearchTree<int> b = new BinarySearchTree<int>();
-            b.Root = new BinaryNode<int>(100);
-            b.Root.Left = new BinaryNode<int>(50);
-            b.Root.Right = new BinaryNode<int>(150);
+            b.Root = new IterativeBinaryNode<int>(100);
+            b.Root.Left = new IterativeBinaryNode<int>(50);
+            b.Root.Right = new IterativeBinaryNode<int>(150);
 
-            b.Root.Left.Left = new BinaryNode<int>(25);
-            b.Root.Left.Right = new BinaryNode<int>(75);
+            b.Root.Left.Left = new IterativeBinaryNode<int>(25);
+            b.Root.Left.Right = new IterativeBinaryNode<int>(75);
 
-            b.Root.Right.Left = new BinaryNode<int>(125);
-            b.Root.Right.Right = new BinaryNode<int>(175);
+            b.Root.Right.Left = new IterativeBinaryNode<int>(125);
+            b.Root.Right.Right = new IterativeBinaryNode<int>(175);
 
-            b.Root.Left.Left.Right = new BinaryNode<int>(30);
-            b.Root.Right.Right.Left = new BinaryNode<int>(160);
+            b.Root.Left.Left.Right = new IterativeBinaryNode<int>(30);
+            b.Root.Right.Right.Left = new IterativeBinaryNode<int>(160);
 
             Assert.AreEqual<int>(2, b.Depth(25));
         }
@@ -593,18 +632,18 @@
         public void Depth_Equals_2_LeftRight()
         {
             BinarySearchTree<int> b = new BinarySearchTree<int>();
-            b.Root = new BinaryNode<int>(100);
-            b.Root.Left = new BinaryNode<int>(50);
-            b.Root.Right = new BinaryNode<int>(150);
+            b.Root = new IterativeBinaryNode<int>(100);
+            b.Root.Left = new IterativeBinaryNode<int>(50);
+            b.Root.Right = new IterativeBinaryNode<int>(150);
 
-            b.Root.Left.Left = new BinaryNode<int>(25);
-            b.Root.Left.Right = new BinaryNode<int>(75);
+            b.Root.Left.Left = new IterativeBinaryNode<int>(25);
+            b.Root.Left.Right = new IterativeBinaryNode<int>(75);
 
-            b.Root.Right.Left = new BinaryNode<int>(125);
-            b.Root.Right.Right = new BinaryNode<int>(175);
+            b.Root.Right.Left = new IterativeBinaryNode<int>(125);
+            b.Root.Right.Right = new IterativeBinaryNode<int>(175);
 
-            b.Root.Left.Left.Right = new BinaryNode<int>(30);
-            b.Root.Right.Right.Left = new BinaryNode<int>(160);
+            b.Root.Left.Left.Right = new IterativeBinaryNode<int>(30);
+            b.Root.Right.Right.Left = new IterativeBinaryNode<int>(160);
 
             Assert.AreEqual<int>(2, b.Depth(75));
         }
@@ -614,18 +653,18 @@
         public void Depth_Equals_2_RightLeft()
         {
             BinarySearchTree<int> b = new BinarySearchTree<int>();
-            b.Root = new BinaryNode<int>(100);
-            b.Root.Left = new BinaryNode<int>(50);
-            b.Root.Right = new BinaryNode<int>(150);
+            b.Root = new IterativeBinaryNode<int>(100);
+            b.Root.Left = new IterativeBinaryNode<int>(50);
+            b.Root.Right = new IterativeBinaryNode<int>(150);
 
-            b.Root.Left.Left = new BinaryNode<int>(25);
-            b.Root.Left.Right = new BinaryNode<int>(75);
+            b.Root.Left.Left = new IterativeBinaryNode<int>(25);
+            b.Root.Left.Right = new IterativeBinaryNode<int>(75);
 
-            b.Root.Right.Left = new BinaryNode<int>(125);
-            b.Root.Right.Right = new BinaryNode<int>(175);
+            b.Root.Right.Left = new IterativeBinaryNode<int>(125);
+            b.Root.Right.Right = new IterativeBinaryNode<int>(175);
 
-            b.Root.Left.Left.Right = new BinaryNode<int>(30);
-            b.Root.Right.Right.Left = new BinaryNode<int>(160);
+            b.Root.Left.Left.Right = new IterativeBinaryNode<int>(30);
+            b.Root.Right.Right.Left = new IterativeBinaryNode<int>(160);
 
             Assert.AreEqual<int>(2, b.Depth(125));
         }
@@ -635,18 +674,18 @@
         public void Depth_Equals_2_RightRight()
         {
             BinarySearchTree<int> b = new BinarySearchTree<int>();
-            b.Root = new BinaryNode<int>(100);
-            b.Root.Left = new BinaryNode<int>(50);
-            b.Root.Right = new BinaryNode<int>(150);
+            b.Root = new IterativeBinaryNode<int>(100);
+            b.Root.Left = new IterativeBinaryNode<int>(50);
+            b.Root.Right = new IterativeBinaryNode<int>(150);
 
-            b.Root.Left.Left = new BinaryNode<int>(25);
-            b.Root.Left.Right = new BinaryNode<int>(75);
+            b.Root.Left.Left = new IterativeBinaryNode<int>(25);
+            b.Root.Left.Right = new IterativeBinaryNode<int>(75);
 
-            b.Root.Right.Left = new BinaryNode<int>(125);
-            b.Root.Right.Right = new BinaryNode<int>(175);
+            b.Root.Right.Left = new IterativeBinaryNode<int>(125);
+            b.Root.Right.Right = new IterativeBinaryNode<int>(175);
 
-            b.Root.Left.Left.Right = new BinaryNode<int>(30);
-            b.Root.Right.Right.Left = new BinaryNode<int>(160);
+            b.Root.Left.Left.Right = new IterativeBinaryNode<int>(30);
+            b.Root.Right.Right.Left = new IterativeBinaryNode<int>(160);
 
             Assert.AreEqual<int>(2, b.Depth(175));
         }
@@ -656,18 +695,18 @@
         public void Depth_Equals_3_LeftLeftRight()
         {
             BinarySearchTree<int> b = new BinarySearchTree<int>();
-            b.Root = new BinaryNode<int>(100);
-            b.Root.Left = new BinaryNode<int>(50);
-            b.Root.Right = new BinaryNode<int>(150);
+            b.Root = new IterativeBinaryNode<int>(100);
+            b.Root.Left = new IterativeBinaryNode<int>(50);
+            b.Root.Right = new IterativeBinaryNode<int>(150);
 
-            b.Root.Left.Left = new BinaryNode<int>(25);
-            b.Root.Left.Right = new BinaryNode<int>(75);
+            b.Root.Left.Left = new IterativeBinaryNode<int>(25);
+            b.Root.Left.Right = new IterativeBinaryNode<int>(75);
 
-            b.Root.Right.Left = new BinaryNode<int>(125);
-            b.Root.Right.Right = new BinaryNode<int>(175);
+            b.Root.Right.Left = new IterativeBinaryNode<int>(125);
+            b.Root.Right.Right = new IterativeBinaryNode<int>(175);
 
-            b.Root.Left.Left.Right = new BinaryNode<int>(30);
-            b.Root.Right.Right.Left = new BinaryNode<int>(160);
+            b.Root.Left.Left.Right = new IterativeBinaryNode<int>(30);
+            b.Root.Right.Right.Left = new IterativeBinaryNode<int>(160);
 
             Assert.AreEqual<int>(3, b.Depth(30));
         }
@@ -678,24 +717,37 @@
         public void Depth_NodeNotFound()
         {
             BinarySearchTree<int> b = new BinarySearchTree<int>();
-            b.Root = new BinaryNode<int>(100);
-            b.Root.Left = new BinaryNode<int>(50);
-            b.Root.Right = new BinaryNode<int>(150);
+            b.Root = new IterativeBinaryNode<int>(100);
+            b.Root.Left = new IterativeBinaryNode<int>(50);
+            b.Root.Right = new IterativeBinaryNode<int>(150);
 
-            b.Root.Left.Left = new BinaryNode<int>(25);
-            b.Root.Left.Right = new BinaryNode<int>(75);
+            b.Root.Left.Left = new IterativeBinaryNode<int>(25);
+            b.Root.Left.Right = new IterativeBinaryNode<int>(75);
 
-            b.Root.Right.Left = new BinaryNode<int>(125);
-            b.Root.Right.Right = new BinaryNode<int>(175);
+            b.Root.Right.Left = new IterativeBinaryNode<int>(125);
+            b.Root.Right.Right = new IterativeBinaryNode<int>(175);
 
-            b.Root.Left.Left.Right = new BinaryNode<int>(30);
-            b.Root.Right.Right.Left = new BinaryNode<int>(160);
+            b.Root.Left.Left.Right = new IterativeBinaryNode<int>(30);
+            b.Root.Right.Right.Left = new IterativeBinaryNode<int>(160);
 
             b.Depth(60);
         }
+
+        [TestMethod]
+        [TestCategory("BinarySearchTree")]
+        public void Depth_InOrder_NoStackOverflow()
+        {
+            var bst = new BinarySearchTree<int>();
+            int n = 30000;
+            for (int i = 0; i < n; ++i)
+                bst.Insert(i);
+
+            Assert.AreEqual<int>(n-1, bst.Depth(n-1));
+        }
+
         #endregion
 
-        #region BinarySearchTree.Traversals
+        #region SafeBinarySearchTree.Traversals
         [TestMethod]
         [TestCategory("BinarySearchTree")]
         [ExpectedException(typeof(TreeNotRootedException))]
@@ -849,39 +901,5 @@
             Assert.AreEqual<int>(100, enumerator.Current);
         }
         #endregion
-
-        #region BinarySearchTree.AssertTree
-
-        [TestMethod]
-        [TestCategory("BinarySearchTree")]
-        public void Assert_ValidTree()
-        {
-            IInternalBinaryNode<int> root = new BinaryNode<int>(100);
-            root.Left = new BinaryNode<int>(50);
-            root.Right = new BinaryNode<int>(150);
-
-            BinarySearchTree<int> bst = new BinarySearchTree<int>();
-            bst.Root = root;
-
-            bst.AssertValidTree();
-        }
-
-        [TestMethod]
-        [TestCategory("BinarySearchTree")]
-        [ExpectedException(typeof(InvalidTreeException))]
-        public void Assert_InvalidTree()
-        {
-            IInternalBinaryNode<int> root = new BinaryNode<int>(100);
-            root.Right = new BinaryNode<int>(50);
-            root.Left = new BinaryNode<int>(150);
-
-            BinarySearchTree<int> bst = new BinarySearchTree<int>();
-            bst.Root = root;
-
-            bst.AssertValidTree();
-        }
-
-        #endregion
-
     }
 }

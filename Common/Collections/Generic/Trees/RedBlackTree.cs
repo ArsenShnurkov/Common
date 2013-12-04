@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class RedBlackTree<T> : BinarySearchTree<T>, IBinarySearchTree<T> where T : IComparable<T>
+    public class RedBlackTree<T> : BinarySearchTreeBase<T>, IBinarySearchTree<T> where T : IComparable<T>
     {
         public RedBlackTree()
             : base()

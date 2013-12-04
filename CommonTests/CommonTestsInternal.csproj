@@ -68,13 +68,13 @@
     <Compile Include="Collections\Generic\BinaryNodeTests.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Collections\Generic\BinarySearchTreeTests.cs">
+    <Compile Include="Collections\Generic\BinarySearchTreeBaseTests.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Collections\Generic\RedBlackNodeTests.cs" />
     <Compile Include="Collections\Generic\RedBlackTreeTests.cs" />
-    <Compile Include="Collections\Generic\SafeBinaryNodeTests.cs" />
-    <Compile Include="Collections\Generic\SafeBinarySearchTreeTests.cs" />
+    <Compile Include="Collections\Generic\IterativeBinaryNodeTests.cs" />
+    <Compile Include="Collections\Generic\BinarySearchTreeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

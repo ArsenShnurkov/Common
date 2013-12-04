@@ -3,29 +3,19 @@
     using System;
     using System.Collections.Generic;
 
-    public partial class SafeBinarySearchTree<T> : ICollection<T> where T : IComparable<T>
+    public partial class BinarySearchTreeBase<T> : ICollection<T> where T : IComparable<T>
     {
         public void Add(T item)
         {
             this.Insert(item);
         }
 
-        /// <summary>
-        /// Looks for a node with a matching value in this tree. Returns null if not found
-        /// 
-        /// O(log n)
-        /// </summary>
-        /// <param name="value">The value of the node to find</param>
-        /// <returns>
-        /// null if the node was not found
-        /// or the node if it was found
-        /// </returns>
         public bool Contains(T item)
         {
             if (this.Root == null)
                 throw new TreeNotRootedException();
 
-            SafeBinaryNode<T> current = this.Root;
+            IInternalBinaryNode<T> current = this.Root;
             while (current != null)
             {
                 int compareResult = current.Value.CompareTo(item);

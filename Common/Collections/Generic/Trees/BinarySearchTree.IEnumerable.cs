@@ -7,12 +7,12 @@
     {
         public IEnumerator<T> GetEnumerator()
         {
-            return ((IBinarySearchTree<T>)this).InOrderIterator.GetEnumerator();
+            return this.InOrderIterator.GetEnumerator();
         }
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
-            return ((IBinarySearchTree<T>)this).InOrderIterator.GetEnumerator();
+            return this.InOrderIterator.GetEnumerator();
         }
     }
 }

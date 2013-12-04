@@ -56,7 +56,7 @@
     <Compile Include="Collections\Generic\Nodes\RedBlackNode.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Collections\Generic\Nodes\SafeBinaryNode.cs" />
+    <Compile Include="Collections\Generic\Nodes\IterativeBinaryNode.cs" />
     <Compile Include="Collections\Generic\Nodes\Colour.cs" />
     <Compile Include="Collections\Generic\Nodes\BinaryNode.cs" />
     <Compile Include="Collections\Generic\Exceptions\NodeNotFoundException.cs" />
@@ -64,14 +64,14 @@
     <Compile Include="Collections\Generic\Trees\AVLTree.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Collections\Generic\Trees\BinarySearchTreeBase.IEnumerable.cs" />
+    <Compile Include="Collections\Generic\Trees\BinarySearchTreeBase.ICollection.cs" />
+    <Compile Include="Collections\Generic\Trees\RedBlackTree.cs" />
     <Compile Include="Collections\Generic\Trees\BinarySearchTree.IEnumerable.cs" />
     <Compile Include="Collections\Generic\Trees\BinarySearchTree.ICollection.cs" />
-    <Compile Include="Collections\Generic\Trees\RedBlackTree.cs" />
-    <Compile Include="Collections\Generic\Trees\SafeBinarySearchTree.IEnumerable.cs" />
-    <Compile Include="Collections\Generic\Trees\SafeBinarySearchTree.ICollection.cs" />
     <Compile Include="Collections\Generic\Trees\IBinarySearchTree.cs" />
-    <Compile Include="Collections\Generic\Trees\SafeBinarySearchTree.cs" />
     <Compile Include="Collections\Generic\Trees\BinarySearchTree.cs" />
+    <Compile Include="Collections\Generic\Trees\BinarySearchTreeBase.cs" />
     <Compile Include="Resources\Errors.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

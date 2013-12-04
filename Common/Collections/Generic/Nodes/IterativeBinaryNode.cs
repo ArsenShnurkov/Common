@@ -2,13 +2,13 @@
 {
     using System.Collections.Generic;
 
-    internal sealed class SafeBinaryNode<T>
+    internal sealed class IterativeBinaryNode<T>
     {
         /// <summary>
         /// Creates a new instance of a Common.Collections.Generic.BinaryNode<T>
         /// </summary>
         /// <param name="value">The data value that this node will contain</param>
-        internal SafeBinaryNode(T value)
+        internal IterativeBinaryNode(T value)
         {
             this.Value      = value;
         }
@@ -17,8 +17,8 @@
 
         internal T Value { get; set; }
 
-        internal SafeBinaryNode<T> Left { get; set; }
-        internal SafeBinaryNode<T> Right { get; set; }
+        internal IterativeBinaryNode<T> Left { get; set; }
+        internal IterativeBinaryNode<T> Right { get; set; }
 
 
         /// <summary>
@@ -41,13 +41,13 @@
         {
             get
             {
-                Queue<SafeBinaryNode<T>> nodes = new Queue<SafeBinaryNode<T>>();
+                Queue<IterativeBinaryNode<T>> nodes = new Queue<IterativeBinaryNode<T>>();
                 nodes.Enqueue(this);
 
                 int height = -1;
                 int nodesAtCurrentLevel;
 
-                SafeBinaryNode<T> current;
+                IterativeBinaryNode<T> current;
                 while (nodes.Count > 0)
                 {
                     nodesAtCurrentLevel = nodes.Count;
@@ -93,12 +93,12 @@
             }
         }
 
-        internal SafeBinaryNode<T> InOrderPredecessor
+        internal IterativeBinaryNode<T> InOrderPredecessor
         {
             get
             {
-                SafeBinaryNode<T> previous = null;
-                SafeBinaryNode<T> current = this.Left;
+                IterativeBinaryNode<T> previous = null;
+                IterativeBinaryNode<T> current = this.Left;
                 while (current != null)
                 {
                     previous = current;
@@ -109,12 +109,12 @@
             }
         }
 
-        internal SafeBinaryNode<T> InOrderSuccessor
+        internal IterativeBinaryNode<T> InOrderSuccessor
         {
             get
             {
-                SafeBinaryNode<T> previous = null;
-                SafeBinaryNode<T> current = this.Right;
+                IterativeBinaryNode<T> previous = null;
+                IterativeBinaryNode<T> current = this.Right;
                 while (current != null)
                 {
                     previous = current;

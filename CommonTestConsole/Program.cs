@@ -52,8 +52,8 @@
             IDictionary<string, double> redBlackTimes = new Dictionary<string, double>();
             IDictionary<string, double> avlTimes = new Dictionary<string, double>();
 
-            IBinarySearchTree<int> iterativeBst = new SafeBinarySearchTree<int>();
-            IBinarySearchTree<int> recursiveBst = new BinarySearchTree<int>();
+            IBinarySearchTree<int> iterativeBst = new BinarySearchTree<int>();
+            IBinarySearchTree<int> recursiveBst = new BinarySearchTreeBase<int>();
             IBinarySearchTree<int> redBlackTree = new RedBlackTree<int>();
             IBinarySearchTree<int> avlTree = new AVLTree<int>();
 

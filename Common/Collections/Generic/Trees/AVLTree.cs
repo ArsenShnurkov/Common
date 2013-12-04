@@ -7,7 +7,7 @@
     /// A balanced binary tree in which the balance of the root node is always >= -1 and <= 1 ensuring that insert delete and find operations happen in exactly log n time
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class AVLTree<T> : BinarySearchTree<T>, IBinarySearchTree<T> where T : IComparable<T>
+    public class AVLTree<T> : BinarySearchTreeBase<T>, IBinarySearchTree<T> where T : IComparable<T>
     {
         /// <summary>
         /// Creates a new instance of an AVLTree
