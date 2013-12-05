@@ -14,15 +14,15 @@
             Random rng = new Random();
             using (StreamWriter file = new System.IO.StreamWriter(@"output.csv"))
             {
-                TextWriter writer = Console.Out;
-                //TextWriter writer = file;
+                //TextWriter writer = Console.Out;
+                TextWriter writer = file;
 
-                int maxN = 1500000;
-                int minN = 1500000;
+                int maxN = 2000000;
+                int minN = 100000;
                 int step = 100000;
 
-                bool doDelete = false;
-                bool doFind = false;
+                bool doDelete = true;
+                bool doFind = true;
                 bool doDepth = false;
 
                 int repititions = 3;

@@ -1,8 +1,5 @@
 ﻿namespace Common.Collections.Generic
 {
-    using System;
-    using System.Collections.Generic;
-
     internal class RedBlackNode<T> : IInternalBinaryNode<T>
     {
         internal RedBlackNode(T value)
@@ -10,7 +7,7 @@
             this.Colour = Colour.Red;
             this.Left = null;
             this.Right = null;
-            this._height = null;
+            this._height = int.MinValue;
             this.Value = value;
         }
 
@@ -72,7 +69,7 @@
             get { return this.IsLeaf; }
         }
 
-        private int? _height;
+        private int _height;
 
         /// <summary>
         /// The height of the node.
@@ -84,13 +81,13 @@
         {
             get
             {
-                if (!this._height.HasValue)
-                    this._height = BinaryNodeCommon.GetHeight(this);
+                if (this._height == int.MinValue)
+                    this._height = BinaryNodeCommon.GetNodeHeight(this);
 
-                return this._height.Value;
+                return this._height;
             }
         }
-        
+
         /// <summary>
         /// The balance of the node. Node.Balance = Node.Left.Height - Node.Right.Height
         /// 
@@ -189,12 +186,12 @@
 
         internal void ResetHeight()
         {
-            this._height = null;
+            this._height = int.MinValue;
         }
 
         void IInternalBinaryNode<T>.ResetHeight()
         {
-            this._height = null;
+            this._height = int.MinValue;
         }
 
         public override string ToString()

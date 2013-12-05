@@ -113,7 +113,7 @@
         public void Height_Leaf()
         {
             IInternalBinaryNode<int> root = new BinaryNode<int>(20);
-            Assert.AreEqual<int>(0, BinaryNodeCommon.GetHeight(root));
+            Assert.AreEqual<int>(0, BinaryNodeCommon.GetNodeHeight(root));
         }
 
         [TestMethod]
@@ -123,7 +123,7 @@
             IInternalBinaryNode<int> root = new BinaryNode<int>(20);
             root.Left = new BinaryNode<int>(10);
 
-            Assert.AreEqual<int>(1, BinaryNodeCommon.GetHeight(root));
+            Assert.AreEqual<int>(1, BinaryNodeCommon.GetNodeHeight(root));
         }
 
         [TestMethod]
@@ -132,7 +132,7 @@
         {
             IInternalBinaryNode<int> root = new BinaryNode<int>(50);
             root.Right = new BinaryNode<int>(10);
-            Assert.AreEqual<int>(1, BinaryNodeCommon.GetHeight(root));
+            Assert.AreEqual<int>(1, BinaryNodeCommon.GetNodeHeight(root));
         }
 
         [TestMethod]
@@ -145,7 +145,7 @@
             root.ResetHeight();
             root.Right.ResetHeight();
             root.Left.ResetHeight();
-            Assert.AreEqual<int>(1, BinaryNodeCommon.GetHeight(root));
+            Assert.AreEqual<int>(1, BinaryNodeCommon.GetNodeHeight(root));
         }
 
         [TestMethod]
@@ -160,7 +160,7 @@
             root.Left.ResetHeight();
             root.Right.ResetHeight();
             root.Left.Left.ResetHeight();
-            Assert.AreEqual<int>(2, BinaryNodeCommon.GetHeight(root));
+            Assert.AreEqual<int>(2, BinaryNodeCommon.GetNodeHeight(root));
         }
 
         [TestMethod]
@@ -175,7 +175,7 @@
             root.Left.ResetHeight();
             root.Right.ResetHeight();
             root.Left.Right.ResetHeight();
-            Assert.AreEqual<int>(2, BinaryNodeCommon.GetHeight(root));
+            Assert.AreEqual<int>(2, BinaryNodeCommon.GetNodeHeight(root));
         }
 
         [TestMethod]
@@ -190,7 +190,7 @@
             root.Left.ResetHeight();
             root.Right.ResetHeight();
             root.Right.Left.ResetHeight();
-            Assert.AreEqual<int>(2, BinaryNodeCommon.GetHeight(root));
+            Assert.AreEqual<int>(2, BinaryNodeCommon.GetNodeHeight(root));
         }
 
         [TestMethod]
@@ -205,7 +205,7 @@
             root.Left.ResetHeight();
             root.Right.ResetHeight();
             root.Right.Right.ResetHeight();
-            Assert.AreEqual<int>(2, BinaryNodeCommon.GetHeight(root));
+            Assert.AreEqual<int>(2, BinaryNodeCommon.GetNodeHeight(root));
         }
 
         [TestMethod]
@@ -214,7 +214,7 @@
         {
             IInternalBinaryNode<int> root = new BinaryNode<int>(10);
             root.ResetHeight();
-            Assert.AreEqual<int>(0, BinaryNodeCommon.GetHeight(root));
+            Assert.AreEqual<int>(0, BinaryNodeCommon.GetNodeHeight(root));
         }
 
         [TestMethod]

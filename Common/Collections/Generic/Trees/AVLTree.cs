@@ -1,7 +1,6 @@
 ﻿namespace Common.Collections.Generic
 {
     using System;
-    using Common.Resources;
 
     /// <summary>
     /// A balanced binary tree in which the balance of the root node is always >= -1 and <= 1 ensuring that insert delete and find operations happen in exactly log n time

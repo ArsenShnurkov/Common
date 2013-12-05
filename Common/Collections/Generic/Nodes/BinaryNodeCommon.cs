@@ -1,6 +1,7 @@
 ﻿namespace Common.Collections.Generic
 {
     using System;
+    using System.Runtime.CompilerServices;
 
     internal static class BinaryNodeCommon
     {
@@ -38,25 +39,27 @@
         }
 
         /// <summary>
+        /// Returns the height of a node that is potentially null
+        /// </summary>
+        /// <typeparam name="T">The data type contained within the node</typeparam>
+        /// <param name="node">The child node that we want the height for</param>
+        /// <returns>-1 if the node is null. Otherwise it returns the cached node height</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static int GetNodeChildHeight<T>(IInternalBinaryNode<T> node)
+        {
+            return (node == null) ? -1 : node.Height;
+        }
+
+        /// <summary>
         /// Retrieves the height of the node calculated as Height = Max(Left.Height, Right.Height) + 1
         /// 
         /// The height of a tree that only has a root is 0
         /// </summary>
         /// <typeparam name="T">The data type contained within the node</typeparam>
         /// <param name="node">The node who's height needs to be calculated</param>
-        internal static int GetHeight<T>(IInternalBinaryNode<T> node)
+        internal static int GetNodeHeight<T>(IInternalBinaryNode<T> node)
         {
-            int height;
-            if (node.IsLeaf)
-                height = 0;
-            else if (node.Right == null)
-                height = node.Left.Height + 1;
-            else if (node.Left == null)
-                height = node.Right.Height + 1;
-            else
-                height = Math.Max(node.Left.Height, node.Right.Height) + 1;
-
-            return height;
+            return Math.Max(GetNodeChildHeight(node.Left), GetNodeChildHeight(node.Right)) + 1;
         }
 
         /// <summary>
@@ -64,16 +67,7 @@
         /// </summary>
         internal static int GetNodeBalance<T>(IInternalBinaryNode<T> node)
         {
-            int balance;
-            if (node.IsLeaf)
-                balance = 0;
-            else if (node.Right == null)
-                balance = node.Left.Height + 1;
-            else if (node.Left == null)
-                balance = -1 - node.Right.Height;
-            else
-                balance = node.Left.Height - node.Right.Height;
-            return balance;
+            return GetNodeChildHeight(node.Left) - GetNodeChildHeight(node.Right);
         }
     }
 }
