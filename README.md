@@ -3,7 +3,7 @@ Common
 
 This Common library currently contains some generic binary search trees that I've been working on lately.
 
-See Insert.png, Find.png, and Delete.png for speed comparisons between the various trees.
+See Insert.png, Find.png, and Delete.png for speed comparisons between the various trees. These timings are mainly intended to serve as basic comparisons between the different trees. After my recent optimizations, the slowest operation (AVLTree Insert) is approximately 20% faster than it was.
 
 * BinarySearchTree is an unabalanced BST that uses iterative algorithms in order to avoid stack overflows.
 * BinarySearchTreeBase is a base class for the AVL and Red/Black Trees that uses recursive algorithms. This class cannot be instantiated on its own.
