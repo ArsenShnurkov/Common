@@ -1,0 +1,356 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Common.Fakes</name>
+    </assembly>
+    <members>
+        <member name="T:Common.Collections.Generic.Fakes.ShimHeap`1">
+            <summary>Shim type of Common.Collections.Generic.Heap`1</summary>
+        </member>
+        <member name="M:Common.Collections.Generic.Fakes.ShimHeap`1.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:Common.Collections.Generic.Fakes.ShimHeap`1.#ctor(Common.Collections.Generic.Heap{`0})">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:Common.Collections.Generic.Fakes.ShimHeap`1.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:Common.Collections.Generic.Fakes.ShimHeap`1.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimHeap`1.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimHeap`1.Constructor">
+            <summary>Sets the shim of Heap`1.Heap`1()</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimHeap`1.ConstructorHeapType">
+            <summary>Sets the shim of Heap`1.Heap`1(HeapType type)</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimHeap`1.ConstructorHeapTypeInt32">
+            <summary>Sets the shim of Heap`1.Heap`1(HeapType type, Int32 capacity)</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimHeap`1.CountGet">
+            <summary>Sets the shim of Heap`1.get_Count()</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimHeap`1.HeapifyDown">
+            <summary>Sets the shim of Heap`1.HeapifyDown()</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimHeap`1.HeapifyUpInt32">
+            <summary>Sets the shim of Heap`1.HeapifyUp(Int32 insertedIx)</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimHeap`1.InitHeapType">
+            <summary>Sets the shim of Heap`1.Init(HeapType type)</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimHeap`1.InsertT0">
+            <summary>Sets the shim of Heap`1.Insert(!0 value)</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimHeap`1.IsLargerThanInt32Int32">
+            <summary>Sets the shim of Heap`1.IsLargerThan(Int32 first, Int32 second)</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimHeap`1.IsSmallerThanParentInt32Int32">
+            <summary>Sets the shim of Heap`1.IsSmallerThanParent(Int32 first, Int32 second)</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimHeap`1.LeftChildIndexOfInt32">
+            <summary>Sets the shim of Heap`1.LeftChildIndexOf(Int32 ix)</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimHeap`1.ListGet">
+            <summary>Sets the shim of Heap`1.get_List()</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimHeap`1.ListSetListOfT0">
+            <summary>Sets the shim of Heap`1.set_List(List`1&lt;!0&gt; value)</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimHeap`1.ParentIndexOfInt32">
+            <summary>Sets the shim of Heap`1.ParentIndexOf(Int32 ix)</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimHeap`1.Peek">
+            <summary>Sets the shim of Heap`1.Peek()</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimHeap`1.Remove">
+            <summary>Sets the shim of Heap`1.Remove()</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimHeap`1.RightChildIndexOfInt32">
+            <summary>Sets the shim of Heap`1.RightChildIndexOf(Int32 ix)</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimHeap`1.SwapInt32Int32">
+            <summary>Sets the shim of Heap`1.Swap(Int32 ix1, Int32 ix2)</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimHeap`1.TypeGet">
+            <summary>Sets the shim of Heap`1.get_Type()</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimHeap`1.TypeSetHeapType">
+            <summary>Sets the shim of Heap`1.set_Type(HeapType value)</summary>
+        </member>
+        <member name="T:Common.Collections.Generic.Fakes.ShimHeap`1.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimHeap`1.AllInstances.CountGet">
+            <summary>Sets the shim of Heap`1.get_Count()</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimHeap`1.AllInstances.HeapifyDown">
+            <summary>Sets the shim of Heap`1.HeapifyDown()</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimHeap`1.AllInstances.HeapifyUpInt32">
+            <summary>Sets the shim of Heap`1.HeapifyUp(Int32 insertedIx)</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimHeap`1.AllInstances.InitHeapType">
+            <summary>Sets the shim of Heap`1.Init(HeapType type)</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimHeap`1.AllInstances.InsertT0">
+            <summary>Sets the shim of Heap`1.Insert(!0 value)</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimHeap`1.AllInstances.IsLargerThanInt32Int32">
+            <summary>Sets the shim of Heap`1.IsLargerThan(Int32 first, Int32 second)</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimHeap`1.AllInstances.IsSmallerThanParentInt32Int32">
+            <summary>Sets the shim of Heap`1.IsSmallerThanParent(Int32 first, Int32 second)</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimHeap`1.AllInstances.ListGet">
+            <summary>Sets the shim of Heap`1.get_List()</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimHeap`1.AllInstances.ListSetListOfT0">
+            <summary>Sets the shim of Heap`1.set_List(List`1&lt;!0&gt; value)</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimHeap`1.AllInstances.Peek">
+            <summary>Sets the shim of Heap`1.Peek()</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimHeap`1.AllInstances.Remove">
+            <summary>Sets the shim of Heap`1.Remove()</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimHeap`1.AllInstances.SwapInt32Int32">
+            <summary>Sets the shim of Heap`1.Swap(Int32 ix1, Int32 ix2)</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimHeap`1.AllInstances.TypeGet">
+            <summary>Sets the shim of Heap`1.get_Type()</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimHeap`1.AllInstances.TypeSetHeapType">
+            <summary>Sets the shim of Heap`1.set_Type(HeapType value)</summary>
+        </member>
+        <member name="T:Common.Collections.Generic.Fakes.ShimSkipList`1">
+            <summary>Shim type of Common.Collections.Generic.SkipList`1</summary>
+        </member>
+        <member name="M:Common.Collections.Generic.Fakes.ShimSkipList`1.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:Common.Collections.Generic.Fakes.ShimSkipList`1.#ctor(Common.Collections.Generic.SkipList{`0})">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:Common.Collections.Generic.Fakes.ShimSkipList`1.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:Common.Collections.Generic.Fakes.ShimSkipList`1.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:Common.Collections.Generic.Fakes.ShimSkipList`1.Bind(System.Collections.IEnumerable)">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="M:Common.Collections.Generic.Fakes.ShimSkipList`1.Bind(System.Collections.Generic.ICollection{`0})">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="M:Common.Collections.Generic.Fakes.ShimSkipList`1.Bind(System.Collections.Generic.IEnumerable{`0})">
+            <summary>Binds the members of the interface to the shim.</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipList`1.AddT0">
+            <summary>Sets the shim of SkipList`1.Add(!0 item)</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipList`1.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipList`1.Clear">
+            <summary>Sets the shim of SkipList`1.Clear()</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipList`1.Constructor">
+            <summary>Sets the shim of SkipList`1.SkipList`1()</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipList`1.ContainsT0">
+            <summary>Sets the shim of SkipList`1.Contains(!0 value)</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipList`1.CopyToT0ArrayInt32">
+            <summary>Sets the shim of SkipList`1.CopyTo(!0[] array, Int32 arrayIndex)</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipList`1.CountGet">
+            <summary>Sets the shim of SkipList`1.get_Count()</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipList`1.CountSetInt32">
+            <summary>Sets the shim of SkipList`1.set_Count(Int32 value)</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipList`1.CreateSkipListNodeT0">
+            <summary>Sets the shim of SkipList`1.CreateSkipListNode(!0 value)</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipList`1.DeleteT0">
+            <summary>Sets the shim of SkipList`1.Delete(!0 value)</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipList`1.FindT0">
+            <summary>Sets the shim of SkipList`1.Find(!0 value)</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipList`1.GetEnumerator">
+            <summary>Sets the shim of SkipList`1.GetEnumerator()</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipList`1.HeadGet">
+            <summary>Sets the shim of SkipList`1.get_Head()</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipList`1.HeadSetSkipListNodeOfT0">
+            <summary>Sets the shim of SkipList`1.set_Head(SkipListNode`1&lt;!0&gt; value)</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipList`1.InitParameters">
+            <summary>Sets the shim of SkipList`1.InitParameters()</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipList`1.InsertSkipListNodeOfT0">
+            <summary>Sets the shim of SkipList`1.Insert(SkipListNode`1&lt;!0&gt; node)</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipList`1.InsertT0">
+            <summary>Sets the shim of SkipList`1.Insert(!0 value)</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipList`1.IsReadOnlyGet">
+            <summary>Sets the shim of SkipList`1.get_IsReadOnly()</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipList`1.LevelsGet">
+            <summary>Sets the shim of SkipList`1.get_Levels()</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipList`1.LevelsSetInt32">
+            <summary>Sets the shim of SkipList`1.set_Levels(Int32 value)</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipList`1.MaxLevelsGet">
+            <summary>Sets the shim of SkipList`1.get_MaxLevels()</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipList`1.RandomLevel">
+            <summary>Sets the shim of SkipList`1.RandomLevel()</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipList`1.RandomNumber">
+            <summary>Sets the shim of SkipList`1.RandomNumber()</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipList`1.RemoveT0">
+            <summary>Sets the shim of SkipList`1.Remove(!0 item)</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipList`1.SystemCollectionsIEnumerableGetEnumerator">
+            <summary>Sets the shim of SkipList`1.System.Collections.IEnumerable.GetEnumerator()</summary>
+        </member>
+        <member name="T:Common.Collections.Generic.Fakes.ShimSkipList`1.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipList`1.AllInstances.AddT0">
+            <summary>Sets the shim of SkipList`1.Add(!0 item)</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipList`1.AllInstances.Clear">
+            <summary>Sets the shim of SkipList`1.Clear()</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipList`1.AllInstances.ContainsT0">
+            <summary>Sets the shim of SkipList`1.Contains(!0 value)</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipList`1.AllInstances.CopyToT0ArrayInt32">
+            <summary>Sets the shim of SkipList`1.CopyTo(!0[] array, Int32 arrayIndex)</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipList`1.AllInstances.CountGet">
+            <summary>Sets the shim of SkipList`1.get_Count()</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipList`1.AllInstances.CountSetInt32">
+            <summary>Sets the shim of SkipList`1.set_Count(Int32 value)</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipList`1.AllInstances.CreateSkipListNodeT0">
+            <summary>Sets the shim of SkipList`1.CreateSkipListNode(!0 value)</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipList`1.AllInstances.DeleteT0">
+            <summary>Sets the shim of SkipList`1.Delete(!0 value)</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipList`1.AllInstances.FindT0">
+            <summary>Sets the shim of SkipList`1.Find(!0 value)</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipList`1.AllInstances.GetEnumerator">
+            <summary>Sets the shim of SkipList`1.GetEnumerator()</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipList`1.AllInstances.HeadGet">
+            <summary>Sets the shim of SkipList`1.get_Head()</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipList`1.AllInstances.HeadSetSkipListNodeOfT0">
+            <summary>Sets the shim of SkipList`1.set_Head(SkipListNode`1&lt;!0&gt; value)</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipList`1.AllInstances.InitParameters">
+            <summary>Sets the shim of SkipList`1.InitParameters()</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipList`1.AllInstances.InsertSkipListNodeOfT0">
+            <summary>Sets the shim of SkipList`1.Insert(SkipListNode`1&lt;!0&gt; node)</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipList`1.AllInstances.InsertT0">
+            <summary>Sets the shim of SkipList`1.Insert(!0 value)</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipList`1.AllInstances.IsReadOnlyGet">
+            <summary>Sets the shim of SkipList`1.get_IsReadOnly()</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipList`1.AllInstances.LevelsGet">
+            <summary>Sets the shim of SkipList`1.get_Levels()</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipList`1.AllInstances.LevelsSetInt32">
+            <summary>Sets the shim of SkipList`1.set_Levels(Int32 value)</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipList`1.AllInstances.MaxLevelsGet">
+            <summary>Sets the shim of SkipList`1.get_MaxLevels()</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipList`1.AllInstances.RandomLevel">
+            <summary>Sets the shim of SkipList`1.RandomLevel()</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipList`1.AllInstances.RandomNumber">
+            <summary>Sets the shim of SkipList`1.RandomNumber()</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipList`1.AllInstances.RemoveT0">
+            <summary>Sets the shim of SkipList`1.Remove(!0 item)</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipList`1.AllInstances.SystemCollectionsIEnumerableGetEnumerator">
+            <summary>Sets the shim of SkipList`1.System.Collections.IEnumerable.GetEnumerator()</summary>
+        </member>
+        <member name="T:Common.Collections.Generic.Fakes.ShimSkipListNode`1">
+            <summary>Shim type of Common.Collections.Generic.SkipListNode`1</summary>
+        </member>
+        <member name="M:Common.Collections.Generic.Fakes.ShimSkipListNode`1.#ctor">
+            <summary>Initializes a new shim instance</summary>
+        </member>
+        <member name="M:Common.Collections.Generic.Fakes.ShimSkipListNode`1.#ctor(Common.Collections.Generic.SkipListNode{`0})">
+            <summary>Initializes a new shim for the given instance</summary>
+        </member>
+        <member name="M:Common.Collections.Generic.Fakes.ShimSkipListNode`1.BehaveAsCurrent">
+            <summary>Assigns the &apos;Current&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="M:Common.Collections.Generic.Fakes.ShimSkipListNode`1.BehaveAsNotImplemented">
+            <summary>Assigns the &apos;NotImplemented&apos; behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipListNode`1.Behavior">
+            <summary>Assigns the behavior for all methods of the shimmed type</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipListNode`1.ConstructorInt32T0">
+            <summary>Sets the shim of SkipListNode`1.SkipListNode`1(Int32 levels, !0 value)</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipListNode`1.LevelsGet">
+            <summary>Sets the shim of SkipListNode`1.get_Levels()</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipListNode`1.NextGet">
+            <summary>Sets the shim of SkipListNode`1.get_Next()</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipListNode`1.NextSetSkipListNodeOfT0Array">
+            <summary>Sets the shim of SkipListNode`1.set_Next(SkipListNode`1&lt;!0&gt;[] value)</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipListNode`1.ValueGet">
+            <summary>Sets the shim of SkipListNode`1.get_Value()</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipListNode`1.ValueSetT0">
+            <summary>Sets the shim of SkipListNode`1.set_Value(!0 value)</summary>
+        </member>
+        <member name="T:Common.Collections.Generic.Fakes.ShimSkipListNode`1.AllInstances">
+            <summary>Define shims for all instances members</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipListNode`1.AllInstances.LevelsGet">
+            <summary>Sets the shim of SkipListNode`1.get_Levels()</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipListNode`1.AllInstances.NextGet">
+            <summary>Sets the shim of SkipListNode`1.get_Next()</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipListNode`1.AllInstances.NextSetSkipListNodeOfT0Array">
+            <summary>Sets the shim of SkipListNode`1.set_Next(SkipListNode`1&lt;!0&gt;[] value)</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipListNode`1.AllInstances.ValueGet">
+            <summary>Sets the shim of SkipListNode`1.get_Value()</summary>
+        </member>
+        <member name="P:Common.Collections.Generic.Fakes.ShimSkipListNode`1.AllInstances.ValueSetT0">
+            <summary>Sets the shim of SkipListNode`1.set_Value(!0 value)</summary>
+        </member>
+    </members>
+</doc>

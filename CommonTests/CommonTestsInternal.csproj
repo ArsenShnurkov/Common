@@ -46,6 +46,10 @@
     <AssemblyOriginatorKeyFile>Properties\key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Common.Fakes">
+      <HintPath>FakesAssemblies\Common.Fakes.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
   </ItemGroup>
   <Choose>
@@ -61,20 +65,31 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Collections\Generic\AVLTreeTests.cs">
+    <Compile Include="Collections\Generic\AVLTreeTests.Integration.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Collections\Generic\BinaryNodeCommonTests.cs" />
-    <Compile Include="Collections\Generic\BinaryNodeTests.cs">
+    <Compile Include="Collections\Generic\AVLNodeTests.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Collections\Generic\BinarySearchTreeBaseTests.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Collections\Generic\BinarySearchTreeTests.Integration.IBinarySearchTree.cs" />
+    <Compile Include="Collections\Generic\AVLTreeTests.Integration.IBinarySearchTree.cs" />
+    <Compile Include="Collections\Generic\AVLTreeTests.Integration.IEnumerable.cs" />
+    <Compile Include="Collections\Generic\BinarySearchTreeTests.Integration.IEnumerable.cs" />
+    <Compile Include="Collections\Generic\AVLTreeTests.Integration.ICollection.cs" />
+    <Compile Include="Collections\Generic\BinarySearchTreeTests.Integration.ICollection.cs" />
+    <Compile Include="Collections\Generic\SkipListTests.Unit.ICollection.cs" />
+    <Compile Include="Collections\Generic\SkipListTests.Unit.IEnumerable.cs" />
+    <Compile Include="Collections\Generic\RedBlackTreeTests.Integration.ICollection.cs" />
+    <Compile Include="Collections\Generic\RedBlackTreeTests.Integration.IEnumerable.cs" />
+    <Compile Include="Collections\Generic\RedBlackTreeTests.Integration.IBinarySearchTree.cs" />
+    <Compile Include="Collections\Generic\BinarySearchTreeNodeTests.cs" />
+    <Compile Include="Collections\Generic\BinarySearchTreeTests.Integration.cs" />
     <Compile Include="Collections\Generic\RedBlackNodeTests.cs" />
-    <Compile Include="Collections\Generic\RedBlackTreeTests.cs" />
-    <Compile Include="Collections\Generic\IterativeBinaryNodeTests.cs" />
-    <Compile Include="Collections\Generic\BinarySearchTreeTests.cs" />
+    <Compile Include="Collections\Generic\RedBlackTreeTests.Integration.cs" />
+    <Compile Include="Collections\Generic\IBinarySearchTreeTests.Integration.cs" />
+    <Compile Include="Collections\Generic\SkipListTests.Unit.cs" />
+    <Compile Include="Collections\Generic\HeapTests.Unit.cs" />
+    <Compile Include="Collections\Generic\HeapTests.Integration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -84,8 +99,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Fakes Include="Fakes\Common.fakes" />
     <None Include="Properties\key.snk" />
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

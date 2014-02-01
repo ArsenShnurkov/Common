@@ -117,46 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BinarySearchNodePropertyNotNull" xml:space="preserve">
-    <value>Cannot set this property because it is not null. Use IBinarySearchTree.Insert instead</value>
-  </data>
-  <data name="CannotRebalanceInThisDirection" xml:space="preserve">
-    <value>The node that was passed in cannot be rebalanced in this direction</value>
-  </data>
-  <data name="ChildrenAlreadyInitialized" xml:space="preserve">
-    <value>Children already initialized</value>
-  </data>
-  <data name="DeleteNodeNotChildOf" xml:space="preserve">
-    <value>The node passed in to DeleteNode was not a child of the parent node as expected</value>
+  <data name="CannotRemoveFromEmptyHeap" xml:space="preserve">
+    <value>Cannot remove an item from an empty heap</value>
   </data>
   <data name="DeleteNodeNotFound" xml:space="preserve">
-    <value>Cannot delete the node from the tree because the tree does not contain the node</value>
-  </data>
-  <data name="DeleteNodeParentMatchesChild" xml:space="preserve">
-    <value>The parent node must differ from the child node</value>
-  </data>
-  <data name="DeleteWithTwoChildrenNotAllowed" xml:space="preserve">
-    <value>Node has two non-null children, expected one or less</value>
+    <value>Delete Failed - No Element Found</value>
   </data>
   <data name="DepthNodeNotFound" xml:space="preserve">
-    <value>Cannot find depth of node in tree because the tree does not contain the node</value>
+    <value>Depth Failed - No Element Found</value>
   </data>
   <data name="InsertDuplicate" xml:space="preserve">
-    <value>Cannot insert a node if the node's value is already contained in the tree</value>
+    <value>Cannot insert a duplicate values</value>
   </data>
-  <data name="LeftChildMustBeSmaller" xml:space="preserve">
-    <value>Left child must be smaller than current node's value. Use IBinarySearchTree.insert instead</value>
+  <data name="ParentOfRootDoesntExist" xml:space="preserve">
+    <value>Cannot find the parent node of the root</value>
   </data>
-  <data name="NoSwapNode" xml:space="preserve">
-    <value>Swap node not found</value>
-  </data>
-  <data name="NotFound" xml:space="preserve">
-    <value>The node was not found within the tree</value>
-  </data>
-  <data name="NullParentExpected" xml:space="preserve">
-    <value>A null parent was expected</value>
-  </data>
-  <data name="RightChildMustBeBigger" xml:space="preserve">
-    <value>Right child must be bigger than the current node's value. Use IBinarySearchTree.insert instead</value>
+  <data name="PeekEmptyTree" xml:space="preserve">
+    <value>Cannot peek an empty tree</value>
   </data>
 </root>

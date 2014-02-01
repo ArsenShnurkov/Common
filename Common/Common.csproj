@@ -42,36 +42,39 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Collections\Generic\Heap.cs" />
+    <Compile Include="Collections\Generic\HeapType.cs" />
+    <Compile Include="Collections\Generic\SkipList.ICollection.cs" />
+    <Compile Include="Collections\Generic\SkipList.IEnumerable.cs" />
     <Compile Include="Collections\Generic\Exceptions\InvalidTreeException.cs" />
-    <Compile Include="Collections\Generic\Nodes\BinaryNodeCommon.cs" />
-    <Compile Include="Collections\Generic\Nodes\IInternalBinaryNode.cs" />
-    <Compile Include="Collections\Generic\Nodes\RedBlackNode.cs">
+    <Compile Include="Collections\Generic\BinarySearchTreeNode.cs" />
+    <Compile Include="Collections\Generic\Colour.cs" />
+    <Compile Include="Collections\Generic\AVLNode.cs" />
+    <Compile Include="Collections\Generic\Exceptions\ValueNotFoundException.cs" />
+    <Compile Include="Collections\Generic\RedBlackNode.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Collections\Generic\Nodes\IterativeBinaryNode.cs" />
-    <Compile Include="Collections\Generic\Nodes\Colour.cs" />
-    <Compile Include="Collections\Generic\Nodes\BinaryNode.cs" />
-    <Compile Include="Collections\Generic\Exceptions\NodeNotFoundException.cs" />
-    <Compile Include="Collections\Generic\Exceptions\TreeNotRootedException.cs" />
-    <Compile Include="Collections\Generic\Trees\AVLTree.cs">
+    <Compile Include="Collections\Generic\AVLTree.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Collections\Generic\Trees\BinarySearchTreeBase.IEnumerable.cs" />
-    <Compile Include="Collections\Generic\Trees\BinarySearchTreeBase.ICollection.cs" />
-    <Compile Include="Collections\Generic\Trees\RedBlackTree.cs" />
-    <Compile Include="Collections\Generic\Trees\BinarySearchTree.IEnumerable.cs" />
-    <Compile Include="Collections\Generic\Trees\BinarySearchTree.ICollection.cs" />
-    <Compile Include="Collections\Generic\Trees\IBinarySearchTree.cs" />
-    <Compile Include="Collections\Generic\Trees\BinarySearchTree.cs" />
-    <Compile Include="Collections\Generic\Trees\BinarySearchTreeBase.cs" />
+    <Compile Include="Collections\Generic\AVLTree.ICollection.cs" />
+    <Compile Include="Collections\Generic\AVLTree.IEnumerable.cs" />
+    <Compile Include="Collections\Generic\BinarySearchTree.cs" />
+    <Compile Include="Collections\Generic\BinarySearchTree.ICollection.cs" />
+    <Compile Include="Collections\Generic\BinarySearchTree.IEnumerable.cs" />
+    <Compile Include="Collections\Generic\IBinarySearchTree.cs" />
+    <Compile Include="Collections\Generic\RedBlackTree.cs" />
+    <Compile Include="Collections\Generic\RedBlackTree.ICollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\Generic\RedBlackTree.IEnumerable.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Collections\Generic\SkipList.cs" />
+    <Compile Include="Collections\Generic\SkipListNode.cs" />
     <Compile Include="Resources\Errors.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

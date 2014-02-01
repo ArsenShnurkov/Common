@@ -14,16 +14,15 @@
             Random rng = new Random();
             using (StreamWriter file = new System.IO.StreamWriter(@"output.csv"))
             {
-                //TextWriter writer = Console.Out;
-                TextWriter writer = file;
+                TextWriter writer = Console.Out;
+                //TextWriter writer = file;
 
                 int maxN = 2000000;
-                int minN = 100000;
+                int minN = 2000000;
                 int step = 100000;
 
-                bool doDelete = true;
-                bool doFind = true;
-                bool doDepth = false;
+                bool doDelete = false;
+                bool doFind = false;
 
                 int repititions = 3;
 
@@ -32,7 +31,7 @@
                 {
                     for (int j = 1; j <= repititions; ++j)
                     {
-                        CompareTrees(rng, n, writer, doDelete, doFind, doDepth);
+                        CompareCollections(rng, n, writer, doDelete, doFind);
                         Console.WriteLine("{0:hh:mm:ss} - Finished {1} - Iteration {2}", DateTime.Now, n, j);
                     }
                     n += step;
@@ -40,7 +39,7 @@
             }
         }
 
-        private static void CompareTrees(Random rng, int n, TextWriter file, bool doDelete, bool doFind, bool doDepth)
+        private static void CompareCollections(Random rng, int n, TextWriter file, bool doDelete, bool doFind)
         {
             int nFind = n / 10;
 
@@ -48,49 +47,76 @@
             int[] randomIndexes = GetUniqueRandomNumbers(rng, nFind, 0, n);
 
             IDictionary<string, double> iterativeBstTimes = new Dictionary<string, double>();
-            IDictionary<string, double> recursiveBstTimes = new Dictionary<string, double>();
             IDictionary<string, double> redBlackTimes = new Dictionary<string, double>();
             IDictionary<string, double> avlTimes = new Dictionary<string, double>();
+            IDictionary<string, double> skipListTimes = new Dictionary<string, double>();
 
-            IBinarySearchTree<int> iterativeBst = new BinarySearchTree<int>();
-            IBinarySearchTree<int> recursiveBst = new BinarySearchTreeBase<int>();
-            IBinarySearchTree<int> redBlackTree = new RedBlackTree<int>();
-            IBinarySearchTree<int> avlTree = new AVLTree<int>();
+            ICollection<int> iterativeBst = new BinarySearchTree<int>();
+            ICollection<int> redBlackTree = new RedBlackTree<int>();
+            ICollection<int> avlTree = new AVLTree<int>();
+            ICollection<int> skipList = new SkipList<int>();
 
-            iterativeBstTimes["insert"] = BuildAndCheckTree(iterativeBst, numbers);
-            recursiveBstTimes["insert"] = BuildAndCheckTree(recursiveBst, numbers);
-            redBlackTimes["insert"] = BuildAndCheckTree(redBlackTree, numbers);
-            avlTimes["insert"] = BuildAndCheckTree(avlTree, numbers);
+            bool doIterative = false;
+            bool doRedBlack = true;
+            bool doAvl = false;
+            bool doSkipList = true;
+
+            if (doIterative)
+                iterativeBstTimes["insert"] = BuildAndCheckCollection(iterativeBst, numbers);
+
+            if (doRedBlack)
+                redBlackTimes["insert"] = BuildAndCheckCollection(redBlackTree, numbers);
+
+            if (doAvl)
+                avlTimes["insert"] = BuildAndCheckCollection(avlTree, numbers);
+
+            if (doSkipList)
+                skipListTimes["insert"] = BuildAndCheckCollection(skipList, numbers);
 
             if (doFind)
             {
-                iterativeBstTimes["find"] = FindValuesInTree(iterativeBst, numbers, randomIndexes);
-                recursiveBstTimes["find"] = FindValuesInTree(recursiveBst, numbers, randomIndexes);
-                redBlackTimes["find"] = FindValuesInTree(redBlackTree, numbers, randomIndexes);
-                avlTimes["find"] = FindValuesInTree(avlTree, numbers, randomIndexes);
-            }
-
-            if (doDepth)
-            {
-                iterativeBstTimes["depth"] = DepthOfValuesInTree(iterativeBst, numbers, randomIndexes);
-                recursiveBstTimes["depth"] = DepthOfValuesInTree(recursiveBst, numbers, randomIndexes);
-                redBlackTimes["depth"] = DepthOfValuesInTree(redBlackTree, numbers, randomIndexes);
-                avlTimes["depth"] = DepthOfValuesInTree(avlTree, numbers, randomIndexes);
+                if (doIterative)
+                    iterativeBstTimes["find"] = FindValuesInCollection(iterativeBst, numbers, randomIndexes);
+                
+                if (doRedBlack)
+                    redBlackTimes["find"] = FindValuesInCollection(redBlackTree, numbers, randomIndexes);
+                
+                if (doAvl)
+                    avlTimes["find"] = FindValuesInCollection(avlTree, numbers, randomIndexes);
+                
+                if (doSkipList)
+                    skipListTimes["find"] = FindValuesInCollection(skipList, numbers, randomIndexes);
             }
 
             if (doDelete)
             {
-                iterativeBstTimes["delete"] = DeleteValuesInTree(iterativeBst, numbers, randomIndexes);
-                recursiveBstTimes["delete"] = DeleteValuesInTree(recursiveBst, numbers, randomIndexes);
-                redBlackTimes["delete"] = DeleteValuesInTree(redBlackTree, numbers, randomIndexes);
-                avlTimes["delete"] = DeleteValuesInTree(avlTree, numbers, randomIndexes);
+                if (doIterative)
+                    iterativeBstTimes["delete"] = DeleteValuesInCollection(iterativeBst, numbers, randomIndexes);
+
+                if (doRedBlack)
+                    redBlackTimes["delete"] = DeleteValuesInCollection(redBlackTree, numbers, randomIndexes);
+
+                if (doAvl)
+                    avlTimes["delete"] = DeleteValuesInCollection(avlTree, numbers, randomIndexes);
+
+                if (doSkipList)
+                    skipListTimes["delete"] = DeleteValuesInCollection(skipList, numbers, randomIndexes);
             }
 
             file.Write("{0},", n);
-            WriteStats(iterativeBstTimes, file);
-            WriteStats(recursiveBstTimes, file);
-            WriteStats(redBlackTimes, file);
-            WriteStats(avlTimes, file);
+
+            if (doIterative)
+                WriteStats(iterativeBstTimes, file);
+
+            if (doRedBlack)
+                WriteStats(redBlackTimes, file);
+
+            if (doAvl)
+                WriteStats(avlTimes, file);
+
+            if (doSkipList)
+                WriteStats(skipListTimes, file);
+
             file.WriteLine();
         }
 
@@ -104,67 +130,48 @@
 
             if (times.ContainsKey("find"))
                 file.Write("{0:F10},", times["find"]);
-
-            if (times.ContainsKey("depth"))
-                file.Write("{0:F10},", times["depth"]);
         }
 
-        private static double DeleteValuesInTree(IBinarySearchTree<int> bst, int[] numbers, int[] randomIndexes)
+        private static double DeleteValuesInCollection(ICollection<int> collection, int[] numbers, int[] randomIndexes)
         {
             Stopwatch stopwatch = Stopwatch.StartNew();
             TimeSpan time = new TimeSpan();
             for (int i = 0; i < randomIndexes.Count(); ++i)
             {
                 stopwatch.Restart();
-                bst.Delete(numbers[randomIndexes[i]]);
+                collection.Remove(numbers[randomIndexes[i]]);
                 time += stopwatch.Elapsed;
             }
 
-            bst.AssertValidTree();
 
             return time.TotalMilliseconds / numbers.Count();
         }
 
-        private static double FindValuesInTree(IBinarySearchTree<int> bst, int[] numbers, int[] randomIndexes)
+        private static double FindValuesInCollection(ICollection<int> collection, int[] numbers, int[] randomIndexes)
         {
             Stopwatch stopwatch = Stopwatch.StartNew();
             TimeSpan time = new TimeSpan();
             for (int i = 0; i < randomIndexes.Count(); ++i)
             {
                 stopwatch.Restart();
-                bst.Contains(numbers[randomIndexes[i]]);
+                collection.Contains(numbers[randomIndexes[i]]);
                 time += stopwatch.Elapsed;
             }
             return time.TotalMilliseconds / numbers.Count();
         }
 
-        private static double DepthOfValuesInTree(IBinarySearchTree<int> bst, int[] numbers, int[] randomIndexes)
-        {
-            Stopwatch stopwatch = Stopwatch.StartNew();
-            TimeSpan time = new TimeSpan();
-            for (int i = 0; i < randomIndexes.Count(); ++i)
-            {
-                stopwatch.Restart();
-                bst.Depth(numbers[randomIndexes[i]]);
-                time += stopwatch.Elapsed;
-            }
-            return time.TotalMilliseconds / numbers.Count();
-        }
-
-        private static double BuildAndCheckTree(IBinarySearchTree<int> bst, int[] numbers)
+        private static double BuildAndCheckCollection(ICollection<int> collection, int[] numbers)
         {
             Stopwatch stopwatch = Stopwatch.StartNew();
             TimeSpan time = new TimeSpan();
             for (int i = 0; i < numbers.Count(); ++i)
             {
                 stopwatch.Restart();
-                bst.Insert(numbers[i]);
+                collection.Add(numbers[i]);
                 time += stopwatch.Elapsed;
             }
 
-            bst.AssertValidTree();
-
-            if (bst.Count != numbers.Count())
+            if (collection.Count != numbers.Count())
                 throw new InvalidOperationException();
 
             return time.TotalMilliseconds / numbers.Count();
