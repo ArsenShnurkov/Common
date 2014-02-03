@@ -1,13 +1,14 @@
 Common
 ======
 
-This Common library currently contains some generic binary search trees that I've been working on lately.
-
-See Insert.png, Find.png, and Delete.png for speed comparisons between the various trees. These timings are mainly intended to serve as basic comparisons between the different trees. After my recent optimizations, the slowest operation (AVLTree Insert) is approximately 20% faster than it was.
+This library contains some commonly used data structures. I mainly wrote them for the educational challenge, but I believe they've evolved to the point where they could be quite useful over a wide variety of applications.
 
 * BinarySearchTree is an unabalanced BST that uses iterative algorithms in order to avoid stack overflows.
-* BinarySearchTreeBase is a base class for the AVL and Red/Black Trees that uses recursive algorithms. This class cannot be instantiated on its own.
-* RedBlackTree is a self-balancing BST that has faster inserts and deletes than the AVLTree, but slower lookup speeds.
-* AVLTree is a self-balancing BST that has slower inserts than the RedBlackTree but faster lookup speeds.
+* RedBlackTree is a self-balancing BST that has faster inserts and deletes than the AVLTree, but slower lookup speeds. RedBlackTree uses recursive algorithms.
+* AVLTree is a self-balancing BST that has slower inserts than the RedBlackTree but faster lookup speeds. This tree is also recursive.
+* Skip List achiieves approximately the same performance as a Red-Black or AVL tree but it's implementation is much more simple and easy to understand.
+* Heap can be constructed as either a min or a max heap.
 
-Originally I was using the iterative BinarySearchTree as the base class for the self balancing trees. That implementation required that I maintain a stack of nodes that could be used to walk up and rebalance the binary tree after insertion and deletion. My timings found that the recursive BST was considerably faster than the iterative BST with parent stack so I decided to remove the parent stack and make the BinarySearchTree sealed.
+The insert, delete, and find timings are for an older itereation of the code but can still be used to see an approximate comparison of the efficiency of each operation. The timings included for the BinarySearchTreeBase can be ignored. This used to be a base class shared between the AVL and RedBlackTrees and has been removed in order to increase their efficiency.
+
+This solution includes 574 unit tests that cover all of the important functionality in the library.

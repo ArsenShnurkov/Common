@@ -1,28 +1,24 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{8EDD2050-80A7-47A5-9D5F-B5D5C0AC7A79}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonTestsInternal", "CommonTests\CommonTestsInternal.csproj", "{48579FC2-D1A2-4010-B980-2C76368E39E4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonTestConsole", "CommonTestConsole\CommonTestConsole.csproj", "{F103E212-AE8C-43F7-B29D-ADF284DDC02E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProjectInfo", "ProjectInfo", "{4133AA72-BE53-4794-92C3-A235C72680C2}"
+	ProjectSection(SolutionItems) = preProject
+		Delete.png = Delete.png
+		Find.png = Find.png
+		Insert.png = Insert.png
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 4
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = http://main-pc:8080/tfs/foat
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = Common\\Common.csproj
-		SccProjectName1 = Common
-		SccLocalPath1 = Common
-		SccProjectUniqueName2 = CommonTests\\CommonTestsInternal.csproj
-		SccProjectName2 = CommonTests
-		SccLocalPath2 = CommonTests
-		SccProjectUniqueName3 = CommonTestConsole\\CommonTestConsole.csproj
-		SccProjectName3 = CommonTestConsole
-		SccLocalPath3 = CommonTestConsole
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
