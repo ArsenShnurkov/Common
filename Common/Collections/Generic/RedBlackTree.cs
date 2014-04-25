@@ -110,8 +110,8 @@
         {
             this.Root = this.Insert(this.Root, new RedBlackNode<T>(value));
 
-            if (this.Root.Colour == Colour.Red)
-                this.Root.Colour = Colour.Black;
+            if (this.Root.IsRed)
+                this.Root.SetColour(Colour.Black);
         }
 
         /// <summary>
@@ -265,7 +265,7 @@
                     this.Root = this.Delete(this.Root, value, ref done);
 
                     if (this.Root != null)
-                        this.Root.Colour = Colour.Black;
+                        this.Root.SetColour(Colour.Black);
                 }
             }
             catch (ValueNotFoundException)
@@ -303,7 +303,7 @@
                     root.Left.ResetHeight();
                     if (IsNodeRed(root.Left)) // node to delete is black but has red child that can be recoloured
                     {
-                        root.Left.Colour = Colour.Black;
+                        root.Left.SetColour(Colour.Black);
                         done = true;
                     }
 
@@ -316,7 +316,7 @@
                     root.Right.ResetHeight();
                     if (IsNodeRed(root.Right)) // node to delete is black but has red child that can be recoloured
                     {
-                        root.Right.Colour = Colour.Black;
+                        root.Right.SetColour(Colour.Black);
                         done = true;
                     }
 
@@ -381,12 +381,12 @@
                     if (IsNodeRed(parent))
                         done = true;
 
-                    parent.Colour = Colour.Black;
-                    sibling.Colour = Colour.Red;
+                    parent.SetColour(Colour.Black);
+                    sibling.SetColour(Colour.Red);
                 }
                 else
                 {
-                    Colour parentColour = parent.Colour;
+                    bool parentIsRed = parent.IsRed;
                     bool sameRoot = root == parent;
 
                     if (IsNodeRed(sibling.Left))
@@ -397,9 +397,9 @@
                         parent = parent.RotateRight();
                     }
 
-                    parent.Colour = parentColour;
-                    parent.Left.Colour = Colour.Black;
-                    parent.Right.Colour = Colour.Black;
+                    parent.SetIsRed(parentIsRed);
+                    parent.Left.SetColour(Colour.Black);
+                    parent.Right.SetColour(Colour.Black);
 
                     if (sameRoot)
                         root = parent;
@@ -434,12 +434,12 @@
                         done = true;
                     }
 
-                    parent.Colour = Colour.Black;
-                    sibling.Colour = Colour.Red;
+                    parent.SetColour(Colour.Black);
+                    sibling.SetColour(Colour.Red);
                 }
                 else
                 {
-                    Colour parentColour = parent.Colour;
+                    bool parentIsRed = parent.IsRed;
                     bool sameRoot = root == parent;
 
                     if (IsNodeRed(sibling.Right))
@@ -450,9 +450,9 @@
                         parent = parent.RotateLeft();
                     }
 
-                    parent.Colour = parentColour;
-                    parent.Left.Colour = Colour.Black;
-                    parent.Right.Colour = Colour.Black;
+                    parent.SetIsRed(parentIsRed);
+                    parent.Left.SetColour(Colour.Black);
+                    parent.Right.SetColour(Colour.Black);
 
                     if (sameRoot)
                         root = parent;
@@ -475,7 +475,7 @@
         /// </summary>
         private static bool IsNodeRed(RedBlackNode<T> node)
         {
-            return (node != null && node.Colour == Colour.Red);
+            return (node != null && node.IsRed);
         }
 
         /// <summary>
@@ -484,9 +484,9 @@
         /// <param name="root"></param>
         private static void MoveBlackDown(RedBlackNode<T> root)
         {
-            root.Colour = Colour.Red;
-            root.Left.Colour = Colour.Black;
-            root.Right.Colour = Colour.Black;
+            root.SetColour(Colour.Red);
+            root.Left.SetColour(Colour.Black);
+            root.Right.SetColour(Colour.Black);
         }
 
         private static void AssertValidTree(RedBlackNode<T> root, out int numBlack)

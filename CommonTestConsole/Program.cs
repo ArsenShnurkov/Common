@@ -18,8 +18,8 @@
                 //TextWriter writer = file;
 
                 int maxN = 2000000;
-                int minN = 2000000;
-                int step = 100000;
+                int minN = 1000000;
+                int step = 200000;
 
                 bool doDelete = false;
                 bool doFind = false;
@@ -56,10 +56,10 @@
             ICollection<int> avlTree = new AVLTree<int>();
             ICollection<int> skipList = new SkipList<int>();
 
-            bool doIterative = false;
+            bool doIterative = true;
             bool doRedBlack = true;
-            bool doAvl = false;
-            bool doSkipList = true;
+            bool doAvl = true;
+            bool doSkipList = false;
 
             if (doIterative)
                 iterativeBstTimes["insert"] = BuildAndCheckCollection(iterativeBst, numbers);

@@ -45,13 +45,13 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Collections\Generic\Colour.cs" />
     <Compile Include="Collections\Generic\Heap.cs" />
     <Compile Include="Collections\Generic\HeapType.cs" />
     <Compile Include="Collections\Generic\SkipList.ICollection.cs" />
     <Compile Include="Collections\Generic\SkipList.IEnumerable.cs" />
     <Compile Include="Collections\Generic\Exceptions\InvalidTreeException.cs" />
     <Compile Include="Collections\Generic\BinarySearchTreeNode.cs" />
-    <Compile Include="Collections\Generic\Colour.cs" />
     <Compile Include="Collections\Generic\AVLNode.cs" />
     <Compile Include="Collections\Generic\Exceptions\ValueNotFoundException.cs" />
     <Compile Include="Collections\Generic\RedBlackNode.cs">

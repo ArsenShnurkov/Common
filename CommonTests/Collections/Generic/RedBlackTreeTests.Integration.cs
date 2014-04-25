@@ -308,10 +308,10 @@
             Assert.AreEqual<int>(75, InstanceThreeNodesFull.Root.Right.Value);
             Assert.AreEqual<int>(100, InstanceThreeNodesFull.Root.Right.Right.Value);
 
-            Assert.AreEqual<Colour>(Colour.Black, InstanceThreeNodesFull.Root.Colour);
-            Assert.AreEqual<Colour>(Colour.Black, InstanceThreeNodesFull.Root.Left.Colour);
-            Assert.AreEqual<Colour>(Colour.Black, InstanceThreeNodesFull.Root.Right.Colour);
-            Assert.AreEqual<Colour>(Colour.Red, InstanceThreeNodesFull.Root.Right.Right.Colour);
+            Assert.IsFalse(InstanceThreeNodesFull.Root.IsRed);
+            Assert.IsFalse(InstanceThreeNodesFull.Root.Left.IsRed);
+            Assert.IsFalse(InstanceThreeNodesFull.Root.Right.IsRed);
+            Assert.IsTrue(InstanceThreeNodesFull.Root.Right.Right.IsRed);
 
             Assert.IsNull(InstanceThreeNodesFull.Root.Left.Left);
             Assert.IsNull(InstanceThreeNodesFull.Root.Left.Right);
@@ -331,10 +331,10 @@
             Assert.AreEqual<int>(75, InstanceThreeNodesFull.Root.Right.Value);
             Assert.AreEqual<int>(1, InstanceThreeNodesFull.Root.Left.Left.Value);
 
-            Assert.AreEqual<Colour>(Colour.Black, InstanceThreeNodesFull.Root.Colour);
-            Assert.AreEqual<Colour>(Colour.Black, InstanceThreeNodesFull.Root.Left.Colour);
-            Assert.AreEqual<Colour>(Colour.Black, InstanceThreeNodesFull.Root.Right.Colour);
-            Assert.AreEqual<Colour>(Colour.Red, InstanceThreeNodesFull.Root.Left.Left.Colour);
+            Assert.IsFalse(InstanceThreeNodesFull.Root.IsRed);
+            Assert.IsFalse(InstanceThreeNodesFull.Root.Left.IsRed);
+            Assert.IsFalse(InstanceThreeNodesFull.Root.Right.IsRed);
+            Assert.IsTrue(InstanceThreeNodesFull.Root.Left.Left.IsRed);
 
             Assert.IsNull(InstanceThreeNodesFull.Root.Left.Left.Left);
             Assert.IsNull(InstanceThreeNodesFull.Root.Left.Left.Right);
@@ -357,9 +357,9 @@
             Assert.AreEqual<int>(12, InstanceFourNodesLeftLeft.Root.Left.Value);
             Assert.AreEqual<int>(50, InstanceFourNodesLeftLeft.Root.Right.Value);
 
-            Assert.AreEqual<Colour>(Colour.Black, InstanceFourNodesLeftLeft.Root.Colour);
-            Assert.AreEqual<Colour>(Colour.Black, InstanceFourNodesLeftLeft.Root.Left.Colour);
-            Assert.AreEqual<Colour>(Colour.Black, InstanceFourNodesLeftLeft.Root.Right.Colour);
+            Assert.IsFalse(InstanceFourNodesLeftLeft.Root.IsRed);
+            Assert.IsFalse(InstanceFourNodesLeftLeft.Root.Left.IsRed);
+            Assert.IsFalse(InstanceFourNodesLeftLeft.Root.Right.IsRed);
 
             Assert.IsNull(InstanceFourNodesLeftLeft.Root.Left.Left);
             Assert.IsNull(InstanceFourNodesLeftLeft.Root.Left.Right);
@@ -377,9 +377,9 @@
             Assert.AreEqual<int>(50, InstanceFourNodesRightRight.Root.Left.Value);
             Assert.AreEqual<int>(100, InstanceFourNodesRightRight.Root.Right.Value);
 
-            Assert.AreEqual<Colour>(Colour.Black, InstanceFourNodesRightRight.Root.Colour);
-            Assert.AreEqual<Colour>(Colour.Black, InstanceFourNodesRightRight.Root.Left.Colour);
-            Assert.AreEqual<Colour>(Colour.Black, InstanceFourNodesRightRight.Root.Right.Colour);
+            Assert.IsFalse(InstanceFourNodesRightRight.Root.IsRed);
+            Assert.IsFalse(InstanceFourNodesRightRight.Root.Left.IsRed);
+            Assert.IsFalse(InstanceFourNodesRightRight.Root.Right.IsRed);
 
             Assert.IsNull(InstanceFourNodesRightRight.Root.Left.Left);
             Assert.IsNull(InstanceFourNodesRightRight.Root.Left.Right);
@@ -399,11 +399,11 @@
             Assert.AreEqual<int>(63, InstanceDelete_BlackLeftLeafRedSibling1.Root.Left.Right.Value);
             Assert.AreEqual<int>(80, InstanceDelete_BlackLeftLeafRedSibling1.Root.Right.Left.Value);
 
-            Assert.AreEqual<Colour>(Colour.Black, InstanceDelete_BlackLeftLeafRedSibling1.Root.Colour);
-            Assert.AreEqual<Colour>(Colour.Black, InstanceDelete_BlackLeftLeafRedSibling1.Root.Left.Colour);
-            Assert.AreEqual<Colour>(Colour.Black, InstanceDelete_BlackLeftLeafRedSibling1.Root.Right.Colour);
-            Assert.AreEqual<Colour>(Colour.Red, InstanceDelete_BlackLeftLeafRedSibling1.Root.Left.Right.Colour);
-            Assert.AreEqual<Colour>(Colour.Red, InstanceDelete_BlackLeftLeafRedSibling1.Root.Right.Left.Colour);
+            Assert.IsFalse(InstanceDelete_BlackLeftLeafRedSibling1.Root.IsRed);
+            Assert.IsFalse(InstanceDelete_BlackLeftLeafRedSibling1.Root.Left.IsRed);
+            Assert.IsFalse(InstanceDelete_BlackLeftLeafRedSibling1.Root.Right.IsRed);
+            Assert.IsTrue(InstanceDelete_BlackLeftLeafRedSibling1.Root.Left.Right.IsRed);
+            Assert.IsTrue(InstanceDelete_BlackLeftLeafRedSibling1.Root.Right.Left.IsRed);
 
             Assert.IsNull(InstanceDelete_BlackLeftLeafRedSibling1.Root.Left.Left);
             Assert.IsNull(InstanceDelete_BlackLeftLeafRedSibling1.Root.Left.Right.Left);
@@ -425,11 +425,11 @@
             Assert.AreEqual<int>(20, InstanceDelete_BlackRightLeafRedSibling1.Root.Left.Right.Value);
             Assert.AreEqual<int>(32, InstanceDelete_BlackRightLeafRedSibling1.Root.Right.Left.Value);
 
-            Assert.AreEqual<Colour>(Colour.Black, InstanceDelete_BlackRightLeafRedSibling1.Root.Colour);
-            Assert.AreEqual<Colour>(Colour.Black, InstanceDelete_BlackRightLeafRedSibling1.Root.Left.Colour);
-            Assert.AreEqual<Colour>(Colour.Black, InstanceDelete_BlackRightLeafRedSibling1.Root.Right.Colour);
-            Assert.AreEqual<Colour>(Colour.Red, InstanceDelete_BlackRightLeafRedSibling1.Root.Left.Right.Colour);
-            Assert.AreEqual<Colour>(Colour.Red, InstanceDelete_BlackRightLeafRedSibling1.Root.Right.Left.Colour);
+            Assert.IsFalse(InstanceDelete_BlackRightLeafRedSibling1.Root.IsRed);
+            Assert.IsFalse(InstanceDelete_BlackRightLeafRedSibling1.Root.Left.IsRed);
+            Assert.IsFalse(InstanceDelete_BlackRightLeafRedSibling1.Root.Right.IsRed);
+            Assert.IsTrue(InstanceDelete_BlackRightLeafRedSibling1.Root.Left.Right.IsRed);
+            Assert.IsTrue(InstanceDelete_BlackRightLeafRedSibling1.Root.Right.Left.IsRed);
 
             Assert.IsNull(InstanceDelete_BlackRightLeafRedSibling1.Root.Left.Left);
             Assert.IsNull(InstanceDelete_BlackRightLeafRedSibling1.Root.Left.Right.Left);
@@ -451,11 +451,11 @@
             Assert.AreEqual<int>(50, InstanceDelete_BlackLeftLeafRedSibling2.Root.Left.Left.Value);
             Assert.AreEqual<int>(70, InstanceDelete_BlackLeftLeafRedSibling2.Root.Left.Right.Value);
 
-            Assert.AreEqual<Colour>(Colour.Black, InstanceDelete_BlackLeftLeafRedSibling2.Root.Colour);
-            Assert.AreEqual<Colour>(Colour.Red, InstanceDelete_BlackLeftLeafRedSibling2.Root.Left.Colour);
-            Assert.AreEqual<Colour>(Colour.Black, InstanceDelete_BlackLeftLeafRedSibling2.Root.Right.Colour);
-            Assert.AreEqual<Colour>(Colour.Black, InstanceDelete_BlackLeftLeafRedSibling2.Root.Left.Left.Colour);
-            Assert.AreEqual<Colour>(Colour.Black, InstanceDelete_BlackLeftLeafRedSibling2.Root.Left.Right.Colour);
+            Assert.IsFalse(InstanceDelete_BlackLeftLeafRedSibling2.Root.IsRed);
+            Assert.IsTrue(InstanceDelete_BlackLeftLeafRedSibling2.Root.Left.IsRed);
+            Assert.IsFalse(InstanceDelete_BlackLeftLeafRedSibling2.Root.Right.IsRed);
+            Assert.IsFalse(InstanceDelete_BlackLeftLeafRedSibling2.Root.Left.Left.IsRed);
+            Assert.IsFalse(InstanceDelete_BlackLeftLeafRedSibling2.Root.Left.Right.IsRed);
 
             Assert.IsNull(InstanceDelete_BlackLeftLeafRedSibling2.Root.Left.Left.Left);
             Assert.IsNull(InstanceDelete_BlackLeftLeafRedSibling2.Root.Left.Left.Right);
@@ -477,11 +477,11 @@
             Assert.AreEqual<int>(30, InstanceDelete_BlackRightLeafRedSibling2.Root.Right.Left.Value);
             Assert.AreEqual<int>(50, InstanceDelete_BlackRightLeafRedSibling2.Root.Right.Right.Value);
 
-            Assert.AreEqual<Colour>(Colour.Black, InstanceDelete_BlackRightLeafRedSibling2.Root.Colour);
-            Assert.AreEqual<Colour>(Colour.Black, InstanceDelete_BlackRightLeafRedSibling2.Root.Left.Colour);
-            Assert.AreEqual<Colour>(Colour.Red, InstanceDelete_BlackRightLeafRedSibling2.Root.Right.Colour);
-            Assert.AreEqual<Colour>(Colour.Black, InstanceDelete_BlackRightLeafRedSibling2.Root.Right.Left.Colour);
-            Assert.AreEqual<Colour>(Colour.Black, InstanceDelete_BlackRightLeafRedSibling2.Root.Right.Right.Colour);
+            Assert.IsFalse(InstanceDelete_BlackRightLeafRedSibling2.Root.IsRed);
+            Assert.IsFalse(InstanceDelete_BlackRightLeafRedSibling2.Root.Left.IsRed);
+            Assert.IsTrue(InstanceDelete_BlackRightLeafRedSibling2.Root.Right.IsRed);
+            Assert.IsFalse(InstanceDelete_BlackRightLeafRedSibling2.Root.Right.Left.IsRed);
+            Assert.IsFalse(InstanceDelete_BlackRightLeafRedSibling2.Root.Right.Right.IsRed);
 
             Assert.IsNull(InstanceDelete_BlackRightLeafRedSibling2.Root.Right.Left.Left);
             Assert.IsNull(InstanceDelete_BlackRightLeafRedSibling2.Root.Right.Left.Right);
@@ -501,9 +501,9 @@
             Assert.AreEqual<int>(25, InstanceFourNodesLeftRight.Root.Left.Value);
             Assert.AreEqual<int>(50, InstanceFourNodesLeftRight.Root.Right.Value);
 
-            Assert.AreEqual<Colour>(Colour.Black, InstanceFourNodesLeftRight.Root.Colour);
-            Assert.AreEqual<Colour>(Colour.Black, InstanceFourNodesLeftRight.Root.Left.Colour);
-            Assert.AreEqual<Colour>(Colour.Black, InstanceFourNodesLeftRight.Root.Right.Colour);
+            Assert.IsFalse(InstanceFourNodesLeftRight.Root.IsRed);
+            Assert.IsFalse(InstanceFourNodesLeftRight.Root.Left.IsRed);
+            Assert.IsFalse(InstanceFourNodesLeftRight.Root.Right.IsRed);
 
             Assert.IsNull(InstanceFourNodesLeftRight.Root.Left.Left);
             Assert.IsNull(InstanceFourNodesLeftRight.Root.Left.Right);
@@ -520,9 +520,9 @@
             Assert.AreEqual<int>(50, InstanceFourNodesRightLeft.Root.Left.Value);
             Assert.AreEqual<int>(75, InstanceFourNodesRightLeft.Root.Right.Value);
 
-            Assert.AreEqual<Colour>(Colour.Black, InstanceFourNodesRightLeft.Root.Colour);
-            Assert.AreEqual<Colour>(Colour.Black, InstanceFourNodesRightLeft.Root.Left.Colour);
-            Assert.AreEqual<Colour>(Colour.Black, InstanceFourNodesRightLeft.Root.Right.Colour);
+            Assert.IsFalse(InstanceFourNodesRightLeft.Root.IsRed);
+            Assert.IsFalse(InstanceFourNodesRightLeft.Root.Left.IsRed);
+            Assert.IsFalse(InstanceFourNodesRightLeft.Root.Right.IsRed);
 
             Assert.IsNull(InstanceFourNodesRightLeft.Root.Left.Left);
             Assert.IsNull(InstanceFourNodesRightLeft.Root.Left.Right);
@@ -552,10 +552,10 @@
         [ExpectedException(typeof(InvalidTreeException))]
         public void AssertValidTree_Invalid_DoubleRed_Left()
         {
-            RedBlackNode<int> root = new RedBlackNode<int>(100) { Colour = Colour.Black };
-            root.Left = new RedBlackNode<int>(50) { Colour = Colour.Red };
-            root.Right = new RedBlackNode<int>(150) { Colour = Colour.Red };
-            root.Left.Left = new RedBlackNode<int>(40) { Colour = Colour.Red };
+            RedBlackNode<int> root = new RedBlackNode<int>(100, Colour.Black);
+            root.Left = new RedBlackNode<int>(50, Colour.Red);
+            root.Right = new RedBlackNode<int>(150, Colour.Red);
+            root.Left.Left = new RedBlackNode<int>(40, Colour.Red);
 
             RedBlackTree<int> bst = new RedBlackTree<int>();
             bst.Root = root;
@@ -568,10 +568,10 @@
         [ExpectedException(typeof(InvalidTreeException))]
         public void AssertValidTree_Invalid_DoubleRed_Right()
         {
-            RedBlackNode<int> root = new RedBlackNode<int>(100) { Colour = Colour.Black };
-            root.Left = new RedBlackNode<int>(50) { Colour = Colour.Red };
-            root.Right = new RedBlackNode<int>(150) { Colour = Colour.Red };
-            root.Right.Right = new RedBlackNode<int>(160) { Colour = Colour.Red };
+            RedBlackNode<int> root = new RedBlackNode<int>(100, Colour.Black);
+            root.Left = new RedBlackNode<int>(50, Colour.Red);
+            root.Right = new RedBlackNode<int>(150, Colour.Red);
+            root.Right.Right = new RedBlackNode<int>(160, Colour.Red);
 
             RedBlackTree<int> bst = new RedBlackTree<int>();
             bst.Root = root;
@@ -584,10 +584,10 @@
         [ExpectedException(typeof(InvalidTreeException))]
         public void AssertValidTree_Invalid_BlackMismatch_Left()
         {
-            RedBlackNode<int> root = new RedBlackNode<int>(100) { Colour = Colour.Black };
-            root.Left = new RedBlackNode<int>(50) { Colour = Colour.Red };
-            root.Right = new RedBlackNode<int>(150) { Colour = Colour.Red };
-            root.Left.Left = new RedBlackNode<int>(40) { Colour = Colour.Black };
+            RedBlackNode<int> root = new RedBlackNode<int>(100, Colour.Black);
+            root.Left = new RedBlackNode<int>(50, Colour.Red);
+            root.Right = new RedBlackNode<int>(150, Colour.Red);
+            root.Left.Left = new RedBlackNode<int>(40, Colour.Red);
 
             RedBlackTree<int> bst = new RedBlackTree<int>();
             bst.Root = root;
@@ -600,10 +600,10 @@
         [ExpectedException(typeof(InvalidTreeException))]
         public void AssertValidTree_Invalid_BlackMismatch_Right()
         {
-            RedBlackNode<int> root = new RedBlackNode<int>(100) { Colour = Colour.Black };
-            root.Left = new RedBlackNode<int>(50) { Colour = Colour.Red };
-            root.Right = new RedBlackNode<int>(150) { Colour = Colour.Red };
-            root.Right.Right = new RedBlackNode<int>(160) { Colour = Colour.Black };
+            RedBlackNode<int> root = new RedBlackNode<int>(100, Colour.Black);
+            root.Left = new RedBlackNode<int>(50, Colour.Red);
+            root.Right = new RedBlackNode<int>(150, Colour.Red);
+            root.Right.Right = new RedBlackNode<int>(160, Colour.Red);
 
             RedBlackTree<int> bst = new RedBlackTree<int>();
             bst.Root = root;

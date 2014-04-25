@@ -43,7 +43,7 @@
             Assert.AreEqual<int>(50, InstanceEmpty.Root.Value);
             Assert.AreEqual<int>(1, InstanceEmpty.Count);
 
-            Assert.AreEqual<Colour>(Colour.Black, InstanceEmpty.Root.Colour);
+            Assert.IsFalse(InstanceEmpty.Root.IsRed);
         }
 
         [TestMethod]
@@ -56,9 +56,9 @@
             Assert.AreEqual<int>(10, InstanceRootLeft.Root.Left.Value);
             Assert.AreEqual<int>(50, InstanceRootLeft.Root.Right.Value);
 
-            Assert.AreEqual<Colour>(Colour.Black, InstanceRootLeft.Root.Colour);
-            Assert.AreEqual<Colour>(Colour.Red, InstanceRootLeft.Root.Left.Colour);
-            Assert.AreEqual<Colour>(Colour.Red, InstanceRootLeft.Root.Right.Colour);
+            Assert.IsFalse(InstanceRootLeft.Root.IsRed);
+            Assert.IsTrue(InstanceRootLeft.Root.Left.IsRed);
+            Assert.IsTrue(InstanceRootLeft.Root.Right.IsRed);
 
             InstanceRootLeft.AssertValidTree();
         }

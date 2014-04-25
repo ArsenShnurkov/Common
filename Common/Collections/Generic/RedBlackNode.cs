@@ -9,7 +9,7 @@ namespace Common.Collections.Generic
             this.Right = null;
             this._height = int.MinValue;
             this.Value = value;
-            this.Colour = Colour.Red;
+            this._isRed = true;
         }
 
         internal RedBlackNode(T value, Colour colour)
@@ -18,7 +18,7 @@ namespace Common.Collections.Generic
             this.Right = null;
             this._height = int.MinValue;
             this.Value = value;
-            this.Colour = colour;
+            this.SetColour(colour);
         }
 
         #region Properties
@@ -38,7 +38,15 @@ namespace Common.Collections.Generic
         /// <summary>
         /// The colour of the node.
         /// </summary>
-        internal Colour Colour { get; set; }
+        private bool _isRed;
+
+        /// <summary>
+        /// Returns true if the node is red, returns false if the node is black.
+        /// </summary>
+        internal bool IsRed
+        {
+            get { return this._isRed; }
+        }
 
         /// <summary>
         /// Returns true if this node has no neighbours
@@ -131,8 +139,8 @@ namespace Common.Collections.Generic
             pivot.ResetHeight();
             this.ResetHeight();
 
-            pivot.Left.Colour = Colour.Red;
-            pivot.Colour = Colour.Black;
+            pivot.Left.SetColour(Colour.Red);
+            pivot.SetColour(Colour.Black);
 
             return pivot;
         }
@@ -152,8 +160,8 @@ namespace Common.Collections.Generic
             pivot.ResetHeight();
             this.ResetHeight();
 
-            pivot.Right.Colour = Colour.Red;
-            pivot.Colour = Colour.Black;
+            pivot.Right.SetColour(Colour.Red);
+            pivot.SetColour(Colour.Black);
 
             return pivot;
         }
@@ -198,6 +206,16 @@ namespace Common.Collections.Generic
 
         #region Methods
 
+        internal void SetIsRed(bool isRed)
+        {
+            this._isRed = isRed;
+        }
+
+        internal void SetColour(Colour colour)
+        {
+            this._isRed = colour == Colour.Red;
+        }
+
         internal void ResetHeight()
         {
             this._height = int.MinValue;
@@ -219,7 +237,7 @@ namespace Common.Collections.Generic
             else
                 right = this.Right.Value.ToString();
 
-            return string.Format(format, this.Value.ToString(), this.Colour.ToString(), left, right);
+            return string.Format(format, this.Value.ToString(), this.IsRed?"Red":"Black", left, right);
         }
 
         #endregion

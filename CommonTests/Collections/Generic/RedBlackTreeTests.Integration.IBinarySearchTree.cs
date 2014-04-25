@@ -426,7 +426,7 @@
 
             Assert.AreEqual<int>(50, InstanceEmpty.Root.Value);
 
-            Assert.AreEqual<Colour>(Colour.Black, InstanceEmpty.Root.Colour);
+            Assert.IsFalse(InstanceEmpty.Root.IsRed);
 
             Assert.IsNull(InstanceEmpty.Root.Left);
             Assert.IsNull(InstanceEmpty.Root.Right);
@@ -441,8 +441,8 @@
             Assert.AreEqual<int>(50, InstanceRootOnly.Root.Value);
             Assert.AreEqual<int>(25, InstanceRootOnly.Root.Left.Value);
 
-            Assert.AreEqual<Colour>(Colour.Black, InstanceRootOnly.Root.Colour);
-            Assert.AreEqual<Colour>(Colour.Red, InstanceRootOnly.Root.Left.Colour);
+            Assert.IsFalse(InstanceRootOnly.Root.IsRed);
+            Assert.IsTrue(InstanceRootOnly.Root.Left.IsRed);
 
             Assert.IsNull(InstanceRootOnly.Root.Right);
             Assert.IsNull(InstanceRootOnly.Root.Left.Left);
@@ -458,8 +458,8 @@
             Assert.AreEqual<int>(50, InstanceRootOnly.Root.Value);
             Assert.AreEqual<int>(75, InstanceRootOnly.Root.Right.Value);
 
-            Assert.AreEqual<Colour>(Colour.Black, InstanceRootOnly.Root.Colour);
-            Assert.AreEqual<Colour>(Colour.Red, InstanceRootOnly.Root.Right.Colour);
+            Assert.IsFalse(InstanceRootOnly.Root.IsRed);
+            Assert.IsTrue(InstanceRootOnly.Root.Right.IsRed);
 
             Assert.IsNull(InstanceRootOnly.Root.Left);
             Assert.IsNull(InstanceRootOnly.Root.Right.Left);
@@ -476,9 +476,9 @@
             Assert.AreEqual<int>(25, InstanceRootLeft.Root.Left.Value);
             Assert.AreEqual<int>(75, InstanceRootLeft.Root.Right.Value);
 
-            Assert.AreEqual<Colour>(Colour.Black, InstanceRootLeft.Root.Colour);
-            Assert.AreEqual<Colour>(Colour.Red, InstanceRootLeft.Root.Left.Colour);
-            Assert.AreEqual<Colour>(Colour.Red, InstanceRootLeft.Root.Right.Colour);
+            Assert.IsFalse(InstanceRootLeft.Root.IsRed);
+            Assert.IsTrue(InstanceRootLeft.Root.Left.IsRed);
+            Assert.IsTrue(InstanceRootLeft.Root.Right.IsRed);
 
             Assert.IsNull(InstanceRootLeft.Root.Left.Left);
             Assert.IsNull(InstanceRootLeft.Root.Left.Right);
@@ -496,9 +496,9 @@
             Assert.AreEqual<int>(25, InstanceRootRight.Root.Left.Value);
             Assert.AreEqual<int>(75, InstanceRootRight.Root.Right.Value);
 
-            Assert.AreEqual<Colour>(Colour.Black, InstanceRootRight.Root.Colour);
-            Assert.AreEqual<Colour>(Colour.Red, InstanceRootRight.Root.Left.Colour);
-            Assert.AreEqual<Colour>(Colour.Red, InstanceRootRight.Root.Right.Colour);
+            Assert.IsFalse(InstanceRootRight.Root.IsRed);
+            Assert.IsTrue(InstanceRootRight.Root.Left.IsRed);
+            Assert.IsTrue(InstanceRootRight.Root.Right.IsRed);
 
             Assert.IsNull(InstanceRootRight.Root.Left.Left);
             Assert.IsNull(InstanceRootRight.Root.Left.Right);
@@ -516,9 +516,9 @@
             Assert.AreEqual<int>(13, InstanceRootLeft.Root.Left.Value);
             Assert.AreEqual<int>(50, InstanceRootLeft.Root.Right.Value);
 
-            Assert.AreEqual<Colour>(Colour.Black, InstanceRootLeft.Root.Colour);
-            Assert.AreEqual<Colour>(Colour.Red, InstanceRootLeft.Root.Left.Colour);
-            Assert.AreEqual<Colour>(Colour.Red, InstanceRootLeft.Root.Right.Colour);
+            Assert.IsFalse(InstanceRootLeft.Root.IsRed);
+            Assert.IsTrue(InstanceRootLeft.Root.Left.IsRed);
+            Assert.IsTrue(InstanceRootLeft.Root.Right.IsRed);
 
             Assert.IsNull(InstanceRootLeft.Root.Left.Left);
             Assert.IsNull(InstanceRootLeft.Root.Left.Right);
@@ -536,9 +536,9 @@
             Assert.AreEqual<int>(25, InstanceRootLeft.Root.Left.Value);
             Assert.AreEqual<int>(50, InstanceRootLeft.Root.Right.Value);
 
-            Assert.AreEqual<Colour>(Colour.Black, InstanceRootLeft.Root.Colour);
-            Assert.AreEqual<Colour>(Colour.Red, InstanceRootLeft.Root.Left.Colour);
-            Assert.AreEqual<Colour>(Colour.Red, InstanceRootLeft.Root.Right.Colour);
+            Assert.IsFalse(InstanceRootLeft.Root.IsRed);
+            Assert.IsTrue(InstanceRootLeft.Root.Left.IsRed);
+            Assert.IsTrue(InstanceRootLeft.Root.Right.IsRed);
 
             Assert.IsNull(InstanceRootLeft.Root.Left.Left);
             Assert.IsNull(InstanceRootLeft.Root.Left.Right);
@@ -556,9 +556,9 @@
             Assert.AreEqual<int>(50, InstanceRootRight.Root.Left.Value);
             Assert.AreEqual<int>(100, InstanceRootRight.Root.Right.Value);
 
-            Assert.AreEqual<Colour>(Colour.Black, InstanceRootRight.Root.Colour);
-            Assert.AreEqual<Colour>(Colour.Red, InstanceRootRight.Root.Left.Colour);
-            Assert.AreEqual<Colour>(Colour.Red, InstanceRootRight.Root.Right.Colour);
+            Assert.IsFalse(InstanceRootRight.Root.IsRed);
+            Assert.IsTrue(InstanceRootRight.Root.Left.IsRed);
+            Assert.IsTrue(InstanceRootRight.Root.Right.IsRed);
 
             Assert.IsNull(InstanceRootRight.Root.Left.Left);
             Assert.IsNull(InstanceRootRight.Root.Left.Right);
@@ -576,9 +576,9 @@
             Assert.AreEqual<int>(50, InstanceRootRight.Root.Left.Value);
             Assert.AreEqual<int>(75, InstanceRootRight.Root.Right.Value);
 
-            Assert.AreEqual<Colour>(Colour.Black, InstanceRootRight.Root.Colour);
-            Assert.AreEqual<Colour>(Colour.Red, InstanceRootRight.Root.Left.Colour);
-            Assert.AreEqual<Colour>(Colour.Red, InstanceRootRight.Root.Right.Colour);
+            Assert.IsFalse(InstanceRootRight.Root.IsRed);
+            Assert.IsTrue(InstanceRootRight.Root.Left.IsRed);
+            Assert.IsTrue(InstanceRootRight.Root.Right.IsRed);
 
             Assert.IsNull(InstanceRootRight.Root.Left.Left);
             Assert.IsNull(InstanceRootRight.Root.Left.Right);
@@ -825,7 +825,7 @@
 
             Assert.AreEqual<int>(25, InstanceRootLeft.Root.Value);
 
-            Assert.AreEqual<Colour>(Colour.Black, InstanceRootLeft.Root.Colour);
+            Assert.IsFalse(InstanceRootLeft.Root.IsRed);
 
             Assert.IsNull(InstanceRootLeft.Root.Left);
             Assert.IsNull(InstanceRootLeft.Root.Right);
@@ -839,7 +839,7 @@
 
             Assert.AreEqual<int>(75, InstanceRootRight.Root.Value);
 
-            Assert.AreEqual<Colour>(Colour.Black, InstanceRootRight.Root.Colour);
+            Assert.IsFalse(InstanceRootRight.Root.IsRed);
 
             Assert.IsNull(InstanceRootRight.Root.Left);
             Assert.IsNull(InstanceRootRight.Root.Right);
@@ -853,7 +853,7 @@
 
             Assert.AreEqual<int>(50, InstanceRootLeft.Root.Value);
 
-            Assert.AreEqual<Colour>(Colour.Black, InstanceRootLeft.Root.Colour);
+            Assert.IsFalse(InstanceRootLeft.Root.IsRed);
 
             Assert.IsNull(InstanceRootLeft.Root.Left);
             Assert.IsNull(InstanceRootLeft.Root.Right);
@@ -867,7 +867,7 @@
 
             Assert.AreEqual<int>(50, InstanceRootRight.Root.Value);
 
-            Assert.AreEqual<Colour>(Colour.Black, InstanceRootRight.Root.Colour);
+            Assert.IsFalse(InstanceRootRight.Root.IsRed);
 
             Assert.IsNull(InstanceRootRight.Root.Left);
             Assert.IsNull(InstanceRootRight.Root.Right);
@@ -882,8 +882,8 @@
             Assert.AreEqual<int>(25, InstanceThreeNodesFull.Root.Value);
             Assert.AreEqual<int>(75, InstanceThreeNodesFull.Root.Right.Value);
 
-            Assert.AreEqual<Colour>(Colour.Black, InstanceThreeNodesFull.Root.Colour);
-            Assert.AreEqual<Colour>(Colour.Red, InstanceThreeNodesFull.Root.Right.Colour);
+            Assert.IsFalse(InstanceThreeNodesFull.Root.IsRed);
+            Assert.IsTrue(InstanceThreeNodesFull.Root.Right.IsRed);
 
             Assert.IsNull(InstanceThreeNodesFull.Root.Left);
             Assert.IsNull(InstanceThreeNodesFull.Root.Right.Left);
@@ -900,9 +900,9 @@
             Assert.AreEqual<int>(12, InstanceFourNodesLeftLeft.Root.Left.Value);
             Assert.AreEqual<int>(75, InstanceFourNodesLeftLeft.Root.Right.Value);
 
-            Assert.AreEqual<Colour>(Colour.Black, InstanceFourNodesLeftLeft.Root.Colour);
-            Assert.AreEqual<Colour>(Colour.Black, InstanceFourNodesLeftLeft.Root.Left.Colour);
-            Assert.AreEqual<Colour>(Colour.Black, InstanceFourNodesLeftLeft.Root.Right.Colour);
+            Assert.IsFalse(InstanceFourNodesLeftLeft.Root.IsRed);
+            Assert.IsFalse(InstanceFourNodesLeftLeft.Root.Left.IsRed);
+            Assert.IsFalse(InstanceFourNodesLeftLeft.Root.Right.IsRed);
 
             Assert.IsNull(InstanceFourNodesLeftLeft.Root.Left.Left);
             Assert.IsNull(InstanceFourNodesLeftLeft.Root.Left.Right);
@@ -920,9 +920,9 @@
             Assert.AreEqual<int>(25, InstanceFourNodesRightRight.Root.Left.Value);
             Assert.AreEqual<int>(100, InstanceFourNodesRightRight.Root.Right.Value);
 
-            Assert.AreEqual<Colour>(Colour.Black, InstanceFourNodesRightRight.Root.Colour);
-            Assert.AreEqual<Colour>(Colour.Black, InstanceFourNodesRightRight.Root.Left.Colour);
-            Assert.AreEqual<Colour>(Colour.Black, InstanceFourNodesRightRight.Root.Right.Colour);
+            Assert.IsFalse(InstanceFourNodesRightRight.Root.IsRed);
+            Assert.IsFalse(InstanceFourNodesRightRight.Root.Left.IsRed);
+            Assert.IsFalse(InstanceFourNodesRightRight.Root.Right.IsRed);
 
             Assert.IsNull(InstanceFourNodesRightRight.Root.Left.Left);
             Assert.IsNull(InstanceFourNodesRightRight.Root.Left.Right);
@@ -943,10 +943,10 @@
             Assert.AreEqual<int>(75, InstanceFiveNodesLeftFull.Root.Right.Value);
             Assert.AreEqual<int>(32, InstanceFiveNodesLeftFull.Root.Left.Right.Value);
 
-            Assert.AreEqual<Colour>(Colour.Black, InstanceFiveNodesLeftFull.Root.Colour);
-            Assert.AreEqual<Colour>(Colour.Black, InstanceFiveNodesLeftFull.Root.Left.Colour);
-            Assert.AreEqual<Colour>(Colour.Black, InstanceFiveNodesLeftFull.Root.Right.Colour);
-            Assert.AreEqual<Colour>(Colour.Red, InstanceFiveNodesLeftFull.Root.Left.Right.Colour);
+            Assert.IsFalse(InstanceFiveNodesLeftFull.Root.IsRed);
+            Assert.IsFalse(InstanceFiveNodesLeftFull.Root.Left.IsRed);
+            Assert.IsFalse(InstanceFiveNodesLeftFull.Root.Right.IsRed);
+            Assert.IsTrue(InstanceFiveNodesLeftFull.Root.Left.Right.IsRed);
 
             Assert.IsNull(InstanceFiveNodesLeftFull.Root.Left.Left);
             Assert.IsNull(InstanceFiveNodesLeftFull.Root.Left.Right.Left);
@@ -965,9 +965,9 @@
             Assert.AreEqual<int>(32, InstanceFourNodesLeftRight.Root.Left.Value);
             Assert.AreEqual<int>(75, InstanceFourNodesLeftRight.Root.Right.Value);
 
-            Assert.AreEqual<Colour>(Colour.Black, InstanceFourNodesLeftRight.Root.Colour);
-            Assert.AreEqual<Colour>(Colour.Black, InstanceFourNodesLeftRight.Root.Left.Colour);
-            Assert.AreEqual<Colour>(Colour.Black, InstanceFourNodesLeftRight.Root.Right.Colour);
+            Assert.IsFalse(InstanceFourNodesLeftRight.Root.IsRed);
+            Assert.IsFalse(InstanceFourNodesLeftRight.Root.Left.IsRed);
+            Assert.IsFalse(InstanceFourNodesLeftRight.Root.Right.IsRed);
 
             Assert.IsNull(InstanceFourNodesLeftRight.Root.Left.Left);
             Assert.IsNull(InstanceFourNodesLeftRight.Root.Left.Right);
@@ -985,9 +985,9 @@
             Assert.AreEqual<int>(25, InstanceFourNodesRightLeft.Root.Left.Value);
             Assert.AreEqual<int>(63, InstanceFourNodesRightLeft.Root.Right.Value);
 
-            Assert.AreEqual<Colour>(Colour.Black, InstanceFourNodesRightLeft.Root.Colour);
-            Assert.AreEqual<Colour>(Colour.Black, InstanceFourNodesRightLeft.Root.Left.Colour);
-            Assert.AreEqual<Colour>(Colour.Black, InstanceFourNodesRightLeft.Root.Right.Colour);
+            Assert.IsFalse(InstanceFourNodesRightLeft.Root.IsRed);
+            Assert.IsFalse(InstanceFourNodesRightLeft.Root.Left.IsRed);
+            Assert.IsFalse(InstanceFourNodesRightLeft.Root.Right.IsRed);
 
             Assert.IsNull(InstanceFourNodesRightLeft.Root.Left.Left);
             Assert.IsNull(InstanceFourNodesRightLeft.Root.Left.Right);
@@ -1004,8 +1004,8 @@
             Assert.AreEqual<int>(50, InstanceThreeNodesFull.Root.Value);
             Assert.AreEqual<int>(75, InstanceThreeNodesFull.Root.Right.Value);
 
-            Assert.AreEqual<Colour>(Colour.Black, InstanceThreeNodesFull.Root.Colour);
-            Assert.AreEqual<Colour>(Colour.Red, InstanceThreeNodesFull.Root.Right.Colour);
+            Assert.IsFalse(InstanceThreeNodesFull.Root.IsRed);
+            Assert.IsTrue(InstanceThreeNodesFull.Root.Right.IsRed);
 
             Assert.IsNull(InstanceThreeNodesFull.Root.Left);
             Assert.IsNull(InstanceThreeNodesFull.Root.Right.Left);
@@ -1021,8 +1021,8 @@
             Assert.AreEqual<int>(50, InstanceThreeNodesFull.Root.Value);
             Assert.AreEqual<int>(25, InstanceThreeNodesFull.Root.Left.Value);
 
-            Assert.AreEqual<Colour>(Colour.Black, InstanceThreeNodesFull.Root.Colour);
-            Assert.AreEqual<Colour>(Colour.Red, InstanceThreeNodesFull.Root.Left.Colour);
+            Assert.IsFalse(InstanceThreeNodesFull.Root.IsRed);
+            Assert.IsTrue(InstanceThreeNodesFull.Root.Left.IsRed);
 
             Assert.IsNull(InstanceThreeNodesFull.Root.Right);
             Assert.IsNull(InstanceThreeNodesFull.Root.Left.Left);

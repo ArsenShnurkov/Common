@@ -143,8 +143,8 @@
             node.Right = new RedBlackNode<int>(150);
             node = node.RotateLeft() as RedBlackNode<int>;
 
-            Assert.AreEqual<Colour>(Colour.Black, node.Colour);
-            Assert.AreEqual<Colour>(Colour.Red, (node.Left as RedBlackNode<int>).Colour);
+            Assert.IsFalse(node.IsRed);
+            Assert.IsTrue(node.Left.IsRed);
         }
 
         [TestMethod]
@@ -155,8 +155,8 @@
             node.Left = new RedBlackNode<int>(50);
             node = node.RotateRight() as RedBlackNode<int>;
 
-            Assert.AreEqual<Colour>(Colour.Black, node.Colour);
-            Assert.AreEqual<Colour>(Colour.Red, (node.Right as RedBlackNode<int>).Colour);
+            Assert.IsFalse(node.IsRed);
+            Assert.IsTrue(node.Right.IsRed);
         }
 
         #endregion
